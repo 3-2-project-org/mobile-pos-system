@@ -34,6 +34,10 @@ const HomeScreen = () => {
         <Text style={{ textAlign: "center", marginVertical: 10 }}>OR</Text>
       </View>
 
+      <View>
+        <Text style={styles.title}>Find by item code </Text>
+      </View>
+
       <View
         style={{
           flexDirection: "row",
@@ -49,7 +53,7 @@ const HomeScreen = () => {
             onChangeText={(text) => setItemCode(text)}
           />
         </View>
-        <Button title="Add" onPress={addItem} />
+        <Button title="find item" onPress={addItem} />
       </View>
 
       {itemList.length > 0 && (
@@ -63,6 +67,25 @@ const HomeScreen = () => {
           />
         </View>
       )}
+
+      <View style={styles.card}>
+        <Text style={styles.title}>Added Items</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+        <Text style={styles.description}>Item Description</Text>
+      </View>
+
       {itemList.length > 0 && (
         <View
           style={{

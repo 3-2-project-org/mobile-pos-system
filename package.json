@@ -9,9 +9,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@expo/vector-icons": "^13.0.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.4",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
+    "@react-navigation/stack": "^6.3.17",
     "expo": "~49.0.5",
     "expo-barcode-scanner": "~12.5.3",
     "expo-camera": "^13.4.2",

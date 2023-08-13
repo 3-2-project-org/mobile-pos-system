@@ -1,23 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Button } from '@rneui/themed';
+import MPSButton from "./src/components/atoms/Button/Button";
+import React, { useEffect } from "react";
+import ForwardArrow from "./src/assets/ForwardArrow";
+import ArrowForward from "./src/assets/arrow-forward.svg"
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
-        <Button
-              title={'React Native Elements'}
-              containerStyle={{
-                width: "100%",
-                marginHorizontal: 50,
-                marginVertical: 10,
-                borderRadius: 10,
-              }}
-            />
+        <ArrowForward fill="red" />
+        <MPSButton
+          buttonType={"primary"}
+          onPress={() => {
+            alert("Hello");
+          }}
+          icon={ArrowForward}
+        />
       </View>
     </SafeAreaProvider>
   );
@@ -27,7 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
   },
 });

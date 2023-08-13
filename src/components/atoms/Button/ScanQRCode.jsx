@@ -4,7 +4,7 @@ import { Button } from "@rneui/themed";
 import PropTypes from "prop-types";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 
-const MPSButton = ({
+const SQCButton = ({
   buttonTitle,
   buttonType,
   buttonStyle,
@@ -55,7 +55,7 @@ const MPSButton = ({
   );
 };
 
-MPSButton.propTypes = {
+SQCButton.propTypes = {
   buttonTitle: PropTypes.string,
   buttonType: PropTypes.oneOf(["primary", "secondary", "error"]),
   buttonContainerStyle: PropTypes.object,
@@ -65,7 +65,7 @@ MPSButton.propTypes = {
   icon: PropTypes.element,
 };
 
-MPSButton.defaultProps = {
+SQCButton.defaultProps = {
   buttonTitle: "Button",
   buttonType: "primary",
   buttonContainerStyle: {},
@@ -74,4 +74,4 @@ MPSButton.defaultProps = {
   loading: false,
 };
 
-export default MPSButton;
+export default SQCButton;

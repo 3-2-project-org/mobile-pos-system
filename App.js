@@ -1,21 +1,22 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, SafeAreaView } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import MPSButton from "./src/components/atoms/Button/Button";
 import React, { useEffect } from "react";
-import ForwardArrow from "./src/assets/ForwardArrow";
-import ArrowForward from "./src/assets/arrow-forward.svg";
-import Cards from "./src/components/atoms/Card/Card";
 import TouchableCard from "./src/components/atoms/Card/Card";
-import SQCButton from "./src/components/atoms/Button/ScanQRCode";
+import MySvgComponent from "./src/assets/material-symbols_inventory.svg"; // Update the path accordingly
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-
-<SQCButton/>
-        
+        <TouchableCard
+          cardTitle="Make A Sale"
+          cardDescription="Record all incoming stocks details in a efficient way here"
+          buttonTitle="Click Me"
+          buttonType="primary"
+          onPress={() => {
+            console.log("Card Clicked");
+          }}
+          icon={<MySvgComponent />}
+        />
       </View>
     </SafeAreaView>
   );

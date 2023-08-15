@@ -5,10 +5,9 @@ import { BASIC_COLORS } from "../../../utils/constants/styles";
 const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
   return (
     <>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
         <View
           style={{
-            elevation: 5,
             marginLeft: 30,
             marginRight: 30,
             backgroundColor: "white",
@@ -16,13 +15,13 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
             borderRadius: 10,
             borderColor: BASIC_COLORS.PRIMARY,
             borderWidth: 1,
-            shadowColor: "#000",
             shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.2,
+          shadowRadius: 4,
+            elevation: 7,
           }}
         >
           <Text

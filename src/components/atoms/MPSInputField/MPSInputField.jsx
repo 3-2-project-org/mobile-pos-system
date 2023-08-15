@@ -1,5 +1,4 @@
 import { View, Text, TextInput, Image, Pressable } from "react-native";
-import { Input } from "@rneui/themed";
 import React from "react";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 import PropTypes from "prop-types";
@@ -18,7 +17,7 @@ const MPSInputField = ({
   secureTextEntry
 }) => {
   return (
-    <View style={{}}>
+    <View>
       <Text
         style={{
           color: BASIC_COLORS.FONT_PRIMARY,
@@ -44,13 +43,14 @@ const MPSInputField = ({
           height: 40,
           justifyContent: "space-between",
           width: "100%",
-          padding: 12,
+          padding: 10,
         }}
       >
         <TextInput
           placeholder={inputPlaceholder}
           style={{
             width: "90%",
+            color: BASIC_COLORS.FONT_SECONDARY,
             ...inputContainerStyle,
           }}
           onChangeText={onChangeText}

@@ -7,6 +7,7 @@ import ArrowForward from "./src/assets/arrow-forward.svg";
 import Eye from "./src/assets/eye.svg";
 import MPSInputField from "./src/components/atoms/MPSInputField/MPSInputField";
 import ForwardArrow from "./src/assets/ForwardArrow";
+import Layout from "./src/components/molecules/Layout";
 
 export default function App() {
   const [value, setValue] = useState("");
@@ -14,10 +15,10 @@ export default function App() {
     setValue(value);
   };
   return (
-    <SafeAreaProvider>
+    <Layout>
       <View style={styles.container}>
-        <StatusBar style="auto" />
-        <ArrowForward fill="red" />
+
+        {/* <ArrowForward fill="red" />
         <MPSButton
           buttonType={"primary"}
           onPress={() => {
@@ -29,22 +30,22 @@ export default function App() {
           error={true}
           onChangeText={onValueChange}
           value={value}
-          secureTextEntry={true}
+          secureTextEntry={false}
           icon={
             <Pressable onPress={() => alert("Ss")}>
               <Eye />
             </Pressable>
           }
-        />
+        /> */}
       </View>
-    </SafeAreaProvider>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // justifyContent: "center",
   },
 });

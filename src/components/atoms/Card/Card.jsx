@@ -8,20 +8,19 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
       <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
         <View
           style={{
-            marginLeft: 30,
-            marginRight: 30,
+            marginTop: 50,
             backgroundColor: "white",
             padding: 20,
             borderRadius: 10,
             borderColor: BASIC_COLORS.PRIMARY,
             borderWidth: 1,
             shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.2,
-          shadowRadius: 4,
-            elevation: 7,
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            elevation: 5,
           }}
         >
           <Text

@@ -7,7 +7,10 @@ import ArrowForward from "./src/assets/arrow-forward.svg";
 import Eye from "./src/assets/eye.svg";
 import MPSInputField from "./src/components/atoms/MPSInputField/MPSInputField";
 import ForwardArrow from "./src/assets/ForwardArrow";
+import CardIcon from "./src/assets/material-symbols_inventory.svg";
 import Layout from "./src/components/molecules/Layout";
+import Search from "./src/components/atoms/Search/Search";
+import TouchableCard from "./src/components/atoms/Card/Card";
 
 export default function App() {
   const [value, setValue] = useState("");
@@ -17,8 +20,7 @@ export default function App() {
   return (
     <Layout>
       <View style={styles.container}>
-
-        {/* <ArrowForward fill="red" />
+        <ArrowForward fill="red" />
         <MPSButton
           buttonType={"primary"}
           onPress={() => {
@@ -36,7 +38,19 @@ export default function App() {
               <Eye />
             </Pressable>
           }
-        /> */}
+        />
+        <Search />
+
+        <TouchableCard
+          cardTitle={"Make A Sale"}
+          cardDescription={
+            "Record all incoming stocks details in a efficient way here"
+          }
+          onPress={() => {
+            console.log("Card Clicked");
+          }}
+          icon={<CardIcon />}
+        />
       </View>
     </Layout>
   );

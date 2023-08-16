@@ -28,30 +28,32 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "0FA958",
         tabBarInactiveTintColor: "#0FA958",
         tabBarIcon: ({ focused, color, size }) => {
+          const iconSize = 34; 
           if (route.name === "Customers") {
             if (focused)
-              return <Icon name="home" type="ionicon" color="#0FA958" />;
+              return <Icon name="home" type="ionicon" color="#0FA958" size={iconSize}/>;
             else
               return (
-                <Icon name="home-outline" type="ionicon" color="#0FA958" />
+                <Icon name="home-outline" type="ionicon" color="#0FA958" size={iconSize}/>
               );
           } else if (route.name === "Orders") {
             if (focused)
-              return <Icon name="stats-chart" type="ionicon" color="#0FA958" />;
+              return <Icon name="stats-chart" type="ionicon" color="#0FA958" size={iconSize}/>;
             else
               return (
                 <Icon
                   name="stats-chart-outline"
                   type="ionicon"
                   color="#0FA958"
+                  size={iconSize}
                 />
               );
           } else if (route.name === "Profile") {
             if (focused)
-              return <Icon name="person" type="ionicon" color="#0FA958" />;
+              return <Icon name="person" type="ionicon" color="#0FA958" size={iconSize}/>;
             else
               return (
-                <Icon name="person-outline" type="ionicon" color="#0FA958" />
+                <Icon name="person-outline" type="ionicon" color="#0FA958" size={iconSize}/>
               );
           }
         },
@@ -83,3 +85,4 @@ const TabNavigator = () => {
 };
 
 export default TabNavigator;
+ 

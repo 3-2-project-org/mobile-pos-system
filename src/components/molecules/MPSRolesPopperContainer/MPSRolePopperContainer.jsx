@@ -4,28 +4,35 @@ import { USER_ROLES } from "../../../utils/constants/Roles";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 
 const MPSRolePopperContainer = ({
-    onPressRoles,
-    selectedOption,
-    switchUserRole
+  onPressRoles,
+  selectedOption,
+  switchUserRole,
 }) => {
   return (
-    <View style={{
+    <View
+      style={{
         display: "flex",
         flexDirection: "column",
-        width: "auto",
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
         backgroundColor: BASIC_COLORS.WHITE,
         borderRadius: 10,
         elevation: 10,
-    }}>
-
-      {USER_ROLES.map((role) => {
+        paddingVertical: 15,
+        position: "absolute",
+        left: -140,
+      }}
+    >
+      {USER_ROLES.map((role, index) => {
         return (
           <Pressable
+            key={index}
             onPress={() => onPressRoles(role)}
             style={{
               paddingHorizontal: 31,
-              backgroundColor: selectedOption === role ? BASIC_COLORS.PRIMARY : BASIC_COLORS.WHITE,
+              backgroundColor:
+                selectedOption === role
+                  ? BASIC_COLORS.PRIMARY
+                  : BASIC_COLORS.WHITE,
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
@@ -33,13 +40,17 @@ const MPSRolePopperContainer = ({
               borderWidth: 1,
               borderColor: BASIC_COLORS.PRIMARY,
               borderRadius: 10,
-              paddingVertical: 8,
+              paddingVertical: 12,
               marginVertical: 4,
+              width: "100%",
             }}
           >
             <Text
               style={{
-                color: selectedOption === role ?BASIC_COLORS.WHITE:  BASIC_COLORS.PRIMARY,
+                color:
+                  selectedOption === role
+                    ? BASIC_COLORS.WHITE
+                    : BASIC_COLORS.PRIMARY,
                 fontSize: 12,
                 fontWeight: "700",
               }}

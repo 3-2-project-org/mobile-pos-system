@@ -1,11 +1,21 @@
-import { View, Text, Modal } from "react-native";
-import React from "react";
+import { View, Text, Modal, Animated } from "react-native";
+import React, { useEffect, useRef } from "react";
 import MPSTopAppBar from "./MPSTopAppBar/MPSTopAppBar";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSPopper from "./MPSPopper/MPSPopper";
 import MPSRolePopperContainer from "./MPSRolesPopperContainer/MPSRolePopperContainer";
 
 const Layout = ({ children }) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
   const [showRolesPopper, setShowRolesPopper] = React.useState(false);
   const [selectedOption, setSelectedOption] =
     React.useState("Sales person view");
@@ -14,7 +24,6 @@ const Layout = ({ children }) => {
   };
 
   const switchUserRole = (role) => {
-    console.log("switching role to ");
     setSelectedOption(role);
     setShowRolesPopper(false);
   };
@@ -32,7 +41,7 @@ const Layout = ({ children }) => {
         userRole={selectedOption}
       />
       {showRolesPopper && (
-        <View
+        <Animated.View
           style={{
             width: "100%",
             display: "flex",
@@ -40,6 +49,7 @@ const Layout = ({ children }) => {
             alignItems: "center",
             marginTop: 10,
             zIndex: 100,
+            opacity: fadeAnim, 
           }}
         >
           <View>
@@ -48,7 +58,7 @@ const Layout = ({ children }) => {
               onPressRoles={switchUserRole}
             />
           </View>
-        </View>
+        </Animated.View>
       )}
 
       {/* 

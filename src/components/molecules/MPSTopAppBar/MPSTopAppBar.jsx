@@ -24,7 +24,7 @@ const MPSTopAppBar = ({ onPressNotification, onPressAvatar, onPressRoles, userRo
           width: 3,
           height: 2,
         },
-
+        elevation: 5,
       }}
     >
       <Pressable onPress={onPressNotification}>
@@ -40,7 +40,7 @@ const MPSTopAppBar = ({ onPressNotification, onPressAvatar, onPressRoles, userRo
           flexDirection: "row",
           alignItems: "center",
           borderRadius: 10,
-          paddingVertical: 8,
+          paddingVertical: 12,
         }}
       >
         <Text

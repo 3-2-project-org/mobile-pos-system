@@ -11,6 +11,7 @@ import CardIcon from "./src/assets/material-symbols_inventory.svg";
 import Layout from "./src/components/molecules/Layout";
 import Search from "./src/components/atoms/Search/Search";
 import TouchableCard from "./src/components/atoms/Card/Card";
+import { Feather } from "@expo/vector-icons";
 
 export default function App() {
   const [value, setValue] = useState("");
@@ -28,6 +29,7 @@ export default function App() {
           }}
           icon={<ForwardArrow />}
         />
+
         <MPSInputField
           error={true}
           onChangeText={onValueChange}
@@ -39,7 +41,23 @@ export default function App() {
             </Pressable>
           }
         />
-        <Search />
+
+        <Search
+          placeholder={"Item code"}
+          //  onChangeText={(text) => console.log(text)}
+          onChangeText={onValueChange}
+          value={value}
+          icon={
+            <Pressable onPress={() => alert("Search icon pressed")}>
+              <Feather
+                name="search"
+                size={24}
+                color="#625D5D"
+                style={{ marginRight: 10 }}
+              />
+            </Pressable>
+          }
+        />
 
         <TouchableCard
           cardTitle={"Make A Sale"}

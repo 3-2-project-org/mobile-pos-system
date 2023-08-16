@@ -14,7 +14,7 @@ const MPSInputField = ({
   onChangeText,
   value,
   editable,
-  secureTextEntry
+  secureTextEntry,
 }) => {
   return (
     <View>
@@ -93,7 +93,7 @@ MPSInputField.propTypes = {
   onInput: PropTypes.func,
   value: PropTypes.string,
   editable: PropTypes.bool,
-  secureTextEntry: PropTypes.bool
+  secureTextEntry: PropTypes.bool,
 };
 
 MPSInputField.defaultProps = {
@@ -110,5 +110,5 @@ MPSInputField.defaultProps = {
   onInput: () => {},
   value: "",
   editable: true,
-  secureTextEntry: false
+  secureTextEntry: false,
 };

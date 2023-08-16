@@ -10,7 +10,7 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
           style={{
             marginTop: 50,
             backgroundColor: "white",
-            padding: 20,
+            padding: 18,
             borderRadius: 10,
             borderColor: BASIC_COLORS.PRIMARY,
             borderWidth: 1,
@@ -36,7 +36,7 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
             style={{
               marginTop: 8,
               fontSize: 16,
-              color: BASIC_COLORS.DESCRIPTION,
+              color: BASIC_COLORS.FONT_SECONDARY,
             }}
           >
             {cardDescription}

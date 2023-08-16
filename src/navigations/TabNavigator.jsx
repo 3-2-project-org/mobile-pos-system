@@ -28,7 +28,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "0FA958",
         tabBarInactiveTintColor: "#0FA958",
         tabBarIcon: ({ focused, color, size }) => {
-          const iconSize = 34; 
+          const iconSize = 27; 
           if (route.name === "Customers") {
             if (focused)
               return <Icon name="home" type="ionicon" color="#0FA958" size={iconSize}/>;

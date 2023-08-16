@@ -14,12 +14,11 @@ const MPSRolePopperContainer = ({
         display: "flex",
         flexDirection: "column",
         paddingHorizontal: 15,
+        width: "70%",
         backgroundColor: BASIC_COLORS.WHITE,
         borderRadius: 10,
         elevation: 10,
         paddingVertical: 15,
-        position: "absolute",
-        left: -140,
       }}
     >
       {USER_ROLES.map((role, index) => {

@@ -1,8 +1,7 @@
-import { View, Text, Modal, Animated } from "react-native";
+import { View, Animated } from "react-native";
 import React, { useEffect, useRef } from "react";
 import MPSTopAppBar from "./MPSTopAppBar/MPSTopAppBar";
 import { BASIC_COLORS } from "../../utils/constants/styles";
-import MPSPopper from "./MPSPopper/MPSPopper";
 import MPSRolePopperContainer from "./MPSRolesPopperContainer/MPSRolePopperContainer";
 
 const Layout = ({ children }) => {
@@ -44,12 +43,14 @@ const Layout = ({ children }) => {
         <Animated.View
           style={{
             width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
             marginTop: 10,
             zIndex: 100,
-            opacity: fadeAnim, 
+            opacity: fadeAnim,
+            left: 80,
+            right: 80,
+            top: 105,
+            position: "absolute",
+            zIndex: 100,
           }}
         >
           <View>
@@ -60,14 +61,6 @@ const Layout = ({ children }) => {
           </View>
         </Animated.View>
       )}
-
-      {/* 
-      <Modal open={showRolesPopper}>
-        <MPSPopper open={showRolesPopper}> */}
-
-      {/* </MPSPopper>
-      </Modal> */}
-
       {children}
     </View>
   );

@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import React from "react";
 import { Button } from "@rneui/themed";
-import PropTypes from "prop-types";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 
 const MPSDoubleButton = ({
@@ -14,7 +13,7 @@ const MPSDoubleButton = ({
   return (
     <View style={{ flexDirection: "row", marginTop: 60 }}>
       <Button
-        title="Checkout" 
+        title="Checkout"
         titleStyle={{
           color: BASIC_COLORS.PRIMARY,
           fontSize: 15,

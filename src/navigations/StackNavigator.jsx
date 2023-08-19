@@ -1,8 +1,6 @@
 import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "../navigations/TabNavigator";
-
 import SalesHomeScreen from "../screens/HomeScreen";
 import SalesScreen from "../screens/Sales/SalesScreen";
 import SalesQrScanScreen from "../screens/Sales/SalesQrScanScreen";

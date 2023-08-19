@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 
-export default function HomeScreen() {
+export default function SalesQrScanScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [flash, setFlash] = useState(false);
@@ -63,6 +63,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         )}
       </View>
+
       <View>
         <Button title={"Scan QR Code"} onPress={() => setScanned(false)} />
         {scanned && (
@@ -72,6 +73,7 @@ export default function HomeScreen() {
           />
         )}
       </View>
+
       {/* Display the scanned data */}
       {scannedData && (
         <View style={styles.scannedDataContainer}>

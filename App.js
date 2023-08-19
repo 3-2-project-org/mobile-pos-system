@@ -1,14 +1,20 @@
-import { StyleSheet } from "react-native";
 import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from "./src/navigations/TabNavigator";
+
+import SalesHomeScreen from "./src/screens/HomeScreen";
+import SalesScreen from "./src/screens/Sales/SalesScreen";
+import StackNavigator from "./src/navigations/StackNavigator";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <TabNavigator />
+   
+     <StackNavigator/>
     </NavigationContainer>
   );
 }

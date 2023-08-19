@@ -1,50 +1,45 @@
 import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Pressable,
-  } from "react-native";
-  import React, { useLayoutEffect, useState } from "react";
-  import { useNavigation } from "@react-navigation/native";
-  import Layout from "../components/molecules/Layout";
-  import TouchableCard from "../components/atoms/Card/Card";
-  import CardIcon from "../assets/material-symbols_inventory.svg";
-  import { BASIC_COLORS } from "../utils/constants/styles";
-  import { Feather } from "@expo/vector-icons";
-  import Search from "../components/atoms/Search/Search";
-  import ArrowForward from "../assets/arrow-forward.svg";
-  
-  import ForwardArrow from "../assets/ForwardArrow";
-  import MPSDoubleButton from "../components/atoms/Button/DoubleButton";
-  import MPSButton from "../components/atoms/Button/Button";
-  const HomeScreen = () => {
-    const [value, setValue] = useState("");
-    const onValueChange = (value) => {
-      setValue(value);
-    };
-    const navigation = useNavigation();
-    useLayoutEffect(() => {
-      navigation.setOptions({
-        headerShown: false,
-      });
-    }, []);
-    return (
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import Layout from "../../components/molecules/Layout";
+import TouchableCard from "../../components/atoms/Card/Card";
+import CardIcon from "../../assets/material-symbols_inventory.svg";
+import { BASIC_COLORS } from "../../utils/constants/styles";
+import { Feather } from "@expo/vector-icons";
+import Search from "../../components/atoms/Search/Search";
+import ArrowForward from "../../assets/arrow-forward.svg";
+
+import ForwardArrow from "../../assets/ForwardArrow";
+import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
+import MPSButton from "../../components/atoms/Button/Button";
+import TabNavigator from "../../navigations/TabNavigator";
+const SalesScreen = () => {
+  const [value, setValue] = useState("");
+  const onValueChange = (value) => {
+    setValue(value);
+  };
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+  return (
+    <>
       <Layout>
         <View style={styles.container}>
-  
-        <MPSButton
+          <MPSButton
             buttonType={"primary"}
-            onPress={() => {
-              console.log("Card Clicked");
-            }}
+            onPress={() => navigation.navigate("SalesQrScanScreen")}
             icon={<ForwardArrow />}
           />
-  
-  
-  
-  
-  
+
           <Text
             style={{
               marginTop: 32,
@@ -65,7 +60,7 @@ import {
           >
             Find By Item Code
           </Text>
-  
+
           <Search
             placeholder={"Item code"}
             //  onChangeText={(text) => console.log(text)}
@@ -82,7 +77,7 @@ import {
               </Pressable>
             }
           />
-  
+
           <TouchableCard
             cardTitle={"Make A Sale"}
             cardDescription={
@@ -93,7 +88,7 @@ import {
             }}
             icon={<CardIcon />}
           />
-  
+
           <TouchableCard
             cardTitle={"Make A Sale"}
             cardDescription={
@@ -116,17 +111,17 @@ import {
           </View>
         </View>
       </Layout>
-    );
-  };
-  
-  export default HomeScreen;
-  
-  const styles = StyleSheet.create({
-    container: {
-      marginTop: 20,
-      // flex: 1,
-      // backgroundColor: "#fff",
-      // justifyContent: "center",
-    },
-  });
-  
+    </>
+  );
+};
+
+export default SalesScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // justifyContent: "center",
+  },
+});

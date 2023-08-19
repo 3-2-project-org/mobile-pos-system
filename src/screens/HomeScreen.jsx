@@ -5,7 +5,7 @@ import Layout from "../components/molecules/Layout";
 import TouchableCard from "../components/atoms/Card/Card";
 import CardIcon from "../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../utils/constants/styles";
-const HomeScreen = () => {
+const SalesHomeScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -27,7 +27,6 @@ const HomeScreen = () => {
         </Text>
         <Text
           style={{
-            
             fontSize: 25,
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
@@ -40,9 +39,7 @@ const HomeScreen = () => {
           cardDescription={
             "Record all incoming stocks details in a efficient way here"
           }
-          onPress={() => {
-            console.log("Card Clicked");
-          }}
+          onPress={() => navigation.navigate("SalesScreen")}
           icon={<CardIcon />}
         />
 
@@ -70,7 +67,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default SalesHomeScreen;
 
 const styles = StyleSheet.create({
   container: {

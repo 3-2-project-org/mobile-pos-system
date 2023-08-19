@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../components/molecules/Layout";
-import TouchableCard from "../components/atoms/Card/Card";
+import Layout from "../../components/molecules/Layout";
+import TouchableCard from "../../components/atoms/Card/Card";
 import CardIcon from "../assets/material-symbols_inventory.svg";
-import { BASIC_COLORS } from "../utils/constants/styles";
-const HomeScreen = () => {
+import { BASIC_COLORS } from "../../utils/constants/styles";
+const SalesHomeScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -27,7 +27,6 @@ const HomeScreen = () => {
         </Text>
         <Text
           style={{
-            
             fontSize: 25,
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
@@ -70,7 +69,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default SalesHomeScreen;
 
 const styles = StyleSheet.create({
   container: {

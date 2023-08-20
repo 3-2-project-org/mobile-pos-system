@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Layout from "../../components/molecules/Layout";
@@ -13,12 +7,10 @@ import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
 import Search from "../../components/atoms/Search/Search";
-import ArrowForward from "../../assets/arrow-forward.svg";
-
 import ForwardArrow from "../../assets/ForwardArrow";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
-import TabNavigator from "../../navigations/TabNavigator";
+
 const SalesScreen = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
@@ -102,9 +94,7 @@ const SalesScreen = () => {
           <View style={styles.buttonContainer}>
             <MPSDoubleButton
               buttonType={"primary"}
-              onPress={() => {
-                console.log("Button 2 Clicked");
-              }}
+              onPress={() => navigation.navigate("SalesSummaryScreen")}
               icon={<ForwardArrow />}
               style={styles.button}
             />

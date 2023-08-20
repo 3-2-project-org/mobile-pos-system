@@ -6,12 +6,14 @@ import TouchableCard from "../../components/atoms/Card/Card";
 import CardIcon from "../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 const SalesHomeScreen = () => {
+
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+  
   return (
     <Layout>
       <View style={styles.container}>

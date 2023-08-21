@@ -8,7 +8,7 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
       <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
         <View
           style={{
-            marginTop: 50,
+            marginTop: 21,
             backgroundColor: "white",
             padding: 18,
             borderRadius: 10,

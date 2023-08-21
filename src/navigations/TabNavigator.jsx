@@ -59,6 +59,7 @@ const TabNavigator = () => {
         },
       })}
     >
+    
       <BottomTab.Screen
         name="Customers"
         component={HomeScreen}

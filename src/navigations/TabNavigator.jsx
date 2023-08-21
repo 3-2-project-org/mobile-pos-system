@@ -13,7 +13,7 @@ const TabNavigator = () => {
     <BottomTab.Navigator
       screenOptions={({ route }) => ({
         tabBarStyle: {
-          paddingHorizontal: 50,
+          paddingHorizontal: 40,
           height: 53,
           backgroundColor: "white",
           elevation: 5,
@@ -28,7 +28,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "0FA958",
         tabBarInactiveTintColor: "#0FA958",
         tabBarIcon: ({ focused, color, size }) => {
-          const iconSize = 34; 
+          const iconSize = 26; 
           if (route.name === "Customers") {
             if (focused)
               return <Icon name="home" type="ionicon" color="#0FA958" size={iconSize}/>;

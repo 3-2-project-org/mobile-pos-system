@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.3",
+    "@react-native-async-storage/async-storage": "^1.19.2",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
@@ -36,7 +37,8 @@
     "react-native-svg": "^13.9.0",
     "react-native-svg-transformer": "^1.1.0",
     "react-native-vector-icons": "^10.0.0",
-    "react-redux": "^8.1.2"
+    "react-redux": "^8.1.2",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

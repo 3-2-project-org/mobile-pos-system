@@ -13,7 +13,7 @@ const MPSDoubleButton = ({
   return (
     <View style={{ flexDirection: "row", marginTop: 60 }}>
       <Button
-        title="Checkout"
+         title="buttonTitle"
         titleStyle={{
           color: BASIC_COLORS.PRIMARY,
           fontSize: 15,
@@ -37,7 +37,7 @@ const MPSDoubleButton = ({
       />
 
       <Button
-        title="Next Item"
+      title="Cancel"
         titleStyle={{
           color:
             buttonType === "primary"

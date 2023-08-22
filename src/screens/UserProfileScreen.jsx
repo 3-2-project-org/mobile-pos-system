@@ -89,6 +89,7 @@ const UserProfileScreen = () => {
             error={false}
           />
           <MPSInputField
+          
             inputLabel={"Password"}
             inputPlaceholder={"evFTbyVVCd"}
             error={false}
@@ -111,7 +112,39 @@ const UserProfileScreen = () => {
               </Pressable>
             }
           />
-          <MPSDoubleButton />
+          <MPSDoubleButton
+            button1Title="Cancel"
+            button2Title="Save"
+            button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
+            button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
+            button1Style={{
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+
+              width: 165,
+              alignContent: "center",
+              borderRadius: 10,
+              height: 46,
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
+            }}
+            button2Style={{
+              backgroundColor: BASIC_COLORS.PRIMARY,
+              alignItems: "center",
+              justifyContent: "center",
+              width: 165,
+              alignContent: "center",
+              borderRadius: 10,
+              height: 46,
+
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
+            }}
+            icon="your-icon"
+            onPress={() => console.log("Button pressed")}
+            loading={false}
+          />
         </BottomSheet>
       </SafeAreaProvider>
     </Layout>
@@ -155,7 +188,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: "#000",
-    fontFamily: "Inter",
+
     fontSize: 20,
     fontStyle: "normal",
     fontWeight: "600",

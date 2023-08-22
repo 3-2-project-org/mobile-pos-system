@@ -6,47 +6,43 @@ import SalesScreen from "../screens/Sales/SalesScreen";
 import SalesQrScanScreen from "../screens/Sales/SalesQrScanScreen";
 import SalesSummaryScreen from "../screens/Sales/SalesSummaryScreen";
 import SalesThankScreen from "../screens/Sales/SalesThankScreen";
+import WelcomeScreen from "../screens/welcomeScreen/WelcomeScreen";
+import Signup from "../screens/signup/Signup";
+import Signin from "../screens/signin/Signin";
+import FirstTImeLogin from "../screens/FirstTimeLogin/FirstTImeLogin";
 
 const Stack = createStackNavigator();
 
-const StackNavigator = () => {
+const AuthStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="TabNavigator"
-        component={TabNavigator}
-        options={{ headerShown: false }} // Hide header for TabNavigator screen
-      />
-      <Stack.Screen
-        name="SalesHomeScreen"
-        component={SalesHomeScreen}
+        name="LandingPage"
+        component={WelcomeScreen}
         options={{ headerShown: false }} // Hide header for SalesHomeScreen screen
       />
       <Stack.Screen
-        name="SalesScreen"
-        component={SalesScreen}
+        name="SignUpPage"
+        component={Signup}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
-
       <Stack.Screen
-        name="SalesQrScanScreen"
-        component={SalesQrScanScreen}
+        name="SigninPage"
+        component={Signin}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
-
       <Stack.Screen
-        name="SalesSummaryScreen"
+        name="OTPPage"
         component={SalesSummaryScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
-
       <Stack.Screen
-        name="SalesThankScreen"
-        component={SalesThankScreen}
+        name="FirstTimeSignInPage"
+        component={FirstTImeLogin}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
     </Stack.Navigator>
   );
 };
 
-export default StackNavigator;
+export default AuthStackNavigator;

@@ -11,11 +11,13 @@ const StatisticScreen = () => {
     });
   }, []);
   return (
-    <Layout>
-      <View>
+    <>
+      <View style={{
+        paddingHorizontal: 31,
+      }}>
         <Text>StatisticScreen</Text>
       </View>
-    </Layout>
+    </>
   );
 };
 

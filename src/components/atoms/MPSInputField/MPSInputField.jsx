@@ -44,6 +44,7 @@ const MPSInputField = ({
           justifyContent: "space-between",
           width: "100%",
           padding: 10,
+          ...inputContainerStyle,
         }}
       >
         <TextInput
@@ -51,12 +52,12 @@ const MPSInputField = ({
           style={{
             width: "90%",
             color: BASIC_COLORS.FONT_SECONDARY,
-            ...inputContainerStyle,
           }}
           onChangeText={onChangeText}
           editable={editable}
           value={value}
           secureTextEntry={secureTextEntry}
+          
         />
 
         {icon && icon}

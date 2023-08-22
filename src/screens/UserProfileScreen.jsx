@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import Layout from "../components/molecules/Layout";
 import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 
 const UserProfileScreen = () => {
   const navigation = useNavigation();
@@ -11,11 +11,15 @@ const UserProfileScreen = () => {
     });
   }, []);
   return (
-    <Layout>
-      <View>
+    <>
+      <View
+        style={{
+          paddingHorizontal: 31,
+        }}
+      >
         <Text>UserProfileScreen</Text>
       </View>
-    </Layout>
+    </>
   );
 };
 

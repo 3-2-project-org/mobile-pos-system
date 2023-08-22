@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    paddingHorizontal: 31,
   },
   camera: {
     flex: 1,

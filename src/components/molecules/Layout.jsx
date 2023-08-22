@@ -27,42 +27,49 @@ const Layout = ({ children }) => {
     setShowRolesPopper(false);
   };
   return (
-    <View
-      style={{
-        paddingHorizontal: 31,
-        paddingTop: 41,
-        backgroundColor: BASIC_COLORS.BACKGROUND,
-        height: "100%",
-      }}
-    >
-      <MPSTopAppBar
-        onPressRoles={handleRoleSelectorClick}
-        userRole={selectedOption}
-      />
-      {showRolesPopper && (
-        <Animated.View
-          style={{
-            width: "100%",
-            marginTop: 10,
-            zIndex: 100,
-            opacity: fadeAnim,
-            left: 80,
-            right: 80,
-            top: 105,
-            position: "absolute",
-            zIndex: 100,
-          }}
-        >
-          <View>
-            <MPSRolePopperContainer
-              selectedOption={selectedOption}
-              onPressRoles={switchUserRole}
-            />
-          </View>
-        </Animated.View>
-      )}
-      {children}
-    </View>
+    <>
+      <View
+        style={{
+          // paddingHorizontal: 31,
+          paddingTop: 41,
+          backgroundColor: BASIC_COLORS.BACKGROUND,
+          height: "100%",
+        }}
+      >
+        <View style={{
+          paddingHorizontal: 31,
+        }}>
+          <MPSTopAppBar
+            onPressRoles={handleRoleSelectorClick}
+            userRole={selectedOption}
+          />
+        </View>
+
+        {showRolesPopper && (
+          <Animated.View
+            style={{
+              width: "100%",
+              marginTop: 10,
+              zIndex: 100,
+              opacity: fadeAnim,
+              left: 80,
+              right: 80,
+              top: 105,
+              position: "absolute",
+              zIndex: 100,
+            }}
+          >
+            <View>
+              <MPSRolePopperContainer
+                selectedOption={selectedOption}
+                onPressRoles={switchUserRole}
+              />
+            </View>
+          </Animated.View>
+        )}
+        {children}
+      </View>
+    </>
   );
 };
 

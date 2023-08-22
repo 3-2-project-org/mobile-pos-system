@@ -1,7 +1,6 @@
 import { useState } from "react";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../components/molecules/Layout";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import MPSButton from "../components/atoms/Button/Button";
@@ -20,16 +19,29 @@ const AnalyticsScreen = () => {
   }, []);
   const [isVisible, setIsVisible] = useState(false);
   return (
-
-      <SafeAreaProvider>
-        <View style={styles.container}>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Titldsfdsfe</Text>
-          </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <Text
+          style={{
+            marginTop: 32,
+            fontSize: 24,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          Employees
+        </Text>
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          <Text style={styles.cardTitle}>table here </Text>
+          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
         </View>
 
         <MPSButton
           buttonStyle={{
+            marginTop: 11,
             alignItems: "center",
             justifyContent: "center",
             width: 165,
@@ -44,85 +56,105 @@ const AnalyticsScreen = () => {
           onPress={() => setIsVisible(true)}
         />
 
-        <BottomSheet
-          isVisible={isVisible}
-          backdropStyle={{}}
-          containerStyle={{
-            backgroundColor: BASIC_COLORS.WHITE,
-            flexDirection: "row",
-            borderRadius: 20,
-            paddingVertical: 10,
-            paddingHorizontal: 31,
+        <Text
+          style={{
+            marginTop: 48,
+            fontSize: 20,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
           }}
         >
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              top: 10,
-              right: 10,
-              zIndex: 1,
-            }}
-            onPress={() => setIsVisible(false)}
-          >
-            <Feather name="x" size={24} color="black" />
-          </TouchableOpacity>
-          <Text
-            style={{
-              paddingVertical: 87,
-              fontSize: 25,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            Add New Resources
-          </Text>
-          <MPSInputField
-            inputLabel={"Username"}
-            inputPlaceholder={"Username"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Email"}
-            inputPlaceholder={"email"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Phone number"}
-            inputPlaceholder={"phone"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Password"}
-            inputPlaceholder={"evFTbyVVCd"}
-            error={false}
-            secureTextEntry={true}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <AntDesign name="eyeo" size={21} color="black" />
-              </Pressable>
-            }
-          />
+          Employees Sales Performance
+        </Text>
+        <Text
+          style={{
+            marginTop: 10,
+            fontSize: 16,
+            color: BASIC_COLORS.FONT_SECONDARY,
+          }}
+        >
+          Overview of the employees sales performances over months
+        </Text>
+      </View>
 
-          <MPSInputField
-            inputLabel={"Confirm Password"}
-            inputPlaceholder={"evFTbyVVCd"}
-            error={false}
-            secureTextEntry={true}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <AntDesign name="eyeo" size={21} color="#625D5D" />
-              </Pressable>
-            }
-          />
-          <MPSButton
-            buttonTitle="Invite"
-            button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-            onPress={() => console.log(" invite Button pressed")}
-            loading={false}
-          />
-        </BottomSheet>
-      </SafeAreaProvider>
- 
+      <BottomSheet
+        isVisible={isVisible}
+        backdropStyle={{}}
+        containerStyle={{
+          backgroundColor: BASIC_COLORS.WHITE,
+          flexDirection: "row",
+          borderRadius: 20,
+          paddingVertical: 10,
+          paddingHorizontal: 31,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 1,
+          }}
+          onPress={() => setIsVisible(false)}
+        >
+          <Feather name="x" size={24} color="black" />
+        </TouchableOpacity>
+        <Text
+          style={{
+            paddingVertical: 87,
+            fontSize: 25,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          Add New Resources
+        </Text>
+        <MPSInputField
+          inputLabel={"Username"}
+          inputPlaceholder={"Username"}
+          error={false}
+        />
+        <MPSInputField
+          inputLabel={"Email"}
+          inputPlaceholder={"email"}
+          error={false}
+        />
+        <MPSInputField
+          inputLabel={"Phone number"}
+          inputPlaceholder={"phone"}
+          error={false}
+        />
+        <MPSInputField
+          inputLabel={"Password"}
+          inputPlaceholder={"evFTbyVVCd"}
+          error={false}
+          secureTextEntry={true}
+          icon={
+            <Pressable onPress={() => alert("Search icon pressed")}>
+              <AntDesign name="eyeo" size={21} color="black" />
+            </Pressable>
+          }
+        />
+
+        <MPSInputField
+          inputLabel={"Confirm Password"}
+          inputPlaceholder={"evFTbyVVCd"}
+          error={false}
+          secureTextEntry={true}
+          icon={
+            <Pressable onPress={() => alert("Search icon pressed")}>
+              <AntDesign name="eyeo" size={21} color="#625D5D" />
+            </Pressable>
+          }
+        />
+        <MPSButton
+          buttonTitle="Invite"
+          button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
+          onPress={() => console.log(" invite Button pressed")}
+          loading={false}
+        />
+      </BottomSheet>
+    </SafeAreaProvider>
   );
 };
 
@@ -131,9 +163,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 20,
+    paddingHorizontal: 31,
   },
   profileIcon: {
     bottom: 17,
@@ -143,10 +174,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
   },
   card: {
-    bottom: 15,
+    marginTop: 36,
+
     width: 328,
     height: 200,
-    flexShrink: 0,
+
     borderRadius: 10,
     backgroundColor: "#FFF",
     shadowColor: "#000",
@@ -157,10 +189,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     marginTop: 20,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
   },
+
   cardTitle: {
     color: "#000",
 

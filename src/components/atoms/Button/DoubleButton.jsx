@@ -1,23 +1,43 @@
 import { View } from "react-native";
 import React from "react";
 import { Button } from "@rneui/themed";
-import PropTypes from "prop-types";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 
-const MPSButton = ({
+const MPSDoubleButton = ({
   buttonTitle,
   buttonType,
-  buttonStyle,
-  buttonContainerStyle,
   onPress,
   loading,
   icon,
-  buttonState
 }) => {
   return (
-    <View>
+    <View style={{ flexDirection: "row", marginTop: 60 }}>
       <Button
-        title={buttonTitle}
+        title="Checkout"
+        titleStyle={{
+          color: BASIC_COLORS.PRIMARY,
+          fontSize: 15,
+        }}
+        buttonStyle={{
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 145,
+          alignContent: "center",
+          borderRadius: 10,
+          height: 46,
+          borderColor: BASIC_COLORS.PRIMARY,
+          borderWidth: 3,
+        }}
+        iconPosition="right"
+        icon={icon}
+        iconRight={true}
+        onPress={onPress}
+        loading={loading}
+      />
+
+      <Button
+        title="Next Item"
         titleStyle={{
           color:
             buttonType === "primary"
@@ -27,14 +47,14 @@ const MPSButton = ({
               : BASIC_COLORS.ERROR,
           fontSize: 15,
         }}
-        style={{}}
         buttonStyle={{
           alignItems: "center",
           justifyContent: "center",
-          width: "100%",
+          width: 145,
           alignContent: "center",
           borderRadius: 10,
-          height: 45,
+          marginRight: 10,
+          height: 46,
           backgroundColor:
             buttonType === "primary"
               ? BASIC_COLORS.PRIMARY
@@ -44,36 +64,14 @@ const MPSButton = ({
           borderColor:
             buttonType === "error" ? BASIC_COLORS.ERROR : BASIC_COLORS.PRIMARY,
           borderWidth: 3,
-          ...buttonStyle,
         }}
         iconPosition="right"
         icon={icon}
         iconRight={true}
         onPress={onPress}
         loading={loading}
-        type={buttonState}
       />
     </View>
   );
 };
-
-MPSButton.propTypes = {
-  buttonTitle: PropTypes.string,
-  buttonType: PropTypes.oneOf(["primary", "secondary", "error"]),
-  buttonContainerStyle: PropTypes.object,
-  onPress: PropTypes.func,
-  buttonStyle: PropTypes.object,
-  loading: PropTypes.bool,
-  icon: PropTypes.element,
-};
-
-MPSButton.defaultProps = {
-  buttonTitle: "Button",
-  buttonType: "primary",
-  buttonContainerStyle: {},
-  onPress: () => {},
-  buttonStyle: {},
-  loading: false,
-};
-
-export default MPSButton;
+export default MPSDoubleButton;

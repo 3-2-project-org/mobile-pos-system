@@ -1,15 +1,31 @@
-import { StyleSheet } from "react-native";
 import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import TabNavigator from "./src/navigations/TabNavigator";
+import { createStackNavigator } from "@react-navigation/stack";
+import StackNavigator from "./src/navigations/StackNavigator";
+import Layout from "./src/components/molecules/Layout";
+import AuthStackNavigator from "./src/navigations/AuthStackNavigator";
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
   return (
-    <NavigationContainer>
-      <TabNavigator />
-    </NavigationContainer>
+    <>
+      {!isUserLoggedIn ? (
+        <>
+          <NavigationContainer>
+            <AuthStackNavigator />
+          </NavigationContainer>
+        </>
+      ) : (
+        <NavigationContainer>
+          <Layout>
+            <StackNavigator />
+          </Layout>
+        </NavigationContainer>
+      )}
+    </>
   );
 }
 

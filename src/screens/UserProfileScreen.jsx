@@ -89,7 +89,6 @@ const UserProfileScreen = () => {
             error={false}
           />
           <MPSInputField
-          
             inputLabel={"Password"}
             inputPlaceholder={"evFTbyVVCd"}
             error={false}
@@ -141,8 +140,8 @@ const UserProfileScreen = () => {
               borderColor: BASIC_COLORS.PRIMARY,
               borderWidth: 3,
             }}
-            icon="your-icon"
-            onPress={() => console.log("Button pressed")}
+            onPress1={() => console.log(" cancel Button pressed")}
+            onPress2={() => console.log(" save Button pressed")}
             loading={false}
           />
         </BottomSheet>

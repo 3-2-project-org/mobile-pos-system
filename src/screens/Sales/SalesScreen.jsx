@@ -10,7 +10,7 @@ import Search from "../../components/atoms/Search/Search";
 import ForwardArrow from "../../assets/ForwardArrow";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
-
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 const SalesScreen = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
@@ -124,7 +124,7 @@ const SalesScreen = () => {
                 borderWidth: 3,
               }}
               icon2={<ForwardArrow />}
-              icon1={<ForwardArrow />}
+              icon1={<MaterialCommunityIcons name="cart-arrow-right" size={24} color="#0FA958" />}
               onPress2={() => navigation.navigate("SalesSummaryScreen")}
               onPress1={() => navigation.navigate("SalesSummaryScreen")}
               loading={false}

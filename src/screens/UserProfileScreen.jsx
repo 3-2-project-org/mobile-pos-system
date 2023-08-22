@@ -24,8 +24,13 @@ const UserProfileScreen = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <Layout>
-      <SafeAreaProvider>
+    <>
+      <View
+        style={{
+          paddingHorizontal: 31,
+        }}
+      >
+         <SafeAreaProvider>
         <View style={styles.container}>
           <View>
             <EvilIcons name="user" size={124} color="#0FA958" />
@@ -146,7 +151,8 @@ const UserProfileScreen = () => {
           />
         </BottomSheet>
       </SafeAreaProvider>
-    </Layout>
+      </View>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ const SalesHomeScreen = () => {
     });
   }, []);
   return (
-    <Layout>
+    <>
       <View style={styles.container}>
         <Text
           style={{
@@ -63,7 +63,7 @@ const SalesHomeScreen = () => {
           This section show how you performed during the last 7 days
         </Text>
       </View>
-    </Layout>
+    </>
   );
 };
 
@@ -72,6 +72,8 @@ export default SalesHomeScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingHorizontal: 31,
+
     // flex: 1,
     // backgroundColor: "#fff",
     // justifyContent: "center",

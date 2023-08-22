@@ -24,7 +24,6 @@ const SalesScreen = () => {
   }, []);
   return (
     <>
-      <Layout>
         <View style={styles.container}>
           <MPSButton
             buttonType={"primary"}
@@ -131,7 +130,6 @@ const SalesScreen = () => {
             />
           </View>
         </View>
-      </Layout>
     </>
   );
 };
@@ -141,6 +139,7 @@ export default SalesScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingHorizontal: 31,
     // flex: 1,
     // backgroundColor: "#fff",
     // justifyContent: "center",

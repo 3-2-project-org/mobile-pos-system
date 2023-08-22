@@ -19,26 +19,24 @@ const SalesThankScreen = () => {
   }, []);
   return (
     <>
-      <Layout>
-        <View style={styles.container}>
-          <Text
-            style={{
-              marginTop: 32,
-              alignContent: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            Thank you page
-          </Text>
-          <MPSButton
-            buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesQrScanScreen")}
-            icon={<ForwardArrow />}
-          />
-        </View>
-      </Layout>
+      <View style={styles.container}>
+        <Text
+          style={{
+            marginTop: 32,
+            alignContent: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          Thank you page
+        </Text>
+        <MPSButton
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesQrScanScreen")}
+          icon={<ForwardArrow />}
+        />
+      </View>
     </>
   );
 };
@@ -48,6 +46,7 @@ export default SalesThankScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingHorizontal: 31,
     // flex: 1,
     // backgroundColor: "#fff",
     // justifyContent: "center",

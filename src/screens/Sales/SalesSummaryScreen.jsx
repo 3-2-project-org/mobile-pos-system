@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../../components/molecules/Layout";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import ForwardArrow from "../../assets/ForwardArrow";
 import MPSButton from "../../components/atoms/Button/Button";
@@ -19,27 +18,25 @@ const SalesSummaryScreen = () => {
   }, []);
   return (
     <>
-      <Layout>
-        <View style={styles.container}>
-          <Text
-            style={{
-              marginTop: 32,
-              alignContent: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            Sales Summary
-          </Text>
+      <View style={styles.container}>
+        <Text
+          style={{
+            marginTop: 32,
+            alignContent: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          Sales Summary
+        </Text>
 
-          <MPSButton
-            buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesThankScreen")}
-            icon={<ForwardArrow />}
-          />
-        </View>
-      </Layout>
+        <MPSButton
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesThankScreen")}
+          icon={<ForwardArrow />}
+        />
+      </View>
     </>
   );
 };
@@ -49,6 +46,7 @@ export default SalesSummaryScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingHorizontal: 31,
     // flex: 1,
     // backgroundColor: "#fff",
     // justifyContent: "center",

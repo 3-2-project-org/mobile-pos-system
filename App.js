@@ -6,6 +6,7 @@ import StackNavigator from "./src/navigations/StackNavigator";
 import Layout from "./src/components/molecules/Layout";
 import AuthStackNavigator from "./src/navigations/AuthStackNavigator";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {

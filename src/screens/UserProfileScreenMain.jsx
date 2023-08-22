@@ -1,45 +1,42 @@
-import { useState } from "react";
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import Layout from "../components/molecules/Layout";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useLayoutEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { BottomSheet, Button, ListItem } from "@rneui/themed";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import MPSButton from "../components/atoms/Button/Button";
 import MPSInputField from "../components/atoms/MPSInputField/MPSInputField";
+import MPSDoubleButton from "../components/atoms/Button/DoubleButton";
 import { BASIC_COLORS } from "../utils/constants/styles";
-import { BottomSheet, Button, ListItem } from "@rneui/themed";
-import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-const StatisticScreen = () => {
+import { TouchableOpacity } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
+const UserProfileScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
   const [isVisible, setIsVisible] = useState(false);
+
   return (
     <Layout>
       <SafeAreaProvider>
         <View style={styles.container}>
+          <View>
+            <EvilIcons name="user" size={124} color="#0FA958" />
+          </View>
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+            <Text style={styles.cardTitle}>Title</Text>
           </View>
         </View>
 
         <MPSButton
-          buttonStyle={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: 165,
-            alignContent: "center",
-            borderRadius: 10,
-            height: 46,
-            borderColor: BASIC_COLORS.PRIMARY,
-            borderWidth: 3,
-          }}
-          buttonTitle={" Add New Resource"}
+          buttonTitle={"Edit Information"}
           buttonType={"primary"}
           onPress={() => setIsVisible(true)}
         />
@@ -74,7 +71,7 @@ const StatisticScreen = () => {
               color: BASIC_COLORS.FONT_PRIMARY,
             }}
           >
-            Add New Resources
+            Edit Information
           </Text>
           <MPSInputField
             inputLabel={"Username"}
@@ -114,10 +111,37 @@ const StatisticScreen = () => {
               </Pressable>
             }
           />
-          <MPSButton
-            buttonTitle="Invite"
+          <MPSDoubleButton
+            button1Title="Cancel"
+            button2Title="Save"
+            button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
             button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-            onPress={() => console.log(" invite Button pressed")}
+            button1Style={{
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+
+              width: 165,
+              alignContent: "center",
+              borderRadius: 10,
+              height: 46,
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
+            }}
+            button2Style={{
+              backgroundColor: BASIC_COLORS.PRIMARY,
+              alignItems: "center",
+              justifyContent: "center",
+              width: 165,
+              alignContent: "center",
+              borderRadius: 10,
+              height: 46,
+
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
+            }}
+            onPress1={() => console.log(" cancel Button pressed")}
+            onPress2={() => console.log(" save Button pressed")}
             loading={false}
           />
         </BottomSheet>
@@ -172,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StatisticScreen;
+export default UserProfileScreen;

@@ -6,15 +6,28 @@ import {
   Button,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 
 const SalesQrScanScreen = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedData, setSelectedData] = useState("");
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [flash, setFlash] = useState(false);
   const [scannedData, setScannedData] = useState([]);
+
+  // const handleBarCodeScanned = ({ data }) => {
+  //   setScannedData([...scannedData, data]);
+  // };
+
+  const togglePopup = (data) => {
+    setSelectedData(data);
+    setShowPopup(!showPopup);
+  };
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -72,12 +85,13 @@ const SalesQrScanScreen = () => {
             onPress={() => setScanned(true)}
             style={styles.button}
           >
-            <Text style={styles.buttonText}>Start Scanning</Text>
+            <Text style={styles.buttonText}>Scan QR</Text>
           </TouchableOpacity>
         )}
       </View>
 
-      <FlatList
+      {/* <FlatList
+
         data={scannedData}
         renderItem={({ item }) => (
           <View style={styles.scannedDataContainer}>
@@ -85,7 +99,40 @@ const SalesQrScanScreen = () => {
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
-      />
+      /> */}
+      {/* Button to display data in a popup */}
+      <TouchableOpacity
+        onPress={() => togglePopup(scannedData)}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Show Scanned Data</Text>
+      </TouchableOpacity>
+
+      {/* Popup to display scanned data */}
+      <Modal
+        visible={showPopup}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowPopup(false)}
+      >
+        <View style={styles.popupContainer}>
+          <TouchableOpacity
+            onPress={() => setShowPopup(false)}
+            style={styles.closeButton}
+          >
+            <Icon name="close" size={25} color="#FFFFFF" />
+          </TouchableOpacity>
+          <FlatList
+            data={selectedData}
+            renderItem={({ item }) => (
+              <View style={styles.popupItem}>
+                <Text style={styles.popupItemText}>QR code: {item}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };

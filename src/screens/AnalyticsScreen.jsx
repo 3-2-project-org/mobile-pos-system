@@ -1,15 +1,27 @@
-import { useState } from "react";
-import React, { useLayoutEffect } from "react";
+import { React, useState, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import MPSButton from "../components/atoms/Button/Button";
 import MPSInputField from "../components/atoms/MPSInputField/MPSInputField";
 import { BASIC_COLORS } from "../utils/constants/styles";
 import { BottomSheet, Button, ListItem } from "@rneui/themed";
-import { TouchableOpacity } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+
+import {
+  Feather,
+  AntDesign,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
+
+import { Modal } from "react-native";
+
 const AnalyticsScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -18,6 +30,15 @@ const AnalyticsScreen = () => {
     });
   }, []);
   const [isVisible, setIsVisible] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
+
+  const handleTextClick = (text) => {
+    setSelectedText(text);
+    setModalVisible(true);
+  };
+
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
@@ -32,11 +53,46 @@ const AnalyticsScreen = () => {
           Employees
         </Text>
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
-          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
-          <Text style={styles.cardTitle}>table here </Text>
-          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
-          <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          <TouchableOpacity onPress={() => handleTextClick("Text 1 details")}>
+            <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleTextClick("Text 2 details")}>
+            <Text style={styles.cardTitle}>Titldsfdsfe</Text>
+          </TouchableOpacity>
+          {/* Other text elements */}
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <MaterialIcons name="close" size={24} color="green" />
+                </TouchableOpacity>
+
+                <Text>Employee Information</Text>
+                <FontAwesome5
+                  name="user-circle"
+                  size={48}
+                  color={BASIC_COLORS.PRIMARY}
+                />
+
+                <Text style={styles.modalText}>{selectedText}</Text>
+                <Text> name thushan </Text>
+                <Text> email sfsdf@dsf.com </Text>
+                <Text> phone 2342434 34324 </Text>
+
+                <MPSButton />
+                <MPSButton />
+              </View>
+            </View>
+          </Modal>
         </View>
 
         <MPSButton
@@ -193,12 +249,31 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     color: "#000",
-
     fontSize: 20,
     fontStyle: "normal",
     fontWeight: "600",
     lineHeight: 24,
     textAlign: "left",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  closeButton: {
+    alignSelf: "flex-end",
+    color: "blue",
   },
 });
 

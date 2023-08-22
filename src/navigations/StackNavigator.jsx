@@ -6,6 +6,7 @@ import SalesScreen from "../screens/Sales/SalesScreen";
 import SalesQrScanScreen from "../screens/Sales/SalesQrScanScreen";
 import SalesSummaryScreen from "../screens/Sales/SalesSummaryScreen";
 import SalesThankScreen from "../screens/Sales/SalesThankScreen";
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ const StackNavigator = () => {
       <Stack.Screen
         name="SalesThankScreen"
         component={SalesThankScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+         <Stack.Screen
+        name="AnalyticsScreen"
+        component={AnalyticsScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
     </Stack.Navigator>

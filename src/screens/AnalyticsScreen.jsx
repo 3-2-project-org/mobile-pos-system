@@ -1,42 +1,45 @@
-import Layout from "../components/molecules/Layout";
-import { useLayoutEffect } from "react";
+import { useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { BottomSheet, Button, ListItem } from "@rneui/themed";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import Layout from "../components/molecules/Layout";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import MPSButton from "../components/atoms/Button/Button";
 import MPSInputField from "../components/atoms/MPSInputField/MPSInputField";
-import MPSDoubleButton from "../components/atoms/Button/DoubleButton";
 import { BASIC_COLORS } from "../utils/constants/styles";
+import { BottomSheet, Button, ListItem } from "@rneui/themed";
+import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
-import { EvilIcons } from "@expo/vector-icons";
-const UserProfileScreen = () => {
+const AnalyticsScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
-
   const [isVisible, setIsVisible] = useState(false);
-
   return (
-    <Layout>
+
       <SafeAreaProvider>
         <View style={styles.container}>
-          <View>
-            <EvilIcons name="user" size={124} color="#0FA958" />
-          </View>
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Title</Text>
+            <Text style={styles.cardTitle}>Titldsfdsfe</Text>
           </View>
         </View>
 
         <MPSButton
-          buttonTitle={"Edit Information"}
+          buttonStyle={{
+            alignItems: "center",
+            justifyContent: "center",
+            width: 165,
+            alignContent: "center",
+            borderRadius: 10,
+            height: 46,
+            borderColor: BASIC_COLORS.PRIMARY,
+            borderWidth: 3,
+          }}
+          buttonTitle={" Add New Resource"}
           buttonType={"primary"}
           onPress={() => setIsVisible(true)}
         />
@@ -71,7 +74,7 @@ const UserProfileScreen = () => {
               color: BASIC_COLORS.FONT_PRIMARY,
             }}
           >
-            Edit Information
+            Add New Resources
           </Text>
           <MPSInputField
             inputLabel={"Username"}
@@ -111,42 +114,15 @@ const UserProfileScreen = () => {
               </Pressable>
             }
           />
-          <MPSDoubleButton
-            button1Title="Cancel"
-            button2Title="Save"
-            button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
+          <MPSButton
+            buttonTitle="Invite"
             button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-            button1Style={{
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
-
-              width: 165,
-              alignContent: "center",
-              borderRadius: 10,
-              height: 46,
-              borderColor: BASIC_COLORS.PRIMARY,
-              borderWidth: 3,
-            }}
-            button2Style={{
-              backgroundColor: BASIC_COLORS.PRIMARY,
-              alignItems: "center",
-              justifyContent: "center",
-              width: 165,
-              alignContent: "center",
-              borderRadius: 10,
-              height: 46,
-
-              borderColor: BASIC_COLORS.PRIMARY,
-              borderWidth: 3,
-            }}
-            onPress1={() => console.log(" cancel Button pressed")}
-            onPress2={() => console.log(" save Button pressed")}
+            onPress={() => console.log(" invite Button pressed")}
             loading={false}
           />
         </BottomSheet>
       </SafeAreaProvider>
-    </Layout>
+ 
   );
 };
 
@@ -196,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfileScreen;
+export default AnalyticsScreen;

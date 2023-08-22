@@ -10,8 +10,10 @@ const MPSDoubleButton = ({
   button2TitleStyle,
   button1Style,
   button2Style,
-  icon,
-  onPress,
+  icon1,
+  icon2,
+  onPress1,
+  onPress2,
   loading,
 }) => {
   return (
@@ -22,9 +24,9 @@ const MPSDoubleButton = ({
         
         buttonStyle={{ ...button1Style}}
         iconPosition="right"
-        icon={icon}
+        icon={icon1}
         iconRight={true}
-        onPress={onPress}
+        onPress={onPress1}
         loading={loading}
       />
 
@@ -34,9 +36,9 @@ const MPSDoubleButton = ({
      
         buttonStyle={{ ...button2Style, marginRight: 19 }}
         iconPosition="right"
-        icon={icon}
+        icon={icon2}
         iconRight={true}
-        onPress={onPress}
+        onPress={onPress2}
         loading={loading}
       />
     </View>

@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../components/molecules/Layout";
+import MPSGreetings from "../components/molecules/MPSGreetings/MPSGreetings";
+import SuperAdminAnalyticsView from "./SuperAdminAnalyticsView/SuperAdminAnalyticsView";
 
 const StatisticScreen = () => {
   const navigation = useNavigation();
@@ -12,10 +13,14 @@ const StatisticScreen = () => {
   }, []);
   return (
     <>
-      <View style={{
-        paddingHorizontal: 31,
-      }}>
-        <Text>StatisticScreen</Text>
+      <View
+        style={{
+          paddingHorizontal: 31,
+          marginTop: 27,
+        }}
+      >
+        <MPSGreetings />
+        <SuperAdminAnalyticsView />
       </View>
     </>
   );

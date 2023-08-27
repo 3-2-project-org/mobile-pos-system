@@ -9,7 +9,7 @@ import AuthStackNavigator from "./src/navigations/AuthStackNavigator";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(true);
   return (
     <>
       {!isUserLoggedIn ? (

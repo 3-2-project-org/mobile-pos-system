@@ -24,7 +24,6 @@ const SalesScreen = () => {
   }, []);
   return (
     <>
-
         <View style={styles.container}>
           <MPSButton
             buttonType={"primary"}
@@ -100,7 +99,6 @@ const SalesScreen = () => {
             />
           </View>
         </View>
-
     </>
   );
 };

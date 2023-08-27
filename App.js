@@ -13,19 +13,19 @@ export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(true);
   return (
     <>
-      {!isUserLoggedIn ? (
+      {/* {!isUserLoggedIn ? (
         <>
           <NavigationContainer>
             <AuthStackNavigator />
           </NavigationContainer>
         </>
-      ) : (
+      ) : ( */}
         <NavigationContainer>
           <Layout>
             <StackNavigator />
           </Layout>
         </NavigationContainer>
-      )}
+      {/* )} */}
     </>
   );
 }

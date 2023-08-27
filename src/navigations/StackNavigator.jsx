@@ -8,6 +8,7 @@ import SalesSummaryScreen from "../screens/Sales/SalesSummaryScreen";
 import SalesThankScreen from "../screens/Sales/SalesThankScreen";
 import SuperAdminInventoryOverview from "../screens/SuperAdminInventoryOverview/SuperAdminInventoryOverview";
 import SuperAdminAnalyticsOverview from "../screens/SuperAdminAnalyticsOverview/SuperAdminAnalyticsOverview";
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 
 const Stack = createStackNavigator();
 
@@ -57,7 +58,13 @@ const StackNavigator = () => {
       <Stack.Screen
         name="SuperAdminAnalyticsOverview"
         component={SuperAdminAnalyticsOverview}
-        options={{ headerShown: false }} // Hide header for SalesHomeScreen screen
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="AnalyticsScreen"
+        component={AnalyticsScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
     </Stack.Navigator>
   );

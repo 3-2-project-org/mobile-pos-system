@@ -1,13 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  FlatList,
+  Modal,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 
-export default function SalesQrScanScreen() {
+const SalesQrScanScreen = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedData, setSelectedData] = useState("");
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [flash, setFlash] = useState(false);
-  const [scannedData, setScannedData] = useState(null); // State variable to store scanned data
+  const [scannedData, setScannedData] = useState([]);
+
+  // const handleBarCodeScanned = ({ data }) => {
+  //   setScannedData([...scannedData, data]);
+  // };
+
+  const togglePopup = (data) => {
+    setSelectedData(data);
+    setShowPopup(!showPopup);
+  };
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -20,16 +40,12 @@ export default function SalesQrScanScreen() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setScannedData(data); // Store the scanned data in the state variable
+    setScannedData((prevData) => [...prevData, data]);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   const toggleFlash = () => {
     setFlash(!flash);
-  };
-
-  const toggleScanned = () => {
-    setScanned(false);
   };
 
   if (hasPermission === null) {
@@ -44,7 +60,7 @@ export default function SalesQrScanScreen() {
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={styles.camera}
-        // flashMode={flash ? BarCodeScanner.Constants.FlashMode.torch : BarCodeScanner.Constants.FlashMode.off}
+        //flashMode={flash ? BarCodeScanner.Constants.FlashMode.torch : BarCodeScanner.Constants.FlashMode.off}
       />
       <View style={styles.overlay}>
         <View style={styles.scanArea} />
@@ -57,32 +73,71 @@ export default function SalesQrScanScreen() {
             color="#FFFFFF"
           />
         </TouchableOpacity>
-        {scanned && (
-          <TouchableOpacity onPress={toggleScanned} style={styles.button}>
+        {scanned ? (
+          <TouchableOpacity
+            onPress={() => setScanned(false)}
+            style={styles.button}
+          >
             <Text style={styles.buttonText}>Tap to Scan Again</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => setScanned(true)}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Scan QR</Text>
           </TouchableOpacity>
         )}
       </View>
 
-      <View>
-        <Button title={"Scan QR Code"} onPress={() => setScanned(false)} />
-        {scanned && (
-          <Button
-            title={"Tap to Scan Again"}
-            onPress={() => setScanned(false)}
-          />
-        )}
-      </View>
+      {/* <FlatList
 
-      {/* Display the scanned data */}
-      {scannedData && (
-        <View style={styles.scannedDataContainer}>
-          <Text style={styles.scannedDataText}>{scannedData}</Text>
+        data={scannedData}
+        renderItem={({ item }) => (
+          <View style={styles.scannedDataContainer}>
+            <Text style={styles.scannedDataText}>QR code: {item}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      /> */}
+      {/* Button to display data in a popup */}
+      <TouchableOpacity
+        onPress={() => togglePopup(scannedData)}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Show Scanned Data</Text>
+      </TouchableOpacity>
+
+      {/* Popup to display scanned data */}
+      <Modal
+        visible={showPopup}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowPopup(false)}
+      >
+        <View style={styles.popupContainer}>
+          <TouchableOpacity
+            onPress={() => setShowPopup(false)}
+            style={styles.closeButton}
+          >
+            <Icon name="close" size={25} color="#FFFFFF" />
+          </TouchableOpacity>
+          <FlatList
+            data={selectedData}
+            renderItem={({ item }) => (
+              <View style={styles.popupItem}>
+                <Text style={styles.popupItemText}>QR code: {item}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
-      )}
+      </Modal>
     </View>
   );
-}
+};
+
+export default SalesQrScanScreen;
 
 const overlayColor = "rgba(0, 255, 0, 0.5)";
 
@@ -122,7 +177,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF",
-    fontFamily: "Roboto-BoldItalic",
     textAlign: "center",
   },
   scannedDataContainer: {

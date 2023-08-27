@@ -10,7 +10,7 @@ import Search from "../../components/atoms/Search/Search";
 import ForwardArrow from "../../assets/ForwardArrow";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
-
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 const SalesScreen = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
@@ -93,9 +93,40 @@ const SalesScreen = () => {
           <View style={styles.buttonContainer}>
             <MPSDoubleButton
               buttonType={"primary"}
-              onPress={() => navigation.navigate("SalesSummaryScreen")}
-              icon={<ForwardArrow />}
               style={styles.button}
+              button1Title="Checkout"
+              button2Title="Next Item"
+              button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
+              button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
+              button1Style={{
+                backgroundColor: "white",
+                alignItems: "center",
+                justifyContent: "center",
+
+                width: 165,
+                alignContent: "center",
+                borderRadius: 10,
+                height: 46,
+                borderColor: BASIC_COLORS.PRIMARY,
+                borderWidth: 3,
+              }}
+              button2Style={{
+                backgroundColor: BASIC_COLORS.PRIMARY,
+                alignItems: "center",
+                justifyContent: "center",
+                width: 165,
+                alignContent: "center",
+                borderRadius: 10,
+                height: 46,
+
+                borderColor: BASIC_COLORS.PRIMARY,
+                borderWidth: 3,
+              }}
+              icon2={<ForwardArrow />}
+              icon1={<MaterialCommunityIcons name="cart-arrow-right" size={24} color="#0FA958" />}
+              onPress2={() => navigation.navigate("SalesSummaryScreen")}
+              onPress1={() => navigation.navigate("SalesSummaryScreen")}
+              loading={false}
             />
           </View>
         </View>

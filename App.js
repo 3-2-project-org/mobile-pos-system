@@ -20,11 +20,13 @@ export default function App() {
           </NavigationContainer>
         </>
       ) : ( */}
+
         <NavigationContainer>
-          <Layout>
+        <Layout>
             <StackNavigator />
-          </Layout>
+            </Layout>
         </NavigationContainer>
+       
       {/* )} */}
     </>
   );

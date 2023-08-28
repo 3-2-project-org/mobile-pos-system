@@ -28,12 +28,14 @@ const SalesScreen = () => {
           <MPSButton
             buttonType={"primary"}
             onPress={() => navigation.navigate("SalesQrScanScreen")}
-            icon={<ForwardArrow />}
+        buttonStyle={{marginTop:30}}
+            buttonTitle={"Scan QR Code"}
           />
 
           <Text
             style={{
               marginTop: 32,
+              paddingHorizontal:150,
               alignContent: "center",
               fontSize: 20,
               fontWeight: "bold",
@@ -57,6 +59,7 @@ const SalesScreen = () => {
             //  onChangeText={(text) => console.log(text)}
             onChangeText={onValueChange}
             value={value}
+      
             icon={
               <Pressable onPress={() => alert("Search icon pressed")}>
                 <Feather
@@ -70,7 +73,7 @@ const SalesScreen = () => {
           />
 
           <TouchableCard
-            cardTitle={"Make A Sale"}
+            cardTitle={"add tables here "}
             cardDescription={
               "Record all incoming stocks details in a efficient way here"
             }
@@ -81,7 +84,7 @@ const SalesScreen = () => {
           />
 
           <TouchableCard
-            cardTitle={"Make A Sale"}
+            cardTitle={"add tables here "}
             cardDescription={
               "Record all incoming stocks details in a efficient way here"
             }

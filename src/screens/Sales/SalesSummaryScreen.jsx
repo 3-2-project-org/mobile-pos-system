@@ -31,10 +31,25 @@ const SalesSummaryScreen = () => {
           Sales Summary
         </Text>
 
+
+        <Text
+          style={{
+            marginTop: 32,
+            alignContent: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          add tables here!
+        </Text>
+
         <MPSButton
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesThankScreen")}
           icon={<ForwardArrow />}
+          buttonTitle={'Complete Transaction'}
+          buttonStyle={{marginTop:450}}
         />
       </View>
     </>

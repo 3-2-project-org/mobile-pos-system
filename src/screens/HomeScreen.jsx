@@ -43,6 +43,16 @@ const SalesHomeScreen = () => {
           icon={<CardIcon />}
         />
 
+
+<TouchableCard
+          cardTitle={"inventory"}
+          cardDescription={
+            "Record all incoming stocks details in a efficient way here"
+          }
+          onPress={() => navigation.navigate("InventoryHomeScreen")}
+          icon={<CardIcon />}
+        />
+
         <Text
           style={{
             marginTop: 48,

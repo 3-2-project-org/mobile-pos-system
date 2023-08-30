@@ -3,10 +3,13 @@ import React, { useEffect, useRef } from "react";
 import MPSTopAppBar from "./MPSTopAppBar/MPSTopAppBar";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSRolePopperContainer from "./MPSRolesPopperContainer/MPSRolePopperContainer";
+import { useDispatch } from "react-redux";
+import { setRole } from "../../redux/slices/rolesSlice";
 
 const Layout = ({ children }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
+  const dispatch = useDispatch();
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -25,6 +28,7 @@ const Layout = ({ children }) => {
   const switchUserRole = (role) => {
     setSelectedOption(role);
     setShowRolesPopper(false);
+    dispatch(setRole(role));
   };
   return (
     <>

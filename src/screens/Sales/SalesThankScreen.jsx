@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import email from "react-native-email"; // Import the email library
-import Layout from "../../components/molecules/Layout";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";

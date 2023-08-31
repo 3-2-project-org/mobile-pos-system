@@ -1,9 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../../components/molecules/Layout";
-import TouchableCard from "../../components/atoms/Card/Card";
-import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 const InventoryQrPrint = () => {
@@ -24,16 +21,13 @@ const InventoryQrPrint = () => {
           color: BASIC_COLORS.FONT_PRIMARY,
         }}
       >
-     Item QR Code
+        Item QR Code
       </Text>
 
-
       <MPSButton
-          buttonTitle={"Print"}
-          onPress={() => navigation.navigate("InventoryQrPrint")}
-        />
- 
-
+        buttonTitle={"Print"}
+        onPress={() => navigation.navigate("InventoryQrPrint")}
+      />
     </View>
   );
 };

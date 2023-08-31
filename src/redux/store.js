@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import rolesReducer from "./slices/rolesSlice";
 
 export const store  = configureStore({
-    reducer: {}
+    reducer: {
+        roles: rolesReducer
+    }
 })

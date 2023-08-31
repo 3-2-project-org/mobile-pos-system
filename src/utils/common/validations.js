@@ -27,5 +27,4 @@ export const registerValidation = Yup.object().shape({
     [true],
     "Accept Terms & Conditions is required"
   ),
-  
 });

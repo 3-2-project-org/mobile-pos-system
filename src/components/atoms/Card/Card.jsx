@@ -23,15 +23,32 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
             elevation: 5,
           }}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            {cardTitle}
-          </Text>
+          <View style={{
+            display: "flex",
+            flexDirection: "row",
+          }}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                marginRight: 10,
+              }}
+            >
+              {icon}
+            </View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: BASIC_COLORS.FONT_PRIMARY,
+              }}
+            >
+              {cardTitle}
+            </Text>
+          </View>
+
           <Text
             style={{
               marginTop: 8,
@@ -41,16 +58,6 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
           >
             {cardDescription}
           </Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "flex-end",
-              justifyContent: "flex-end",
-            }}
-          >
-            {icon}
-          </View>
         </View>
       </TouchableOpacity>
     </>

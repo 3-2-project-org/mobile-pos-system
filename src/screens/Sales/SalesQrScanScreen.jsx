@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
+import { BASIC_COLORS } from "../../utils/constants/styles";
 
 const SalesQrScanScreen = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -138,14 +139,14 @@ const SalesQrScanScreen = () => {
 
 export default SalesQrScanScreen;
 
-const overlayColor = "rgba(0, 255, 0, 0.5)";
+const overlayColor = BASIC_COLORS.PRIMARY;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    paddingHorizontal: 31,
+    paddingHorizontal: 20,
   },
   camera: {
     flex: 1,
@@ -158,24 +159,27 @@ const styles = StyleSheet.create({
   scanArea: {
     width: 200,
     height: 200,
-    borderWidth: 2,
+    borderWidth: 1.6,
     borderColor: overlayColor,
     backgroundColor: "transparent",
+    marginBottom: 150,
   },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 0,
   },
   button: {
-    backgroundColor: "#44B038",
+    backgroundColor: BASIC_COLORS.PRIMARY,
     padding: 10,
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    marginBottom: 30,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: BASIC_COLORS.WHITE,
     textAlign: "center",
   },
   scannedDataContainer: {

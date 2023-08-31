@@ -20,10 +20,6 @@ const SalesQrScanScreen = () => {
   const [flash, setFlash] = useState(false);
   const [scannedData, setScannedData] = useState([]);
 
-  // const handleBarCodeScanned = ({ data }) => {
-  //   setScannedData([...scannedData, data]);
-  // };
-
   const togglePopup = (data) => {
     setSelectedData(data);
     setShowPopup(!showPopup);
@@ -89,17 +85,6 @@ const SalesQrScanScreen = () => {
           </TouchableOpacity>
         )}
       </View>
-
-      {/* <FlatList
-
-        data={scannedData}
-        renderItem={({ item }) => (
-          <View style={styles.scannedDataContainer}>
-            <Text style={styles.scannedDataText}>QR code: {item}</Text>
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      /> */}
       {/* Button to display data in a popup */}
       <TouchableOpacity
         onPress={() => togglePopup(scannedData)}
@@ -120,7 +105,7 @@ const SalesQrScanScreen = () => {
             onPress={() => setShowPopup(false)}
             style={styles.closeButton}
           >
-            <Icon name="close" size={25} color="#FFFFFF" />
+            <Icon name="close" size={35} color={BASIC_COLORS.PRIMARY} />
           </TouchableOpacity>
           <FlatList
             data={selectedData}
@@ -148,6 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
   },
+
   camera: {
     flex: 1,
   },

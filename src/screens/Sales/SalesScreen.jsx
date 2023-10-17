@@ -7,10 +7,15 @@ import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
 import Search from "../../components/atoms/Search/Search";
 import ForwardArrow from "../../assets/ForwardArrow";
+import QrIcon from "../../assets/QrIcon";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+<<<<<<< HEAD
 import QR from "../../assets/QR";
+=======
+
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
 const SalesScreen = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
@@ -26,6 +31,7 @@ const SalesScreen = () => {
     <>
       <View style={styles.container}>
         <MPSButton
+<<<<<<< HEAD
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesQrScanScreen")}
           buttonStyle={{ marginTop: 30 }}
@@ -34,12 +40,25 @@ const SalesScreen = () => {
         
 
         />
+=======
+         icon={<QrIcon />}
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesQrScanScreen")}
+         
+          buttonTitle={"Scan QR Code"}
+        />
+        
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
 
         <Text
           style={{
             marginTop: 32,
+<<<<<<< HEAD
             paddingHorizontal: 150,
             alignContent: "center",
+=======
+            marginLeft: 160,
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
             fontSize: 20,
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
@@ -52,6 +71,10 @@ const SalesScreen = () => {
             fontSize: 16,
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
+<<<<<<< HEAD
+=======
+            marginBottom:13,
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
           }}
         >
           Find By Item Code
@@ -75,7 +98,11 @@ const SalesScreen = () => {
         />
 
         <TouchableCard
+<<<<<<< HEAD
           cardTitle={"add tables here "}
+=======
+          cardTitle={"Make A Sale"}
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
           cardDescription={
             "Record all incoming stocks details in a efficient way here"
           }
@@ -86,7 +113,11 @@ const SalesScreen = () => {
         />
 
         <TouchableCard
+<<<<<<< HEAD
           cardTitle={"add tables here "}
+=======
+          cardTitle={"Make A Sale"}
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
           cardDescription={
             "Record all incoming stocks details in a efficient way here"
           }

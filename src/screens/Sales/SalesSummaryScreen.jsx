@@ -47,9 +47,14 @@ const SalesSummaryScreen = () => {
         <MPSButton
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesThankScreen")}
+<<<<<<< HEAD
           icon={<ForwardArrow />}
           buttonTitle={'Complete Transaction'}
           buttonStyle={{marginTop:450}}
+=======
+       
+          buttonTitle={"Complete Transaction"}
+>>>>>>> 65dbd5a9ba35ade7858b2948da1585bce6518320
         />
       </View>
     </>

@@ -8,9 +8,11 @@ import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
 import Search from "../../components/atoms/Search/Search";
 import ForwardArrow from "../../assets/ForwardArrow";
+import QrIcon from "../../assets/QrIcon";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const SalesScreen = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
@@ -24,112 +26,122 @@ const SalesScreen = () => {
   }, []);
   return (
     <>
-        <View style={styles.container}>
-          <MPSButton
+      <View style={styles.container}>
+        <MPSButton
+         icon={<QrIcon />}
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesQrScanScreen")}
+         
+          buttonTitle={"Scan QR Code"}
+        />
+        
+
+        <Text
+          style={{
+            marginTop: 32,
+            marginLeft: 160,
+            fontSize: 20,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          OR
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+            marginBottom:13,
+          }}
+        >
+          Find By Item Code
+        </Text>
+
+        <Search
+          placeholder={"Item code"}
+          //  onChangeText={(text) => console.log(text)}
+          onChangeText={onValueChange}
+          value={value}
+          icon={
+            <Pressable onPress={() => alert("Search icon pressed")}>
+              <Feather
+                name="search"
+                size={24}
+                color="#625D5D"
+                style={{ marginRight: 10 }}
+              />
+            </Pressable>
+          }
+        />
+
+        <TouchableCard
+          cardTitle={"Make A Sale"}
+          cardDescription={
+            "Record all incoming stocks details in a efficient way here"
+          }
+          onPress={() => {
+            console.log("Card Clicked");
+          }}
+          icon={<CardIcon />}
+        />
+
+        <TouchableCard
+          cardTitle={"Make A Sale"}
+          cardDescription={
+            "Record all incoming stocks details in a efficient way here"
+          }
+          onPress={() => {
+            console.log("Card Clicked");
+          }}
+          icon={<CardIcon />}
+        />
+        <View style={styles.buttonContainer}>
+          <MPSDoubleButton
             buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesQrScanScreen")}
-            icon={<ForwardArrow />}
-          />
+            style={styles.button}
+            button1Title="Checkout"
+            button2Title="Next Item"
+            button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
+            button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
+            button1Style={{
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
 
-          <Text
-            style={{
-              marginTop: 32,
+              width: 165,
               alignContent: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
+              borderRadius: 10,
+              height: 46,
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
             }}
-          >
-            OR
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            Find By Item Code
-          </Text>
+            button2Style={{
+              backgroundColor: BASIC_COLORS.PRIMARY,
+              alignItems: "center",
+              justifyContent: "center",
+              width: 165,
+              alignContent: "center",
+              borderRadius: 10,
+              height: 46,
 
-          <Search
-            placeholder={"Item code"}
-            //  onChangeText={(text) => console.log(text)}
-            onChangeText={onValueChange}
-            value={value}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <Feather
-                  name="search"
-                  size={24}
-                  color="#625D5D"
-                  style={{ marginRight: 10 }}
-                />
-              </Pressable>
+              borderColor: BASIC_COLORS.PRIMARY,
+              borderWidth: 3,
+            }}
+            icon2={<ForwardArrow />}
+            icon1={
+              <MaterialCommunityIcons
+                name="cart-arrow-right"
+                size={24}
+                color="#0FA958"
+              />
             }
+            onPress2={() => navigation.navigate("SalesSummaryScreen")}
+            onPress1={() => navigation.navigate("SalesSummaryScreen")}
+            loading={false}
           />
-
-          <TouchableCard
-            cardTitle={"Make A Sale"}
-            cardDescription={
-              "Record all incoming stocks details in a efficient way here"
-            }
-            onPress={() => {
-              console.log("Card Clicked");
-            }}
-            icon={<CardIcon />}
-          />
-
-          <TouchableCard
-            cardTitle={"Make A Sale"}
-            cardDescription={
-              "Record all incoming stocks details in a efficient way here"
-            }
-            onPress={() => {
-              console.log("Card Clicked");
-            }}
-            icon={<CardIcon />}
-          />
-          <View style={styles.buttonContainer}>
-            <MPSDoubleButton
-              buttonType={"primary"}
-              style={styles.button}
-              button1Title="Checkout"
-              button2Title="Next Item"
-              button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
-              button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-              button1Style={{
-                backgroundColor: "white",
-                alignItems: "center",
-                justifyContent: "center",
-
-                width: 165,
-                alignContent: "center",
-                borderRadius: 10,
-                height: 46,
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
-              }}
-              button2Style={{
-                backgroundColor: BASIC_COLORS.PRIMARY,
-                alignItems: "center",
-                justifyContent: "center",
-                width: 165,
-                alignContent: "center",
-                borderRadius: 10,
-                height: 46,
-
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
-              }}
-              icon2={<ForwardArrow />}
-              icon1={<MaterialCommunityIcons name="cart-arrow-right" size={24} color="#0FA958" />}
-              onPress2={() => navigation.navigate("SalesSummaryScreen")}
-              onPress1={() => navigation.navigate("SalesSummaryScreen")}
-              loading={false}
-            />
-          </View>
         </View>
+      </View>
     </>
   );
 };

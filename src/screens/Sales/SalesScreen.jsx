@@ -56,12 +56,13 @@ const SalesScreen = () => {
             buttonType={"primary"}
             onPress={() => navigation.navigate("SalesQrScanScreen")}
             buttonTitle={"Scan QR Code"}
+            buttonStyle={{ height: 67 }}
           />
 
           <Text
             style={{
               marginTop: 32,
-              marginLeft: 160,
+              textAlign: "center",
               fontSize: 20,
               fontWeight: "bold",
               color: BASIC_COLORS.FONT_PRIMARY,

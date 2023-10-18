@@ -28,6 +28,7 @@ const InventoryScreen = () => {
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesQrScanScreen")}
           buttonTitle={"Scan QR Code"}
+          buttonStyle={{height:67}}
         />
 
         <Text

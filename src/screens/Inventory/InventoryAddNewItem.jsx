@@ -28,7 +28,7 @@ const InventoryAddNewItem = () => {
           style={{
             fontSize: 24,
             marginTop:20,
-           paddingLeft:69,
+            textAlign:'center',
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
@@ -111,7 +111,7 @@ const InventoryAddNewItem = () => {
             fontSize: 20,
             marginTop:30,
             fontWeight: "bold",
-            paddingLeft:129,
+            textAlign:'center',
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
         >

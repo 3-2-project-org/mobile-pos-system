@@ -9,10 +9,8 @@ import {
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import { BASIC_COLORS } from "../../utils/constants/styles";
-import { green } from "color-name";
 
-const SalesQrScanScreen = () => {
+const InventoryQrScanScreen = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedData, setSelectedData] = useState("");
 
@@ -20,6 +18,10 @@ const SalesQrScanScreen = () => {
   const [scanned, setScanned] = useState(false);
   const [flash, setFlash] = useState(false);
   const [scannedData, setScannedData] = useState([]);
+
+  // const handleBarCodeScanned = ({ data }) => {
+  //   setScannedData([...scannedData, data]);
+  // };
 
   const togglePopup = (data) => {
     setSelectedData(data);
@@ -87,6 +89,17 @@ const SalesQrScanScreen = () => {
         )}
       </View>
 
+      {/* <FlatList
+
+        data={scannedData}
+        renderItem={({ item }) => (
+          <View style={styles.scannedDataContainer}>
+            <Text style={styles.scannedDataText}>QR code: {item}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      /> */}
+      {/* Button to display data in a popup */}
       <TouchableOpacity
         onPress={() => togglePopup(scannedData)}
         style={styles.button}
@@ -94,51 +107,48 @@ const SalesQrScanScreen = () => {
         <Text style={styles.buttonText}>Show Scanned Data</Text>
       </TouchableOpacity>
 
+      {/* Popup to display scanned data */}
       <Modal
         visible={showPopup}
         animationType="slide"
+        transparent={true}
         onRequestClose={() => setShowPopup(false)}
       >
-        <View style={{ marginTop: 30 }}>
+        <View style={styles.popupContainer}>
           <TouchableOpacity
             onPress={() => setShowPopup(false)}
             style={styles.closeButton}
           >
-            <Icon name="close" size={35} color={BASIC_COLORS.PRIMARY} />
+            <Icon name="close" size={25} color="#FFFFFF" />
           </TouchableOpacity>
-
-          <View style={{ marginTop: 30, paddingLeft:30 }}>
-            <FlatList
-              data={selectedData}
-              renderItem={({ item }) => (
-                <View style={styles.popupItem}>
-                  <Text style={styles.popupItemText}>QR code: {item}</Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
+          <FlatList
+            data={selectedData}
+            renderItem={({ item }) => (
+              <View style={styles.popupItem}>
+                <Text style={styles.popupItemText}>QR code: {item}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
       </Modal>
     </View>
   );
 };
 
-export default SalesQrScanScreen;
+export default InventoryQrScanScreen;
 
-const overlayColor = BASIC_COLORS.PRIMARY;
+const overlayColor = "rgba(0, 255, 0, 0.5)";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 31,
   },
-
   camera: {
     flex: 1,
-    marginTop: 20,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -148,27 +158,24 @@ const styles = StyleSheet.create({
   scanArea: {
     width: 200,
     height: 200,
-    borderWidth: 1.6,
+    borderWidth: 2,
     borderColor: overlayColor,
     backgroundColor: "transparent",
-    marginBottom: 150,
   },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 0,
+    marginTop: 20,
   },
   button: {
-    backgroundColor: BASIC_COLORS.PRIMARY,
+    backgroundColor: "#44B038",
     padding: 10,
     borderRadius: 10,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    marginBottom: 30,
+    marginHorizontal: 10,
   },
   buttonText: {
-    color: BASIC_COLORS.WHITE,
+    color: "#FFFFFF",
     textAlign: "center",
   },
   scannedDataContainer: {

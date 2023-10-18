@@ -22,9 +22,9 @@ export default function App() {
         </>
       ) : (
         <NavigationContainer>
-          <Layout>
+        <Layout>
             <StackNavigator />
-          </Layout>
+            </Layout>
         </NavigationContainer>
       )}
     </Provider>

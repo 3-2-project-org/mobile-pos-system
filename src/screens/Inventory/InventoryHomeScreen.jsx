@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import TouchableCard from "../../components/atoms/Card/Card";
-import CardIcon from "../assets/material-symbols_inventory.svg";
+import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
-const SalesHomeScreen = () => {
+const InventoryHomeScreen = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,40 +34,35 @@ const SalesHomeScreen = () => {
         Good Morning!
       </Text>
       <TouchableCard
-        cardTitle={"Make A Sale"}
+        cardTitle={"Manage incoming Stocks"}
         cardDescription={
           "Record all incoming stocks details in a efficient way here"
         }
-        onPress={() => {
-          console.log("Card Clicked");
-        }}
+        onPress={() => navigation.navigate("InventoryScreen")}
         icon={<CardIcon />}
       />
 
-      <Text
-        style={{
-          marginTop: 48,
-          fontSize: 20,
-          fontWeight: "bold",
-          color: BASIC_COLORS.FONT_PRIMARY,
-        }}
-      >
-        Quick Analysis On Your Works
-      </Text>
-      <Text
-        style={{
-          marginTop: 10,
-          fontSize: 16,
-          color: BASIC_COLORS.FONT_SECONDARY,
-        }}
-      >
-        This section show how you performed during the last 7 days
-      </Text>
+      <TouchableCard
+        cardTitle={"Record new incoming item"}
+        cardDescription={
+          "Just arrived!!! Record the item here to keep track of it"
+        }
+        onPress={() => navigation.navigate("InventorySummaryScreen")}
+        icon={<CardIcon />}
+      />
+      <TouchableCard
+        cardTitle={"View all available items"}
+        cardDescription={
+          "Get an detailed idea about all the available items in the stocks"
+        }
+        onPress={() => navigation.navigate("InventorySummaryScreen")}
+        icon={<CardIcon />}
+      />
     </View>
   );
 };
 
-export default SalesHomeScreen;
+export default InventoryHomeScreen;
 
 const styles = StyleSheet.create({
   container: {

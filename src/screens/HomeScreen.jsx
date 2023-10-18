@@ -1,11 +1,57 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import Layout from "../components/molecules/Layout";
+import { LineChart } from "react-native-chart-kit";
 import TouchableCard from "../components/atoms/Card/Card";
 import CardIcon from "../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../utils/constants/styles";
 const SalesHomeScreen = () => {
+  const [index, setIndex] = React.useState(0);
+  const data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43, 50, 20, 45, 28, 80, 99],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        strokeWidth: 2,
+      },
+      {
+        data: [88, 99, 43, 50, 20, 45, 28, 80, 99, 43, 50, 20],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        strokeWidth: 2,
+      },
+    ],
+  };
+
+  const moveChart = (dir) => {
+    dir === "left" ? setIndex(0) : setIndex(6);
+  };
+  const chartData = () => {
+    return {
+      labels: index === 0 ? data.labels.slice(0, 6) : data.labels.slice(6, 12),
+      datasets: data.datasets.map((set) => {
+        return {
+          data: index === 0 ? set.data.slice(0, 6) : set.data.slice(6, 12),
+          color: set.color,
+          strokeWidth: set.strokeWidth,
+        };
+      }),
+    };
+  };
+
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,12 +80,33 @@ const SalesHomeScreen = () => {
         >
           Good Morning!
         </Text>
+
+
+
+
+
+
+
+<ScrollView>
+
+
+
+
         <TouchableCard
           cardTitle={"Make A Sale"}
           cardDescription={
             "Record all incoming stocks details in a efficient way here"
           }
           onPress={() => navigation.navigate("SalesScreen")}
+          icon={<CardIcon />}
+        />
+
+        <TouchableCard
+          cardTitle={"inventory"}
+          cardDescription={
+            "Record all incoming stocks details in a efficient way here"
+          }
+          onPress={() => navigation.navigate("InventoryHomeScreen")}
           icon={<CardIcon />}
         />
 
@@ -62,6 +129,46 @@ const SalesHomeScreen = () => {
         >
           This section show how you performed during the last 7 days
         </Text>
+        <View
+          style={{
+            backgroundColor: BASIC_COLORS.WHITE,
+            borderRadius: 10,
+            //   paddingHorizontal: 10,
+            paddingVertical: 20,
+            marginTop: 20,
+            elevation: 2,
+          }}
+        >
+          <LineChart
+            data={chartData()}
+            width={350}
+            height={220}
+            yAxisInterval={1}
+            verticalLabelRotation={30}
+            chartConfig={{
+              backgroundColor: "#fff",
+              backgroundGradientFrom: "#fff",
+              backgroundGradientTo: "#fff",
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `#000`,
+              style: {
+                borderRadius: 16,
+              },
+              propsForDots: {
+                r: "4",
+                strokeWidth: "1",
+                stroke: "#ffa726",
+              },
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16,
+            }}
+          />
+        </View>
+        </ScrollView>
       </View>
     </>
   );

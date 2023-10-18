@@ -9,6 +9,12 @@ import SalesThankScreen from "../screens/Sales/SalesThankScreen";
 import SuperAdminInventoryOverview from "../screens/SuperAdminInventoryOverview/SuperAdminInventoryOverview";
 import SuperAdminAnalyticsOverview from "../screens/SuperAdminAnalyticsOverview/SuperAdminAnalyticsOverview";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
+import InventoryHomeScreen from "../screens/Inventory/InventoryHomeScreen";
+import InventoryQrScanScreen from "../screens/Inventory/InventoryQrScanScreen";
+import InventoryScreen from "../screens/Inventory/InventoryScreen";
+import InventorySummaryScreen from "../screens/Inventory/InventorySummaryScreen";
+import InventoryQrPrint from "../screens/Inventory/inventoryQrPrint";
+import InventoryAddNewItem from "../screens/Inventory/InventoryAddNewItem";
 
 const Stack = createStackNavigator();
 
@@ -48,7 +54,6 @@ const StackNavigator = () => {
         component={SalesThankScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
-
       <Stack.Screen
         name="SuperAdminInventoryOverview"
         component={SuperAdminInventoryOverview}
@@ -66,6 +71,57 @@ const StackNavigator = () => {
         component={AnalyticsScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
+
+      <Stack.Screen
+        name="InventoryHomeScreen"
+        component={InventoryHomeScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+
+<Stack.Screen
+
+        name="InventoryQrScanScreen"
+        component={InventoryQrScanScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+<Stack.Screen
+        name="InventoryScreen"
+        component={InventoryScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+<Stack.Screen
+        name="InventorySummaryScreen"
+        component={InventorySummaryScreen}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+
+<Stack.Screen
+        name="InventoryQrPrint"
+        component={InventoryQrPrint}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+
+
+<Stack.Screen
+        name="InventoryAddNewItem"
+        component={InventoryAddNewItem}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+
+
+
+
+
+
+
+
+
     </Stack.Navigator>
   );
 };

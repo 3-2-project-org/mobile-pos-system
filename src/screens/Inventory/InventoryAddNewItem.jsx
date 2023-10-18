@@ -23,21 +23,12 @@ const InventoryAddNewItem = () => {
   return (
     <>
       <View style={styles.container}>
+     
         <Text
           style={{
-            marginTop: 32,
-            paddingHorizontal: 150,
-            alignContent: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          OR
-        </Text>
-        <Text
-          style={{
-            fontSize: 16,
+            fontSize: 24,
+            marginTop:20,
+           paddingLeft:69,
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
@@ -107,22 +98,35 @@ const InventoryAddNewItem = () => {
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesQrScanScreen")}
           buttonTitle={"Scan QR Code"}
+          buttonStyle={{marginTop:30,  height:67}}
+
+
+
+       
         />
 
         <Text
           style={{
-            fontSize: 16,
+            
+            fontSize: 20,
+            marginTop:30,
             fontWeight: "bold",
+            paddingLeft:129,
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
         >
           OR
         </Text>
 
+
+
+       
+<View style={{ marginTop: 30 }}>
         <Search
           placeholder={"Item code"}
-          //  onChangeText={(text) => console.log(text)}
+         
           onChangeText={onValueChange}
+      
           value={value}
           icon={
             <Pressable onPress={() => alert("Search icon pressed")}>
@@ -136,10 +140,15 @@ const InventoryAddNewItem = () => {
           }
         />
 
-        <View style={{ marginTop: 30 }}>
+
+
+</View>
+
+        <View style={{ marginTop: 50 }}>
           <MPSButton
             buttonTitle={"Ok"}
             onPress={() => navigation.navigate("InventoryAddNewItem")}
+            buttonStyle={{ height:67 }}
           />
         </View>
       </View>
@@ -163,7 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
     borderRadius: 8,
-    marginTop: 13,
+    marginTop: 30,
   },
   row: {
     flexDirection: "row",

@@ -173,10 +173,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginHorizontal: 10,
+    
   },
   buttonText: {
     color: "#FFFFFF",
     textAlign: "center",
+   
   },
   scannedDataContainer: {
     marginTop: 20,

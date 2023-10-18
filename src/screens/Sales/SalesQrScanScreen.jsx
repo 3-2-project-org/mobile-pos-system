@@ -107,7 +107,7 @@ const SalesQrScanScreen = () => {
             <Icon name="close" size={35} color={BASIC_COLORS.PRIMARY} />
           </TouchableOpacity>
 
-          <View style={{ marginTop: 30, paddingLeft:30 }}>
+          <View style={{ marginTop: 30, paddingLeft: 30 }}>
             <FlatList
               data={selectedData}
               renderItem={({ item }) => (

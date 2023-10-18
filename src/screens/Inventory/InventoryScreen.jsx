@@ -131,6 +131,7 @@ const InventoryScreen = () => {
             icon={<QrIcon />}
             buttonTitle={"View QR Code"}
             onPress={() => navigation.navigate("InventoryQrPrint")}
+            buttonStyle={{height:67}}
           />
         </View>
 
@@ -138,6 +139,7 @@ const InventoryScreen = () => {
           <MPSButton
             buttonTitle={"Add Item"}
             onPress={() => navigation.navigate("InventoryAddNewItem")}
+            buttonStyle={{height:67}}
           />
         </View>
       </View>

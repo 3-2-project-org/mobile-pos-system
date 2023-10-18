@@ -78,7 +78,7 @@ const SuperAdminInventoryOverview = () => {
           fontWeight: "700",
         }}
       >
-        Inventory Overview 
+        Inventory Overview
       </Text>
 
       <View

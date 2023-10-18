@@ -10,6 +10,7 @@ import {
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { BASIC_COLORS } from "../../utils/constants/styles";
+import { green } from "color-name";
 
 const SalesQrScanScreen = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -85,7 +86,7 @@ const SalesQrScanScreen = () => {
           </TouchableOpacity>
         )}
       </View>
-      {/* Button to display data in a popup */}
+
       <TouchableOpacity
         onPress={() => togglePopup(scannedData)}
         style={styles.button}
@@ -93,29 +94,30 @@ const SalesQrScanScreen = () => {
         <Text style={styles.buttonText}>Show Scanned Data</Text>
       </TouchableOpacity>
 
-      {/* Popup to display scanned data */}
       <Modal
         visible={showPopup}
         animationType="slide"
-        transparent={true}
         onRequestClose={() => setShowPopup(false)}
       >
-        <View style={styles.popupContainer}>
+        <View style={{ marginTop: 30 }}>
           <TouchableOpacity
             onPress={() => setShowPopup(false)}
             style={styles.closeButton}
           >
             <Icon name="close" size={35} color={BASIC_COLORS.PRIMARY} />
           </TouchableOpacity>
-          <FlatList
-            data={selectedData}
-            renderItem={({ item }) => (
-              <View style={styles.popupItem}>
-                <Text style={styles.popupItemText}>QR code: {item}</Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+
+          <View style={{ marginTop: 30, paddingLeft:30 }}>
+            <FlatList
+              data={selectedData}
+              renderItem={({ item }) => (
+                <View style={styles.popupItem}>
+                  <Text style={styles.popupItemText}>QR code: {item}</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
         </View>
       </Modal>
     </View>
@@ -136,6 +138,7 @@ const styles = StyleSheet.create({
 
   camera: {
     flex: 1,
+    marginTop: 20,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

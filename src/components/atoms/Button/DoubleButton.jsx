@@ -34,7 +34,7 @@ const MPSDoubleButton = ({
         title={button2Title}
         titleStyle={button2TitleStyle}
      
-        buttonStyle={{ ...button2Style, marginRight: 19 }}
+        buttonStyle={{ ...button2Style, marginRight:9 }}
         iconPosition="right"
         icon={icon2}
         iconRight={true}

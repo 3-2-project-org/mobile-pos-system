@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LineChart } from "react-native-chart-kit";
@@ -80,6 +80,18 @@ const SalesHomeScreen = () => {
         >
           Good Morning!
         </Text>
+
+
+
+
+
+
+
+<ScrollView>
+
+
+
+
         <TouchableCard
           cardTitle={"Make A Sale"}
           cardDescription={
@@ -156,6 +168,7 @@ const SalesHomeScreen = () => {
             }}
           />
         </View>
+        </ScrollView>
       </View>
     </>
   );

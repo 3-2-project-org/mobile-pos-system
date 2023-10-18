@@ -27,6 +27,7 @@ const InventoryQrPrint = () => {
       <MPSButton
         buttonTitle={"Print"}
         onPress={() => navigation.navigate("InventoryQrPrint")}
+        buttonStyle={{}}
       />
     </View>
   );

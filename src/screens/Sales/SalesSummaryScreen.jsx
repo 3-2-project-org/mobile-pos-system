@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import ForwardArrow from "../../assets/ForwardArrow";
 import MPSButton from "../../components/atoms/Button/Button";
+import MPSTodosContainer from "../../components/molecules/MPSTodosContainer/MPSTodosContainer";
 
 const SalesSummaryScreen = () => {
   const [value, setValue] = useState("");
@@ -31,25 +32,25 @@ const SalesSummaryScreen = () => {
           Sales Summary
         </Text>
 
+        <View style={{ marginTop: 40 }}>
+          <MPSTodosContainer />
+        </View>
 
-        <Text
-          style={{
-            marginTop: 32,
-            alignContent: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          add tables here!
-        </Text>
+        <View style={{ marginTop: 20 }}>
+          <MPSTodosContainer />
+        </View>
 
-        <MPSButton
-          buttonType={"primary"}
-          onPress={() => navigation.navigate("SalesThankScreen")}
-       
-          buttonTitle={"Complete Transaction"}
-        />
+        <View style={{ marginTop: 20 }}>
+          <MPSTodosContainer />
+        </View>
+
+        <View style={{ marginTop: 50 }}>
+          <MPSButton
+            buttonType={"primary"}
+            onPress={() => navigation.navigate("SalesThankScreen")}
+            buttonTitle={"Complete Transaction"}
+          />
+        </View>
       </View>
     </>
   );

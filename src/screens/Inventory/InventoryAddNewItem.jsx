@@ -9,7 +9,7 @@ import Search from "../../components/atoms/Search/Search";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
 
-const InventoryScreen = () => {
+const InventoryAddNewItem = () => {
   const [value, setValue] = useState("");
   const onValueChange = (value) => {
     setValue(value);
@@ -23,13 +23,6 @@ const InventoryScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <MPSButton
-          icon={<QrIcon />}
-          buttonType={"primary"}
-          onPress={() => navigation.navigate("SalesQrScanScreen")}
-          buttonTitle={"Scan QR Code"}
-        />
-
         <Text
           style={{
             marginTop: 32,
@@ -49,25 +42,8 @@ const InventoryScreen = () => {
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
         >
-          Add By Item Code
+          Add New Item
         </Text>
-
-        <Search
-          placeholder={"Item code"}
-          //  onChangeText={(text) => console.log(text)}
-          onChangeText={onValueChange}
-          value={value}
-          icon={
-            <Pressable onPress={() => alert("Search icon pressed")}>
-              <Feather
-                name="search"
-                size={24}
-                color="#625D5D"
-                style={{ marginRight: 10 }}
-              />
-            </Pressable>
-          }
-        />
 
         <View style={styles.card}>
           <View style={styles.row}>
@@ -126,17 +102,43 @@ const InventoryScreen = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 40 }}>
-          <MPSButton
-            icon={<QrIcon />}
-            buttonTitle={"View QR Code"}
-            onPress={() => navigation.navigate("InventoryQrPrint")}
-          />
-        </View>
+        <MPSButton
+          icon={<QrIcon />}
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesQrScanScreen")}
+          buttonTitle={"Scan QR Code"}
+        />
+
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            color: BASIC_COLORS.FONT_PRIMARY,
+          }}
+        >
+          OR
+        </Text>
+
+        <Search
+          placeholder={"Item code"}
+          //  onChangeText={(text) => console.log(text)}
+          onChangeText={onValueChange}
+          value={value}
+          icon={
+            <Pressable onPress={() => alert("Search icon pressed")}>
+              <Feather
+                name="search"
+                size={24}
+                color="#625D5D"
+                style={{ marginRight: 10 }}
+              />
+            </Pressable>
+          }
+        />
 
         <View style={{ marginTop: 30 }}>
           <MPSButton
-            buttonTitle={"Add Item"}
+            buttonTitle={"Ok"}
             onPress={() => navigation.navigate("InventoryAddNewItem")}
           />
         </View>
@@ -145,7 +147,7 @@ const InventoryScreen = () => {
   );
 };
 
-export default InventoryScreen;
+export default InventoryAddNewItem;
 
 const styles = StyleSheet.create({
   container: {

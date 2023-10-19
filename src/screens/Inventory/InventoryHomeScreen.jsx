@@ -34,7 +34,7 @@ const InventoryHomeScreen = () => {
         Good Morning!
       </Text>
       <TouchableCard
-        cardTitle={"Manage incoming Stocks"}
+        cardTitle={"Manage Stocks"}
         cardDescription={
           "Record all incoming stocks details in a efficient way here"
         }
@@ -43,7 +43,7 @@ const InventoryHomeScreen = () => {
       />
 
       <TouchableCard
-        cardTitle={"Record new incoming item"}
+        cardTitle={"Record New Item"}
         cardDescription={
           "Just arrived!!! Record the item here to keep track of it"
         }
@@ -51,7 +51,7 @@ const InventoryHomeScreen = () => {
         icon={<CardIcon />}
       />
       <TouchableCard
-        cardTitle={"View all available items"}
+        cardTitle={"View Available Items"}
         cardDescription={
           "Get an detailed idea about all the available items in the stocks"
         }

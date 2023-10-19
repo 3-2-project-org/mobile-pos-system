@@ -7,28 +7,26 @@ import MPSButton from "../../components/atoms/Button/Button";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";
 
 const SalesThankScreen = () => {
-  const [value, setValue] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
-
-  const onValueChange = (value) => {
-    setValue(value);
-  };
+  const [emailError, setEmailError] = useState(null);
 
   const onSendEmail = () => {
-    const to = [emailAddress];
-    email(to, {
-      subject: "Invoice",
-      body: "Here's your invoice:",
-    }).catch(console.error);
+    if (!validateEmail(emailAddress)) {
+      setEmailError("Invalid email address");
+    } else {
+      setEmailError(null);
+      const to = [emailAddress];
+      email(to, {
+        subject: "Invoice",
+        body: "Here's your invoice:",
+      }).catch(console.error);
+    }
   };
 
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   return (
     <View style={styles.container}>
@@ -42,10 +40,15 @@ const SalesThankScreen = () => {
             inputLabel={""}
             errorMessage={false}
             inputPlaceholder={"Email"}
-            onChangeText={(text) => setEmailAddress(text)}
+            value={emailAddress}
+            onChangeText={(text) => {
+              setEmailAddress(text);
+              setEmailError(null);
+            }}
           />
         </View>
-        <View style={{marginLeft:7}}>
+
+        <View style={{ marginLeft: 7 }}>
           <MPSButton
             buttonType={"primary"}
             onPress={onSendEmail}
@@ -54,7 +57,7 @@ const SalesThankScreen = () => {
           />
         </View>
       </View>
-
+      {emailError && <Text style={styles.errorText}>{emailError}</Text>}
       <Image
         source={{ uri: "https://i.postimg.cc/fRmmKxqr/image-1.png" }}
         resizeMode="contain"
@@ -76,9 +79,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: BASIC_COLORS.FONT_PRIMARY,
   },
+  errorText: {
+    color: "red",
+  },
   subHeaderText: {
     paddingHorizontal: 19,
-    marginTop:10,
+    marginTop: 10,
     fontSize: 18,
     color: BASIC_COLORS.FONT_PRIMARY,
   },

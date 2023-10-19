@@ -17,7 +17,7 @@ const MPSDoubleButton = ({
   loading,
 }) => {
   return (
-    <View style={{ flexDirection: "row", marginTop: 60,  }}>
+    <View style={{ flexDirection: "row"}}>
       <Button
         title={button1Title}
         titleStyle={button1TitleStyle}

@@ -178,39 +178,41 @@ const UserProfileScreen = () => {
               </Pressable>
             }
           />
-          <MPSDoubleButton
-            button1Title="Cancel"
-            button2Title="Save"
-            button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
-            button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-            button1Style={{
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
+          <View style={{ marginTop: 35 }}>
+            <MPSDoubleButton
+              button1Title="Cancel"
+              button2Title="Save"
+              button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
+              button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
+              button1Style={{
+                backgroundColor: "white",
+                alignItems: "center",
+                justifyContent: "center",
 
-              width: 143,
-              alignContent: "center",
-              borderRadius: 10,
-              height: 46,
-              borderColor: BASIC_COLORS.PRIMARY,
-              borderWidth: 3,
-            }}
-            button2Style={{
-              backgroundColor: BASIC_COLORS.PRIMARY,
-              alignItems: "center",
-              justifyContent: "center",
-              width: 143,
-              alignContent: "center",
-              borderRadius: 10,
-              height: 46,
+                width: 143,
+                alignContent: "center",
+                borderRadius: 10,
+                height: 46,
+                borderColor: BASIC_COLORS.PRIMARY,
+                borderWidth: 3,
+              }}
+              button2Style={{
+                backgroundColor: BASIC_COLORS.PRIMARY,
+                alignItems: "center",
+                justifyContent: "center",
+                width: 143,
+                alignContent: "center",
+                borderRadius: 10,
+                height: 46,
 
-              borderColor: BASIC_COLORS.PRIMARY,
-              borderWidth: 3,
-            }}
-            onPress1={() => console.log(" cancel Button pressed")}
-            onPress2={() => console.log(" save Button pressed")}
-            loading={false}
-          />
+                borderColor: BASIC_COLORS.PRIMARY,
+                borderWidth: 3,
+              }}
+              onPress1={() => console.log(" cancel Button pressed")}
+              onPress2={() => console.log(" save Button pressed")}
+              loading={false}
+            />
+          </View>
         </ScrollView>
       </BottomSheet>
     </View>

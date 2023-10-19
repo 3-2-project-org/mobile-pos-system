@@ -10,6 +10,8 @@ import {
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { BASIC_COLORS } from "../../utils/constants/styles";
+import MPSButton from "../../components/atoms/Button/Button";
+import QrIcon from "../../assets/QrIcon";
 
 const SalesQrScanScreen = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -55,43 +57,39 @@ const SalesQrScanScreen = () => {
     <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.camera}
-        //flashMode={flash ? BarCodeScanner.Constants.FlashMode.torch : BarCodeScanner.Constants.FlashMode.off}
+        style={StyleSheet.absoluteFillObject}
+        torchMode={flash ? "on" : "off"}
       />
       <View style={styles.overlay}>
         <View style={styles.scanArea} />
       </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity onPress={toggleFlash} style={styles.button}>
-          <Icon
-            name={flash ? "flashlight-off" : "flashlight"}
-            size={25}
-            color="#FFFFFF"
-          />
-        </TouchableOpacity>
-        {scanned ? (
-          <TouchableOpacity
-            onPress={() => setScanned(false)}
-            style={styles.button}
-          >
-            <Text style={styles.buttonText}>Tap to Scan Again</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setScanned(true)}
-            style={styles.button}
-          >
-            <Text style={styles.buttonText}>Scan QR</Text>
-          </TouchableOpacity>
-        )}
-      </View>
 
       <TouchableOpacity
         onPress={() => togglePopup(scannedData)}
-        style={styles.button}
+        style={[styles.button, { position: "absolute", top: 20 }]} // Adjust the button style
       >
         <Text style={styles.buttonText}>Show Scanned Data</Text>
       </TouchableOpacity>
+
+      <View style={styles.buttonsContainer}>
+        {scanned ? (
+          <MPSButton
+            icon={<QrIcon />}
+            buttonType={"primary"}
+            onPress={() => setScanned(false)}
+            buttonTitle={"Tap to Scan Again"}
+            buttonStyle={{ height: 67 }}
+          />
+        ) : (
+          <MPSButton
+            icon={<QrIcon />}
+            buttonType={"primary"}
+            onPress={() => setScanned(true)}
+            buttonTitle={"Scan QR Code"}
+            buttonStyle={{ height: 67 }}
+          />
+        )}
+      </View>
 
       <Modal
         visible={showPopup}
@@ -132,12 +130,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-
-  camera: {
-    flex: 1,
     marginTop: 20,
+    paddingHorizontal: 31,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -156,7 +150,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 0,
+    marginTop: 450,
   },
   button: {
     backgroundColor: BASIC_COLORS.PRIMARY,
@@ -164,7 +158,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 20,
     marginVertical: 10,
-    marginBottom: 30,
   },
   buttonText: {
     color: BASIC_COLORS.WHITE,

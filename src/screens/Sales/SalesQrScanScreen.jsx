@@ -10,7 +10,6 @@ import {
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { BASIC_COLORS } from "../../utils/constants/styles";
-import { green } from "color-name";
 
 const SalesQrScanScreen = () => {
   const [showPopup, setShowPopup] = useState(false);

@@ -7,19 +7,12 @@ import {
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import TouchableCard from "../../components/atoms/Card/Card";
-import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
-import { Feather } from "@expo/vector-icons";
-import Search from "../../components/atoms/Search/Search";
 import MPSButton from "../../components/atoms/Button/Button";
 import { LineChart } from "react-native-chart-kit";
 import { BottomSheet } from "@rneui/base";
 import CloseIcon from "../../assets/CloseIcon";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";
-import { Pressable } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 
 const EmployeesHomeScreen = () => {

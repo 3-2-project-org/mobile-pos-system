@@ -7,9 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { BASIC_COLORS } from "../utils/constants/styles";
-import { Feather } from "@expo/vector-icons";
 import MPSButton from "../components/atoms/Button/Button";
-
 import { BottomSheet } from "@rneui/base";
 import CloseIcon from "../assets/CloseIcon";
 import { Pressable } from "react-native";

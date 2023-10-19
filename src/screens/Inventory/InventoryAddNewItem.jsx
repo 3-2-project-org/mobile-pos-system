@@ -1,8 +1,6 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import TouchableCard from "../../components/atoms/Card/Card";
-import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
 import Search from "../../components/atoms/Search/Search";
@@ -23,12 +21,11 @@ const InventoryAddNewItem = () => {
   return (
     <>
       <View style={styles.container}>
-     
         <Text
           style={{
             fontSize: 24,
-            marginTop:20,
-            textAlign:'center',
+            marginTop: 20,
+            textAlign: "center",
             fontWeight: "bold",
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
@@ -38,57 +35,78 @@ const InventoryAddNewItem = () => {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>
-                Item Name{" "}
-              </Text>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Item Name</Text>
             </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-                Maliban Chocalate buiscuit
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>
-                Unit Price
-              </Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-                Rs 200.00 per gram/ unit
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>Discount</Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>N/A</Text>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>Quantity</Text>
-            </View>
-            <View style={styles.column}>
-              <Text
+            <View style={styles.valueColumn}>
+              <TextInput
                 style={{
                   backgroundColor: "#D8EFDD",
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  width: 60,
+                  paddingVertical: 2,
+                  paddingHorizontal: 9,
+                  width: 160,
                   borderRadius: 8,
                   color: BASIC_COLORS.FONT_SECONDARY,
                 }}
-              >
-                100
-              </Text>
+                placeholder="Name"
+              />
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Unit Price</Text>
+            </View>
+            <View style={styles.valueColumn}>
+              <TextInput
+                style={{
+                  backgroundColor: "#D8EFDD",
+                  paddingVertical: 2,
+                  paddingHorizontal: 9,
+                  width: 160,
+                  borderRadius: 8,
+                  color: BASIC_COLORS.FONT_SECONDARY,
+                }}
+                placeholder="Price"
+              />
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Discount</Text>
+            </View>
+            <View style={styles.valueColumn}>
+              <TextInput
+                style={{
+                  backgroundColor: "#D8EFDD",
+                  paddingVertical: 2,
+                  paddingHorizontal: 9,
+                  width: 160,
+                  borderRadius: 8,
+                  color: BASIC_COLORS.FONT_SECONDARY,
+                }}
+                placeholder="N/A"
+              />
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Quantity</Text>
+            </View>
+            <View style={styles.valueColumn}>
+              <TextInput
+                style={{
+                  backgroundColor: "#D8EFDD",
+                  paddingVertical: 2,
+                  paddingHorizontal: 9,
+                  width: 160,
+                  borderRadius: 8,
+                  color: BASIC_COLORS.FONT_SECONDARY,
+                }}
+                placeholder="Qty"
+              />
             </View>
           </View>
         </View>
@@ -98,57 +116,44 @@ const InventoryAddNewItem = () => {
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesQrScanScreen")}
           buttonTitle={"Scan QR Code"}
-          buttonStyle={{marginTop:30,  height:67}}
-
-
-
-       
+          buttonStyle={{ marginTop: 30, height: 67 }}
         />
 
         <Text
           style={{
-            
             fontSize: 20,
-            marginTop:30,
+            marginTop: 30,
             fontWeight: "bold",
-            textAlign:'center',
+            textAlign: "center",
             color: BASIC_COLORS.FONT_PRIMARY,
           }}
         >
           OR
         </Text>
 
-
-
-       
-<View style={{ marginTop: 30 }}>
-        <Search
-          placeholder={"Item code"}
-         
-          onChangeText={onValueChange}
-      
-          value={value}
-          icon={
-            <Pressable onPress={() => alert("Search icon pressed")}>
-              <Feather
-                name="search"
-                size={24}
-                color="#625D5D"
-                style={{ marginRight: 10 }}
-              />
-            </Pressable>
-          }
-        />
-
-
-
-</View>
+        <View style={{ marginTop: 30 }}>
+          <Search
+            placeholder={"Item code"}
+            onChangeText={onValueChange}
+            value={value}
+            icon={
+              <Pressable onPress={() => alert("Search icon pressed")}>
+                <Feather
+                  name="search"
+                  size={24}
+                  color="#625D5D"
+                  style={{ marginRight: 10 }}
+                />
+              </Pressable>
+            }
+          />
+        </View>
 
         <View style={{ marginTop: 50 }}>
           <MPSButton
             buttonTitle={"Ok"}
             onPress={() => navigation.navigate("InventoryAddNewItem")}
-            buttonStyle={{ height:67 }}
+            buttonStyle={{ height: 67 }}
           />
         </View>
       </View>
@@ -163,16 +168,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 31,
   },
-
-  container: {
-    marginTop: 20,
-    paddingHorizontal: 31,
-  },
   card: {
     backgroundColor: "#fff",
     padding: 20,
     borderRadius: 8,
-    marginTop: 30,
+    marginTop: 13,
   },
   row: {
     flexDirection: "row",
@@ -181,5 +181,27 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
+  },
+
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  labelColumn: {
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  valueColumn: {
+    flex: 2,
+  },
+  labelText: {
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "left",
+  },
+  valueText: {
+    color: BASIC_COLORS.FONT_SECONDARY,
+    textAlign: "left",
   },
 });

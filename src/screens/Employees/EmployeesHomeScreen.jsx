@@ -185,44 +185,46 @@ const EmployeesHomeScreen = () => {
             </Text>
           </View>
 
-          <View
-            style={{
-              backgroundColor: BASIC_COLORS.WHITE,
-              borderRadius: 10,
-              //   paddingHorizontal: 10,
-              paddingVertical: 20,
-              marginTop: 20,
-              elevation: 2,
-            }}
-          >
-            <LineChart
-              data={chartData()}
-              width={350}
-              height={220}
-              yAxisInterval={1}
-              verticalLabelRotation={30}
-              chartConfig={{
-                backgroundColor: "#fff",
-                backgroundGradientFrom: "#fff",
-                backgroundGradientTo: "#fff",
-                decimalPlaces: 0,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `#000`,
-                style: {
-                  borderRadius: 16,
-                },
-                propsForDots: {
-                  r: "4",
-                  strokeWidth: "1",
-                  stroke: "#ffa726",
-                },
-              }}
-              bezier
+          <View style={styles.container}>
+            <View
               style={{
-                marginVertical: 8,
-                borderRadius: 16,
+                backgroundColor: BASIC_COLORS.WHITE,
+                borderRadius: 10,
+                //   paddingHorizontal: 10,
+                paddingVertical: 20,
+                marginTop: 20,
+                elevation: 2,
               }}
-            />
+            >
+              <LineChart
+                data={chartData()}
+                width={280}
+                height={220}
+                yAxisInterval={1}
+                verticalLabelRotation={30}
+                chartConfig={{
+                  backgroundColor: "#fff",
+                  backgroundGradientFrom: "#fff",
+                  backgroundGradientTo: "#fff",
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `#000`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "1",
+                    stroke: "#ffa726",
+                  },
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                }}
+              />
+            </View>
           </View>
         </View>
         <BottomSheet

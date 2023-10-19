@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   Pressable,
   TouchableOpacity,
@@ -57,9 +58,7 @@ const SalesScreen = () => {
             buttonType={"primary"}
             onPress={() => navigation.navigate("SalesQrScanScreen")}
             buttonTitle={"Scan QR Code"}
-            buttonStyle={{ height: 67
-            
-            }}
+            buttonStyle={{ height: 67 }}
           />
 
           <Text
@@ -134,7 +133,17 @@ const SalesScreen = () => {
                 <Text style={styles.labelText}>Quantity</Text>
               </View>
               <View style={styles.valueColumn}>
-                <Text style={styles.valueText}>100</Text>
+                <TextInput
+                  style={{
+                    backgroundColor: "#D8EFDD",
+                    paddingVertical: 2,
+                    paddingHorizontal: 9,
+                    width: 60,
+                    borderRadius: 8,
+                    color: BASIC_COLORS.FONT_SECONDARY,
+                  }}
+                  placeholder="Qty"
+                />
               </View>
             </View>
           </View>
@@ -182,7 +191,11 @@ const SalesScreen = () => {
             </View>
           </View>
 
-          <View style={{ marginTop: 12 }}>
+          <View
+            style={{
+              marginTop: 12,
+            }}
+          >
             <MPSDoubleButton
               buttonType={"primary"}
               style={styles.button}
@@ -192,27 +205,21 @@ const SalesScreen = () => {
               button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
               button1Style={{
                 backgroundColor: "white",
-                alignItems: "center",
-                justifyContent: "center",
-
-                width: 145,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
+                paddingHorizontal: "11%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
               button2Style={{
                 backgroundColor: BASIC_COLORS.PRIMARY,
-                alignItems: "center",
-                justifyContent: "center",
-                width: 145,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
-
+                paddingHorizontal: "11%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
               icon2={<ForwardArrow />}
               icon1={

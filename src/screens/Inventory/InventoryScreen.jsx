@@ -1,8 +1,6 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import TouchableCard from "../../components/atoms/Card/Card";
-import CardIcon from "../../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
 import Search from "../../components/atoms/Search/Search";
@@ -28,7 +26,7 @@ const InventoryScreen = () => {
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesQrScanScreen")}
           buttonTitle={"Scan QR Code"}
-          buttonStyle={{height:67}}
+          buttonStyle={{ height: 67 }}
         />
 
         <Text
@@ -72,57 +70,48 @@ const InventoryScreen = () => {
 
         <View style={styles.card}>
           <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>
-                Item Name{" "}
-              </Text>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Item Name</Text>
             </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-                Maliban Chocalate buiscuit
-              </Text>
+            <View style={styles.valueColumn}>
+              <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>
             </View>
           </View>
 
           <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>
-                Unit Price
-              </Text>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Unit Price</Text>
             </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-                Rs 200.00 per gram/ unit
-              </Text>
+            <View style={styles.valueColumn}>
+              <Text style={styles.valueText}>Rs 200.00 per gram/unit</Text>
             </View>
           </View>
 
           <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>Discount</Text>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Discount</Text>
             </View>
-            <View style={styles.column}>
-              <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>N/A</Text>
+            <View style={styles.valueColumn}>
+              <Text style={styles.valueText}>N/A</Text>
             </View>
           </View>
 
           <View style={styles.row}>
-            <View style={styles.column}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>Quantity</Text>
+            <View style={styles.labelColumn}>
+              <Text style={styles.labelText}>Quantity</Text>
             </View>
-            <View style={styles.column}>
-              <Text
+            <View style={styles.valueColumn}>
+              <TextInput
                 style={{
                   backgroundColor: "#D8EFDD",
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
+                  paddingVertical: 2,
+                  paddingHorizontal: 9,
                   width: 60,
                   borderRadius: 8,
                   color: BASIC_COLORS.FONT_SECONDARY,
                 }}
-              >
-                100
-              </Text>
+                placeholder="Qty"
+              />
             </View>
           </View>
         </View>
@@ -132,7 +121,7 @@ const InventoryScreen = () => {
             icon={<QrIcon />}
             buttonTitle={"View QR Code"}
             onPress={() => navigation.navigate("InventoryQrPrint")}
-            buttonStyle={{height:67}}
+            buttonStyle={{ height: 67 }}
           />
         </View>
 
@@ -140,7 +129,7 @@ const InventoryScreen = () => {
           <MPSButton
             buttonTitle={"Add Item"}
             onPress={() => navigation.navigate("SalesHomeScreen")}
-            buttonStyle={{height:67}}
+            buttonStyle={{ height: 67 }}
           />
         </View>
       </View>
@@ -151,11 +140,6 @@ const InventoryScreen = () => {
 export default InventoryScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    paddingHorizontal: 31,
-  },
-
   container: {
     marginTop: 20,
     paddingHorizontal: 31,
@@ -173,5 +157,27 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
+  },
+
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  labelColumn: {
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  valueColumn: {
+    flex: 2,
+  },
+  labelText: {
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "left",
+  },
+  valueText: {
+    color: BASIC_COLORS.FONT_SECONDARY,
+    textAlign: "left",
   },
 });

@@ -2,7 +2,6 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
-import ForwardArrow from "../../assets/ForwardArrow";
 import MPSButton from "../../components/atoms/Button/Button";
 
 const InventorySummaryScreen = () => {
@@ -46,7 +45,6 @@ const InventorySummaryScreen = () => {
         <MPSButton
           buttonType={"primary"}
           onPress={() => navigation.navigate("SalesHomeScreen")}
-         
           buttonTitle={"Ok"}
           buttonStyle={{ marginTop: 450 }}
         />

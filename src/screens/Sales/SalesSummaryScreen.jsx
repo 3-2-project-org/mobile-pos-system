@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  Modal,
-  TouchableOpacity,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, TextInput } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
@@ -22,9 +13,8 @@ const SalesSummaryScreen = () => {
 
   const datalist = [
     { itemName: "Araliya", quantity: 5, unitPrice: 200.0 },
-    { itemName: "Aralidfya", quantity: 6, unitPrice: 20.0 },
-    { itemName: "Aralidfya", quantity: 6, unitPrice: 20.0 },
-   
+    { itemName: "Cheeese", quantity: 6, unitPrice: 20.0 },
+    { itemName: "Toffe", quantity: 6, unitPrice: 20.0 },
   ];
 
   const [itemsList, setItemsList] = useState(datalist);
@@ -38,21 +28,6 @@ const SalesSummaryScreen = () => {
   };
 
   const balance = calculateTotal(itemsList) - receivedAmount;
-
-  const onValueChange = (value) => {
-    setValue(value);
-  };
-
-  const [showDiscountPopup, setShowDiscountPopup] = useState(false);
-  const [showReceivedAmountPopup, setShowReceivedAmountPopup] = useState(false);
-
-  const toggleDiscountPopup = () => {
-    setShowDiscountPopup(!showDiscountPopup);
-  };
-
-  const toggleReceivedAmountPopup = () => {
-    setShowReceivedAmountPopup(!showReceivedAmountPopup);
-  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -114,12 +89,19 @@ const SalesSummaryScreen = () => {
                   <Text style={styles.labelText}>Discount</Text>
                 </View>
                 <View style={styles.column}>
-                  <Text style={styles.valueText}>
-                    Rs. {discount.toFixed(2)}
-                  </Text>
-                  <TouchableOpacity onPress={toggleDiscountPopup}>
-                    <Text style={{ color: "blue" }}>Edit</Text>
-                  </TouchableOpacity>
+                  <TextInput
+                    style={{
+                      backgroundColor: "#D8EFDD",
+                      paddingVertical: 2,
+                      paddingHorizontal: 9,
+                      width: 90,
+                      borderRadius: 8,
+                      color: BASIC_COLORS.FONT_SECONDARY,
+                    }}
+                    placeholder="Discount"
+                    value={discount.toString()}
+                    onChangeText={(text) => setDiscount(parseFloat(text) || 0)}
+                  />
                 </View>
               </View>
 
@@ -128,61 +110,38 @@ const SalesSummaryScreen = () => {
                   <Text style={styles.labelText}>Received Amount</Text>
                 </View>
                 <View style={styles.column}>
-                  <Text style={styles.valueText}>
-                    Rs. {receivedAmount.toFixed(2)}
-                  </Text>
-                  <TouchableOpacity onPress={toggleReceivedAmountPopup}>
-                    <Text style={{ color: "blue" }}>Edit</Text>
-                  </TouchableOpacity>
+                  <TextInput
+                    style={{
+                      backgroundColor: "#D8EFDD",
+                      paddingVertical: 2,
+                      paddingHorizontal: 9,
+                      width: 90,
+                      borderRadius: 8,
+                      color: BASIC_COLORS.FONT_SECONDARY,
+                    }}
+                    placeholder="Received Amount"
+                    value={receivedAmount.toString()}
+                    onChangeText={(text) =>
+                      setReceivedAmount(parseFloat(text) || 0)
+                    }
+                  />
                 </View>
               </View>
 
-              <View style={styles.row}>
-                <View style={styles.column}>
-                  <Text style={styles.labelText}>Balance</Text>
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.valueText}>Rs. {balance.toFixed(2)}</Text>
+              <View style={{ marginTop: 20 }}>
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.labelText}>Balance</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={{ fontWeight: "bold" }}>
+                      Rs {balance.toFixed(2)}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-
-          <Modal
-            visible={showDiscountPopup}
-            animationType="slide"
-            transparent={true}
-          >
-            <View style={styles.popup}>
-              <Text>Edit Discount:</Text>
-              <TextInput
-                style={styles.popupInput}
-                placeholder="Discount"
-                value={discount.toString()}
-                onChangeText={(text) => setDiscount(parseFloat(text) || 0)}
-              />
-              <Button title="Save" onPress={toggleDiscountPopup} />
-            </View>
-          </Modal>
-
-          <Modal
-            visible={showReceivedAmountPopup}
-            animationType="slide"
-            transparent={true}
-          >
-            <View style={styles.popup}>
-              <Text>Edit Received Amount:</Text>
-              <TextInput
-                style={styles.popupInput}
-                placeholder="Received Amount"
-                value={receivedAmount.toString()}
-                onChangeText={(text) =>
-                  setReceivedAmount(parseFloat(text) || 0)
-                }
-              />
-              <Button title="Save" onPress={toggleReceivedAmountPopup} />
-            </View>
-          </Modal>
 
           <View style={{ marginTop: 50 }}>
             <MPSButton

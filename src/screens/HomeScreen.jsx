@@ -139,7 +139,7 @@ const SalesHomeScreen = () => {
           >
             <LineChart
               data={chartData()}
-              width={350}
+              width={290}
               height={220}
               yAxisInterval={1}
               verticalLabelRotation={30}

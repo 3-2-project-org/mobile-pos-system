@@ -57,9 +57,7 @@ const SalesScreen = () => {
             buttonType={"primary"}
             onPress={() => navigation.navigate("SalesQrScanScreen")}
             buttonTitle={"Scan QR Code"}
-            buttonStyle={{ height: 67
-            
-            }}
+            buttonStyle={{ height: 67 }}
           />
 
           <Text
@@ -182,7 +180,12 @@ const SalesScreen = () => {
             </View>
           </View>
 
-          <View style={{ marginTop: 12 }}>
+          <View
+            style={{
+              marginTop: 12,
+            
+            }}
+          >
             <MPSDoubleButton
               buttonType={"primary"}
               style={styles.button}
@@ -192,27 +195,21 @@ const SalesScreen = () => {
               button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
               button1Style={{
                 backgroundColor: "white",
-                alignItems: "center",
-                justifyContent: "center",
-
-                width: 145,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
+                paddingHorizontal:"11%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
               button2Style={{
                 backgroundColor: BASIC_COLORS.PRIMARY,
-                alignItems: "center",
-                justifyContent: "center",
-                width: 145,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
-
+                paddingHorizontal:"11%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
               icon2={<ForwardArrow />}
               icon1={

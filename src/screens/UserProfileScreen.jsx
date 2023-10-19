@@ -4,6 +4,7 @@ import {
   Touchable,
   TouchableOpacity,
   ScrollView,
+  StyleSheet
 } from "react-native";
 import React, { useState } from "react";
 import { BASIC_COLORS } from "../utils/constants/styles";
@@ -178,45 +179,99 @@ const UserProfileScreen = () => {
               </Pressable>
             }
           />
-          <View style={{ marginTop: 35 }}>
+
+
+
+<View
+            style={{
+              marginTop: 35,
+            
+            }}
+          >
             <MPSDoubleButton
+              buttonType={"primary"}
+              style={styles.button}
               button1Title="Cancel"
               button2Title="Save"
               button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
               button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
               button1Style={{
                 backgroundColor: "white",
-                alignItems: "center",
-                justifyContent: "center",
-
-                width: 143,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
+                paddingHorizontal:"17%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
               button2Style={{
                 backgroundColor: BASIC_COLORS.PRIMARY,
-                alignItems: "center",
-                justifyContent: "center",
-                width: 143,
-                alignContent: "center",
                 borderRadius: 10,
                 height: 46,
-
+                paddingHorizontal:"18%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
+                flex: 1,
               }}
-              onPress1={() => console.log(" cancel Button pressed")}
+           
+              onPress1={() => console.log("cancel Button pressed")}
               onPress2={() => console.log(" save Button pressed")}
               loading={false}
             />
           </View>
+
+
+
+
+
+
+
+        
         </ScrollView>
       </BottomSheet>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    paddingHorizontal: 31,
+  },
+  card: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 8,
+    marginTop: 13,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 4,
+  },
+  column: {
+    flex: 1,
+  },
 
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  labelColumn: {
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  valueColumn: {
+    flex: 2,
+  },
+  labelText: {
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "left",
+  },
+  valueText: {
+    color: BASIC_COLORS.FONT_SECONDARY,
+    textAlign: "left",
+  },
+});
 export default UserProfileScreen;

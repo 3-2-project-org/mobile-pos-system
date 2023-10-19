@@ -8,6 +8,7 @@ const MPSButton = ({
   buttonTitle,
   buttonType,
   buttonStyle,
+  titleStyle2,
   buttonContainerStyle,
   onPress,
   loading,
@@ -18,6 +19,7 @@ const MPSButton = ({
     <View>
       <Button
         title={buttonTitle}
+        titleStyle2={{titleStyle2}}
         titleStyle={{
           color:
             buttonType === "primary"

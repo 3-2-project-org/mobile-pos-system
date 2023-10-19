@@ -139,7 +139,7 @@ const InventoryScreen = () => {
         <View style={{ marginTop: 30 }}>
           <MPSButton
             buttonTitle={"Add Item"}
-            onPress={() => navigation.navigate("InventoryAddNewItem")}
+            onPress={() => navigation.navigate("SalesHomeScreen")}
             buttonStyle={{height:67}}
           />
         </View>

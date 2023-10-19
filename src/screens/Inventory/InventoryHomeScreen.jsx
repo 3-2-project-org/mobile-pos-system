@@ -47,7 +47,7 @@ const InventoryHomeScreen = () => {
         cardDescription={
           "Just arrived!!! Record the item here to keep track of it"
         }
-        onPress={() => navigation.navigate("InventorySummaryScreen")}
+        onPress={() => navigation.navigate("InventoryAddNewItem")}
         icon={<CardIcon />}
       />
       <TouchableCard

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     color: BASIC_COLORS.FONT_SECONDARY,
   },
   image: {
-    width: 300,
+    width: "100%",
     height: 400,
   },
   inputContainer: {

@@ -45,9 +45,9 @@ const InventorySummaryScreen = () => {
 
         <MPSButton
           buttonType={"primary"}
-          onPress={() => navigation.navigate("SalesThankScreen")}
-          icon={<ForwardArrow />}
-          buttonTitle={"Complete Transaction"}
+          onPress={() => navigation.navigate("SalesHomeScreen")}
+         
+          buttonTitle={"Ok"}
           buttonStyle={{ marginTop: 450 }}
         />
       </View>

@@ -17,12 +17,11 @@ const MPSDoubleButton = ({
   loading,
 }) => {
   return (
-    <View style={{ flexDirection: "row"}}>
+    <View style={{ flexDirection: "row" }}>
       <Button
         title={button1Title}
         titleStyle={button1TitleStyle}
-        
-        buttonStyle={{ ...button1Style}}
+        buttonStyle={{ ...button1Style }}
         iconPosition="right"
         icon={icon1}
         iconRight={true}
@@ -33,8 +32,7 @@ const MPSDoubleButton = ({
       <Button
         title={button2Title}
         titleStyle={button2TitleStyle}
-     
-        buttonStyle={{ ...button2Style, marginRight:9 }}
+        buttonStyle={{ ...button2Style, marginRight: 10 }}
         iconPosition="right"
         icon={icon2}
         iconRight={true}

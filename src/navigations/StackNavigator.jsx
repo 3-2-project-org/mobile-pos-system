@@ -15,6 +15,7 @@ import InventoryScreen from "../screens/Inventory/InventoryScreen";
 import InventorySummaryScreen from "../screens/Inventory/InventorySummaryScreen";
 import InventoryQrPrint from "../screens/Inventory/inventoryQrPrint";
 import InventoryAddNewItem from "../screens/Inventory/InventoryAddNewItem";
+import EmployeesHomeScreen from "../screens/Employees/EmployeesHomeScreen";
 
 const Stack = createStackNavigator();
 
@@ -110,6 +111,15 @@ const StackNavigator = () => {
 <Stack.Screen
         name="InventoryAddNewItem"
         component={InventoryAddNewItem}
+        options={{ headerShown: false }} // Hide header for SalesScreen screen
+      />
+
+
+
+
+<Stack.Screen
+        name="EmployeesHomeScreen"
+        component={EmployeesHomeScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 

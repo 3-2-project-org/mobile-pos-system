@@ -31,7 +31,7 @@ const SuperAdminAnalyticsView = () => {
       <TouchableCard
         cardTitle={"Manage Employees"}
         cardDescription={"Manage employee records in your organization"}
-        onPress={() => navigation.navigate("SalesScreen")}
+        onPress={() => navigation.navigate("EmployeesHomeScreen")}
         icon={<AnalyticsIcon />}
       />
       <TouchableCard

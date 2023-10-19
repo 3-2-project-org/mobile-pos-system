@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LineChart } from "react-native-chart-kit";
@@ -60,7 +66,9 @@ const SalesHomeScreen = () => {
   }, []);
   return (
     <>
+      <ScrollView>
       <View style={styles.container}>
+    
         <Text
           style={{
             marginTop: 32,
@@ -81,95 +89,86 @@ const SalesHomeScreen = () => {
           Good Morning!
         </Text>
 
-
-
-
-
-
-
-<ScrollView>
-
-
-
-
-        <TouchableCard
-          cardTitle={"Make A Sale"}
-          cardDescription={
-            "Record all incoming stocks details in a efficient way here"
-          }
-          onPress={() => navigation.navigate("SalesScreen")}
-          icon={<CardIcon />}
-        />
-
-        <TouchableCard
-          cardTitle={"inventory"}
-          cardDescription={
-            "Record all incoming stocks details in a efficient way here"
-          }
-          onPress={() => navigation.navigate("InventoryHomeScreen")}
-          icon={<CardIcon />}
-        />
-
-        <Text
-          style={{
-            marginTop: 48,
-            fontSize: 20,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          Quick Analysis On Your Works
-        </Text>
-        <Text
-          style={{
-            marginTop: 10,
-            fontSize: 16,
-            color: BASIC_COLORS.FONT_SECONDARY,
-          }}
-        >
-          This section show how you performed during the last 7 days
-        </Text>
-        <View
-          style={{
-            backgroundColor: BASIC_COLORS.WHITE,
-            borderRadius: 10,
-            //   paddingHorizontal: 10,
-            paddingVertical: 20,
-            marginTop: 20,
-            elevation: 2,
-          }}
-        >
-          <LineChart
-            data={chartData()}
-            width={350}
-            height={220}
-            yAxisInterval={1}
-            verticalLabelRotation={30}
-            chartConfig={{
-              backgroundColor: "#fff",
-              backgroundGradientFrom: "#fff",
-              backgroundGradientTo: "#fff",
-              decimalPlaces: 0,
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `#000`,
-              style: {
-                borderRadius: 16,
-              },
-              propsForDots: {
-                r: "4",
-                strokeWidth: "1",
-                stroke: "#ffa726",
-              },
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
+      
+          <TouchableCard
+            cardTitle={"Make A Sale"}
+            cardDescription={
+              "Record all incoming stocks details in a efficient way here"
+            }
+            onPress={() => navigation.navigate("SalesScreen")}
+            icon={<CardIcon />}
           />
-        </View>
-        </ScrollView>
+
+          <TouchableCard
+            cardTitle={"inventory"}
+            cardDescription={
+              "Record all incoming stocks details in a efficient way here"
+            }
+            onPress={() => navigation.navigate("InventoryHomeScreen")}
+            icon={<CardIcon />}
+          />
+
+          <Text
+            style={{
+              marginTop: 48,
+              fontSize: 20,
+              fontWeight: "bold",
+              color: BASIC_COLORS.FONT_PRIMARY,
+            }}
+          >
+            Quick Analysis On Your Works
+          </Text>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 16,
+              color: BASIC_COLORS.FONT_SECONDARY,
+            }}
+          >
+            This section show how you performed during the last 7 days
+          </Text>
+          <View
+            style={{
+              backgroundColor: BASIC_COLORS.WHITE,
+              borderRadius: 10,
+              //   paddingHorizontal: 10,
+              paddingVertical: 20,
+              marginTop: 20,
+              elevation: 2,
+            }}
+          >
+            <LineChart
+              data={chartData()}
+              width={350}
+              height={220}
+              yAxisInterval={1}
+              verticalLabelRotation={30}
+              chartConfig={{
+                backgroundColor: "#fff",
+                backgroundGradientFrom: "#fff",
+                backgroundGradientTo: "#fff",
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `#000`,
+                style: {
+                  borderRadius: 16,
+                },
+                propsForDots: {
+                  r: "4",
+                  strokeWidth: "1",
+                  stroke: "#ffa726",
+                },
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+              }}
+            />
+          </View>
+       
       </View>
+      </ScrollView>
     </>
   );
 };

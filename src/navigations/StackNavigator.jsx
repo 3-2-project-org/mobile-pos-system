@@ -79,59 +79,41 @@ const StackNavigator = () => {
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-
-<Stack.Screen
-
+      <Stack.Screen
         name="InventoryQrScanScreen"
         component={InventoryQrScanScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="InventoryScreen"
         component={InventoryScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="InventorySummaryScreen"
         component={InventorySummaryScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-
-<Stack.Screen
+      <Stack.Screen
         name="InventoryQrPrint"
         component={InventoryQrPrint}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-
-
-<Stack.Screen
+      <Stack.Screen
         name="InventoryAddNewItem"
         component={InventoryAddNewItem}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
 
-
-
-
-<Stack.Screen
+      <Stack.Screen
         name="EmployeesHomeScreen"
         component={EmployeesHomeScreen}
         options={{ headerShown: false }} // Hide header for SalesScreen screen
       />
-
-
-
-
-
-
-
-
-
-
     </Stack.Navigator>
   );
 };

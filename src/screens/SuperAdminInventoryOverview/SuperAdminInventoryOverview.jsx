@@ -5,13 +5,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { BottomSheet } from "@rneui/base";
 import CloseIcon from "../../assets/CloseIcon";
 import CircularProgress from "react-native-circular-progress-indicator";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { BarChart } from "react-native-gifted-charts";
+import { axiosInstance } from "../../utils/common/api";
 
 const dataList = [
   {
@@ -58,6 +59,17 @@ const barData = [
 const SuperAdminInventoryOverview = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [chartData, setChartData] = useState([]); // [{value: 250, label: "Jan"}, {value: 500, label: "Feb"}
+  const [individualProduct, setIndividualProduct] = useState({
+    _id: "",
+    name: "",
+    price: "",
+    inStock: 0,
+    totalStock: 0,
+    description: "",
+    supplier: "",
+  });
   const props = {
     activeStrokeWidth: 15,
     inActiveStrokeWidth: 15,
@@ -65,6 +77,35 @@ const SuperAdminInventoryOverview = () => {
     height: 10,
     width: 10,
   };
+
+  useEffect(() => {
+    axiosInstance.get("/product?is_active=true").then((res) => {
+      setProducts(res.data.data.data);
+    });
+  }, []);
+
+  const getItemStatus = (quantity) => {
+    if (quantity > 100) {
+      return "inStock";
+    } else if (quantity === 0) {
+      return "outOfStock";
+    } else if (quantity < 100) {
+      return "refillState";
+    }
+  };
+
+  useEffect(() => {
+    if (selectedItem !== "") {
+      axiosInstance.get(`/product/${selectedItem}`).then((res) => {
+        setIndividualProduct(res.data.data);
+      });
+
+      axiosInstance.get(`product/individual-month-analysis/${selectedItem}`).then((res) => {
+        setChartData(res.data.data);
+      });
+    }
+  }, [selectedItem]);
+
   return (
     <View
       style={{
@@ -146,12 +187,12 @@ const SuperAdminInventoryOverview = () => {
             paddingHorizontal: 10,
           }}
         >
-          {dataList.map((item, index) => {
+          {products.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
                 onPress={() => {
-                  setSelectedItem(item.code);
+                  setSelectedItem(item._id);
                   setShowModal(true);
                 }}
                 style={{
@@ -171,8 +212,10 @@ const SuperAdminInventoryOverview = () => {
                       color: BASIC_COLORS.FONT_SECONDARY,
                       flex: 1,
                     }}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
                   >
-                    {item.code}
+                    {item._id}
                   </Text>
                   <Text
                     style={{
@@ -184,7 +227,7 @@ const SuperAdminInventoryOverview = () => {
                     ellipsizeMode="tail"
                     numberOfLines={1}
                   >
-                    {item.itemName}
+                    {item.name}
                   </Text>
                   <Text
                     style={{
@@ -194,7 +237,7 @@ const SuperAdminInventoryOverview = () => {
                       flex: 1.5,
                     }}
                   >
-                    {item.unitPrice}
+                    {item.price}
                   </Text>
                   <View
                     style={{
@@ -208,7 +251,7 @@ const SuperAdminInventoryOverview = () => {
                         fontSize: 12,
                         fontWeight: "400",
                         backgroundColor:
-                          item.status === "outOfStock"
+                          getItemStatus(item.inStock) === "outOfStock"
                             ? BASIC_COLORS.ERROR
                             : item.status === "refillState"
                             ? "#FFB800"
@@ -226,7 +269,7 @@ const SuperAdminInventoryOverview = () => {
                         marginLeft: 5,
                       }}
                     >
-                      {item.status}
+                      {getItemStatus(item.inStock)}
                     </Text>
                   </View>
                 </View>
@@ -294,7 +337,7 @@ const SuperAdminInventoryOverview = () => {
                 color: BASIC_COLORS.WHITE,
               }}
             >
-              Maliban Chocolate Biscuit
+              {individualProduct.name ?? "Not Given"}
             </Text>
             <View
               style={{
@@ -307,9 +350,12 @@ const SuperAdminInventoryOverview = () => {
                   color: BASIC_COLORS.WHITE,
                   fontSize: 14,
                   minWidth: 100,
+                  maxWidth: 100,
                 }}
+                ellipsizeMode="tail"
+                numberOfLines={1}
               >
-                IT0001
+                {individualProduct._id ?? "Not Given"}
               </Text>
               <View
                 style={{
@@ -322,13 +368,12 @@ const SuperAdminInventoryOverview = () => {
                   style={{
                     fontSize: 12,
                     fontWeight: "400",
-                    // backgroundColor:
-                    //   item.status === "outOfStock"
-                    //     ? BASIC_COLORS.ERROR
-                    //     : item.status === "refillState"
-                    //     ? "#FFB800"
-                    //     : "#27DD23",
-                    backgroundColor: "#27DD23",
+                    backgroundColor:
+                      getItemStatus(individualProduct.inStock) === "outOfStock"
+                        ? BASIC_COLORS.ERROR
+                        : getItemStatus(individualProduct.inStock) === "refillState"
+                        ? "#FFB800"
+                        : "#27DD23",
                     height: 10,
                     width: 10,
                     borderRadius: 5,
@@ -342,7 +387,7 @@ const SuperAdminInventoryOverview = () => {
                     marginLeft: 5,
                   }}
                 >
-                  instock
+                  {getItemStatus(individualProduct.inStock)}
                 </Text>
               </View>
             </View>
@@ -368,7 +413,7 @@ const SuperAdminInventoryOverview = () => {
                   fontSize: 12,
                 }}
               >
-                Maliban Lanka Pvt ltd
+                {individualProduct.supplier ?? 'Not Given'}
               </Text>
             </View>
 
@@ -394,7 +439,7 @@ const SuperAdminInventoryOverview = () => {
                   fontSize: 12,
                 }}
               >
-                Rs 1000.00
+                Rs {individualProduct.price ?? 'Not Given'}
               </Text>
             </View>
           </View>
@@ -446,7 +491,7 @@ const SuperAdminInventoryOverview = () => {
               <AnimatedCircularProgress
                 size={60}
                 width={5}
-                fill={60}
+                fill={(individualProduct.inStock / individualProduct.totalStock) * 100}
                 tintColor="red"
                 backgroundColor={BASIC_COLORS.WHITE}
                 rotation={0}
@@ -458,7 +503,7 @@ const SuperAdminInventoryOverview = () => {
                       fontWeight: "700",
                     }}
                   >
-                    60%
+                    {(individualProduct.inStock / individualProduct.totalStock) * 100}
                   </Text>
                 )}
               </AnimatedCircularProgress>
@@ -493,7 +538,7 @@ const SuperAdminInventoryOverview = () => {
                 noOfSections={5}
                 barBorderRadius={5}
                 frontColor={BASIC_COLORS.PRIMARY}
-                data={barData}
+                data={chartData}
                 yAxisThickness={0}
                 xAxisThickness={0}
                 hideRules

@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ToastAndroid } from "react-native";
 import React from "react";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";
@@ -6,6 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import MPSButton from "../../components/atoms/Button/Button";
 import { useFormik } from "formik";
 import { loginValidation } from "../../utils/common/validations";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import StackNavigator from "../../navigations/StackNavigator";
+import { axiosInstance } from "../../utils/common/api";
 
 const Signin = () => {
   const [firstTimeLogin, setFirstTimeLogin] = React.useState(true);
@@ -16,16 +20,73 @@ const Signin = () => {
     password: "",
   };
 
-  const onSubmit = () => {
-    alert(values);
-    console.log("submit", values);
+  const showToastWithGravityAndOffset = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+
+  const onSubmit = async () => {
+
+    await axiosInstance.post("/auth/login", {
+      email: values.email,
+      password: values.password,
+    }).then(async (res) => {
+      console.log(res.data.data.otherDetails.type);
+      if (!res.data.data.otherDetails.is_loggedIn) {
+        navigation.navigate("FirstTimeSignInPage")
+      }
+      await AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
+      const a = await AsyncStorage.getItem("user")
+      console.log("user", a);
+      // showToastWithGravityAndOffset("Registration successful")
+      // if (res.data.data.otherDetails.type === "admin") {
+      //   navigation.navigate("SuperAdminAnalyticsOverview");
+      // } else if (res.data.data.otherDetails.type === "sales manager") {
+      //   navigation.navigate("InventoryScreen");
+      // } else {
+      //   navigation.navigate("EmployeesHomeScreen");
+      // }
+      // navigation.navigate("SigninPage");
+      navigation.navigate()
+    }).catch((err) => {
+      showToastWithGravityAndOffset("Registration failed")
+    });
+    // await axios.post("http://192.168.8.147:3007/api/v1/auth/login", {
+    //   email: values.email,
+    //   password: values.password,
+    // }).then(async (res) => {
+    //   console.log(res.data.data.otherDetails.type);
+    //   if (!res.data.data.otherDetails.is_loggedIn) {
+    //     navigation.navigate("FirstTimeSignInPage")
+    //   }
+    //   await AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
+    //   const a = await AsyncStorage.getItem("user")
+    //   console.log("user", a);
+    //   // showToastWithGravityAndOffset("Registration successful")
+    //   // if (res.data.data.otherDetails.type === "admin") {
+    //   //   navigation.navigate("SuperAdminAnalyticsOverview");
+    //   // } else if (res.data.data.otherDetails.type === "sales manager") {
+    //   //   navigation.navigate("InventoryScreen");
+    //   // } else {
+    //   //   navigation.navigate("EmployeesHomeScreen");
+    //   // }
+    //   // navigation.navigate("SigninPage");
+    //   navigation.navigate()
+    // }).catch((err) => {
+    //   showToastWithGravityAndOffset("Registration failed")
+    // });
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema: loginValidation,
-    validateOnChange: false,
+    validateOnChange: true,
   });
 
   const { values, errors, handleChange, handleSubmit } = formik;
@@ -61,7 +122,8 @@ const Signin = () => {
             inputContainerStyle={{
               borderColor: "transparent",
             }}
-            error={false}
+            error={errors.email ? true : false}
+            errorMessage={errors.email}
             value={values.email}
             onChangeText={handleChange("email")}
           />
@@ -78,7 +140,8 @@ const Signin = () => {
             inputContainerStyle={{
               borderColor: "transparent",
             }}
-            error={false}
+            error={errors.password ? true : false}
+            errorMessage={errors.password}
             value={values.password}
             onChangeText={handleChange("password")}
           />
@@ -109,7 +172,8 @@ const Signin = () => {
                 height: 52,
             }}
             buttonState={"submit"}
-            onPress={() => firstTimeLogin ? navigation.navigate("FirstTimeSignInPage") : navigation.navigate("OTPPage")}
+            onPress={handleSubmit}
+            disabled={errors.email || errors.password ? true : false}
         />
       </View>
     </View>

@@ -5,10 +5,21 @@ import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSRolePopperContainer from "./MPSRolesPopperContainer/MPSRolePopperContainer";
 import { useDispatch } from "react-redux";
 import { setRole } from "../../redux/slices/rolesSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Layout = ({ children }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
+  const [roles, setRoles] = React.useState(["Sales person view"]);
+
+  useEffect(() => {
+    AsyncStorage.getItem("user").then((res) => {
+      console.log(JSON.parse(res).type);
+      setRoles([JSON.parse(res).type]);
+    });
+  }, [1]);
+  
+  console.log(roles);
   const dispatch = useDispatch();
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -67,6 +78,7 @@ const Layout = ({ children }) => {
               <MPSRolePopperContainer
                 selectedOption={selectedOption}
                 onPressRoles={switchUserRole}
+                userRole={roles}
               />
             </View>
           </Animated.View>

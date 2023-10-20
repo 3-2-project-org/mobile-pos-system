@@ -13,7 +13,8 @@ const MPSButton = ({
   onPress,
   loading,
   icon,
-  buttonState
+  buttonState,
+  disabled = false,
 }) => {
   return (
     <View>
@@ -54,6 +55,7 @@ const MPSButton = ({
         onPress={onPress}
         loading={loading}
         type={buttonState}
+        disabled={disabled}
       />
     </View>
   );

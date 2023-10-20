@@ -7,11 +7,24 @@ import Layout from "./src/components/molecules/Layout";
 import AuthStackNavigator from "./src/navigations/AuthStackNavigator";
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+  useEffect(() => {
+    AsyncStorage.getItem("user").then((user) => {
+      if (user) {
+        console.log("useragdg", user);
+        setIsUserLoggedIn(true);
+      } else {
+        setIsUserLoggedIn(false);
+      }
+    });
+    
+  }, []);
   return (
     <Provider store={store}>
       {!isUserLoggedIn ? (
@@ -22,16 +35,14 @@ export default function App() {
         </>
       ) : (
         <NavigationContainer>
-        <Layout>
+          <Layout>
             <StackNavigator />
-            </Layout>
+          </Layout>
         </NavigationContainer>
       )}
     </Provider>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {},

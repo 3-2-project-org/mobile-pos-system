@@ -7,7 +7,18 @@ const MPSRolePopperContainer = ({
   onPressRoles,
   selectedOption,
   switchUserRole,
+  userRole
 }) => {
+  console.log("Ssss ", userRole);
+  const checkSelectedOption = (role) => {
+    if ("Super admin view" === role) {
+      return true;
+    } else if ("Sales person view" === role) {
+      return true;
+    } else if ("Stock manager view" === role) {
+      return true;
+    }
+  }
   return (
     <View
       style={{
@@ -21,15 +32,16 @@ const MPSRolePopperContainer = ({
         paddingVertical: 15,
       }}
     >
-      {USER_ROLES.map((role, index) => {
+      {userRole.map((role, index) => {
+        console.log(role, selectedOption);
         return (
           <Pressable
             key={index}
-            onPress={() => onPressRoles(role)}
+            onPress={() => onPressRoles(role === "admin"? "Super admin view" : role === "sales manager" ? "Sales person view" : "Stock manager view")}
             style={{
               paddingHorizontal: 31,
               backgroundColor:
-                selectedOption === role
+              checkSelectedOption(role, selectedOption)
                   ? BASIC_COLORS.PRIMARY
                   : BASIC_COLORS.WHITE,
               display: "flex",
@@ -54,7 +66,7 @@ const MPSRolePopperContainer = ({
                 fontWeight: "700",
               }}
             >
-              {role}
+              {role === "admin"? "Super admin view" : role === "sales manager" ? "Sales person view" : "Stock manager view"}
             </Text>
           </Pressable>
         );

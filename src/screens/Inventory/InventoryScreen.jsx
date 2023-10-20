@@ -71,7 +71,7 @@ const InventoryScreen = () => {
         <View style={styles.card}>
           <View style={styles.row}>
             <View style={styles.labelColumn}>
-              <Text style={styles.labelText}>Item Name</Text>
+              <Text style={styles.labelText}>Itemdfgdfggdf Name</Text>
             </View>
             <View style={styles.valueColumn}>
               <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>

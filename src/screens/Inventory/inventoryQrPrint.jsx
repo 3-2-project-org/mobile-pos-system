@@ -5,6 +5,7 @@ import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
 import Printer from "../../assets/Printer";
+import CustomCard from "../../components/CustomCard/CustomCard";
 const InventoryQrPrint = () => {
   const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -27,65 +28,18 @@ const InventoryQrPrint = () => {
       </Text>
       <QrIcon />
 
-      <View style={styles.card}>
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>Item Name </Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-              Maliban Chocalate buiscuit
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>Unit Price</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>
-              Rs 200.00 per gram/ unit
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>Discount</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={{ color: BASIC_COLORS.FONT_SECONDARY }}>N/A</Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>Quantity</Text>
-          </View>
-          <View style={styles.column}>
-            <Text
-              style={{
-                backgroundColor: "#D8EFDD",
-                paddingVertical: 5,
-                paddingHorizontal: 10,
-                width: 60,
-                borderRadius: 8,
-                color: BASIC_COLORS.FONT_SECONDARY,
-              }}
-            >
-              100
-            </Text>
-          </View>
-        </View>
-      </View>
+      <CustomCard
+        itemName="Maliban Chocalate buiscuit"
+        unitPrice="Rs 200.00 per gram/ unit"
+        discount="N/A"
+        onQuantityChange={(text) => setQuantity(text)}
+      />
 
       <MPSButton
         icon={<Printer />}
         buttonTitle={"Print   "}
         onPress={() => navigation.navigate("InventoryQrPrint")}
-        buttonStyle={{ marginTop: 50, height:67 }}
-          
+        buttonStyle={{ marginTop: 50, height: 67 }}
       />
     </View>
   );

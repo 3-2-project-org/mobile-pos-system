@@ -11,27 +11,22 @@ import { store } from "./src/redux/store";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false); // Set to false by default
+
   return (
     <Provider store={store}>
-      {!isUserLoggedIn ? (
-        <>
-          <NavigationContainer>
-            <AuthStackNavigator />
-          </NavigationContainer>
-        </>
-      ) : (
-        <NavigationContainer>
-        <Layout>
+      <NavigationContainer>
+        {!isUserLoggedIn ? (
+          <Layout>
             <StackNavigator />
-            </Layout>
-        </NavigationContainer>
-      )}
+          </Layout>
+        ) : (
+          <AuthStackNavigator />
+        )}
+      </NavigationContainer>
     </Provider>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {},

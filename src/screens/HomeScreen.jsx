@@ -67,29 +67,27 @@ const SalesHomeScreen = () => {
   return (
     <>
       <ScrollView>
-      <View style={styles.container}>
-    
-        <Text
-          style={{
-            marginTop: 32,
-            fontSize: 25,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          Hey Fazid
-        </Text>
-        <Text
-          style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          Good Morning!
-        </Text>
+        <View style={styles.container}>
+          <Text
+            style={{
+              marginTop: 32,
+              fontSize: 25,
+              fontWeight: "bold",
+              color: BASIC_COLORS.FONT_PRIMARY,
+            }}
+          >
+            Hey Fazid
+          </Text>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+              color: BASIC_COLORS.FONT_PRIMARY,
+            }}
+          >
+            Good Morning!
+          </Text>
 
-      
           <TouchableCard
             cardTitle={"Make A Sale"}
             cardDescription={
@@ -166,8 +164,7 @@ const SalesHomeScreen = () => {
               }}
             />
           </View>
-       
-      </View>
+        </View>
       </ScrollView>
     </>
   );

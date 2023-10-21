@@ -19,10 +19,6 @@ const InventoryQrScanScreen = () => {
   const [flash, setFlash] = useState(false);
   const [scannedData, setScannedData] = useState([]);
 
-  // const handleBarCodeScanned = ({ data }) => {
-  //   setScannedData([...scannedData, data]);
-  // };
-
   const togglePopup = (data) => {
     setSelectedData(data);
     setShowPopup(!showPopup);
@@ -173,12 +169,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginHorizontal: 10,
-    
   },
   buttonText: {
     color: "#FFFFFF",
     textAlign: "center",
-   
   },
   scannedDataContainer: {
     marginTop: 20,

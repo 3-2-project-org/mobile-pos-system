@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ToastAndroid } from "react-native";
 import CheckBox from "expo-checkbox";
 import React from "react";
 import { BASIC_COLORS } from "../../utils/constants/styles";
@@ -8,9 +8,22 @@ import ForwardArrow from "../../assets/ForwardArrow";
 import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
 import { registerValidation } from "../../utils/common/validations";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { axiosInstance } from "../../utils/common/api";
 
 const Signup = () => {
   const navigation = useNavigation();
+
+  const showToastWithGravityAndOffset = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  };
 
   const initialValues = {
     storeName: "",
@@ -20,19 +33,43 @@ const Signup = () => {
     termsAndConditions: false,
   };
 
-  const onSubmit = () => {
-    alert(values);
-    console.log("submit", values);
+  const onSubmit = async () => {
+    await axiosInstance
+      .post("/auth/register", {
+        username: values.storeName,
+        email: values.storeEmail,
+        password: values.password,
+        is_loggedIn: true,
+        type: "admin",
+      })
+      .then((res) => {
+        AsyncStorage.setItem(
+          "user",
+          JSON.stringify(res.data.data.otherDetails)
+        );
+        showToastWithGravityAndOffset("Registration successful");
+        if (res.data.data.otherDetails.type === "admin") {
+          navigation.navigate("SuperAdminAnalyticsOverview");
+        } else if (res.data.data.otherDetails.type === "sales manager") {
+          navigation.navigate("InventoryScreen");
+        } else {
+          navigation.navigate("EmployeesHomeScreen");
+        }
+      })
+      .catch((err) => {
+        showToastWithGravityAndOffset("Registration failed");
+      });
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema: registerValidation,
-    validateOnChange: false,
+    validateOnChange: true,
   });
 
   const { values, errors, handleChange, handleSubmit } = formik;
+
   return (
     <View
       style={{
@@ -136,25 +173,21 @@ const Signup = () => {
         >
           <View
             style={{
-              flexDirection: "row",
-            }}
-          >
-            <CheckBox value={true} color={BASIC_COLORS.PRIMARY} />
-            <Text
-              style={{
-                marginStart: 10,
-              }}
-            >
-              I agree to the terms and conditions
-            </Text>
-          </View>
-          <View
-            style={{
               marginTop: 17,
               flexDirection: "row",
             }}
           >
-            <CheckBox value={values.termsAndConditions} color={BASIC_COLORS.PRIMARY} onChange={handleChange("termsAndConditions")} />
+            <CheckBox
+              value={values.termsAndConditions}
+              color={BASIC_COLORS.PRIMARY}
+              onChange={handleChange("termsAndConditions")}
+              onValueChange={(e) => {
+                formik.setFieldValue(
+                  "termsAndConditions",
+                  !values.termsAndConditions
+                );
+              }}
+            />
             <Text
               style={{
                 marginStart: 10,
@@ -174,6 +207,15 @@ const Signup = () => {
           }}
           icon={<ForwardArrow />}
           onPress={handleSubmit}
+          disabled={
+            errors.confirmPassword ||
+            errors.password ||
+            errors.storeEmail ||
+            errors.termsAndConditions ||
+            errors.storeName
+              ? true
+              : false
+          }
         />
       </View>
     </View>

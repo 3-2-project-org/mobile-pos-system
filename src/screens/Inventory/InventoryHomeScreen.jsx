@@ -68,8 +68,5 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     paddingHorizontal: 31,
-    // flex: 1,
-    // backgroundColor: "#fff",
-    // justifyContent: "center",
   },
 });

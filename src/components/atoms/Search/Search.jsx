@@ -26,7 +26,6 @@ const Search = ({ placeholder, onchange, icon }) => {
           color: BASIC_COLORS.FONT_SECONDARY,
         }}
         placeholder={placeholder}
-        // onChangeText={onchange}
         onChangeText={(text) => console.log(text)}
       />
       {icon && icon}

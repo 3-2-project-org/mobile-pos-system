@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ToastAndroid } from "react-native";
 import React from "react";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";
@@ -6,6 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import MPSButton from "../../components/atoms/Button/Button";
 import { useFormik } from "formik";
 import { loginValidation } from "../../utils/common/validations";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import StackNavigator from "../../navigations/StackNavigator";
+import { axiosInstance } from "../../utils/common/api";
 
 const Signin = () => {
   const [firstTimeLogin, setFirstTimeLogin] = React.useState(true);
@@ -16,19 +20,47 @@ const Signin = () => {
     password: "",
   };
 
-  const onSubmit = () => {
-    alert(values);
-    console.log("submit", values);
+  const showToastWithGravityAndOffset = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  };
+
+  const onSubmit = async () => {
+    await axiosInstance
+      .post("/auth/login", {
+        email: values.email,
+        password: values.password,
+      })
+      .then(async (res) => {
+        if (!res.data.data.otherDetails.is_loggedIn) {
+          navigation.navigate("FirstTimeSignInPage");
+        }
+        await AsyncStorage.setItem(
+          "user",
+          JSON.stringify(res.data.data.otherDetails)
+        );
+        await AsyncStorage.getItem("user");
+        navigation.navigate("HomeScreen");
+      })
+      .catch((err) => {
+        showToastWithGravityAndOffset("Registration failed");
+      });
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema: loginValidation,
-    validateOnChange: false,
+    validateOnChange: true,
   });
 
   const { values, errors, handleChange, handleSubmit } = formik;
+
   return (
     <View
       style={{
@@ -61,7 +93,8 @@ const Signin = () => {
             inputContainerStyle={{
               borderColor: "transparent",
             }}
-            error={false}
+            error={errors.email ? true : false}
+            errorMessage={errors.email}
             value={values.email}
             onChangeText={handleChange("email")}
           />
@@ -78,9 +111,11 @@ const Signin = () => {
             inputContainerStyle={{
               borderColor: "transparent",
             }}
-            error={false}
+            error={errors.password ? true : false}
+            errorMessage={errors.password}
             value={values.password}
             onChangeText={handleChange("password")}
+            secureTextEntry={true}
           />
         </View>
 
@@ -101,15 +136,16 @@ const Signin = () => {
           </Text>
         </Pressable>
 
-        <MPSButton 
-            buttonType={"primary"}
-            buttonTitle={"Sign in"}
-            buttonStyle={{
-                marginTop: 64,
-                height: 52,
-            }}
-            buttonState={"submit"}
-            onPress={() => firstTimeLogin ? navigation.navigate("FirstTimeSignInPage") : navigation.navigate("OTPPage")}
+        <MPSButton
+          buttonType={"primary"}
+          buttonTitle={"Sign in"}
+          buttonStyle={{
+            marginTop: 64,
+            height: 52,
+          }}
+          buttonState={"submit"}
+          onPress={handleSubmit}
+          disabled={errors.email || errors.password ? true : false}
         />
       </View>
     </View>

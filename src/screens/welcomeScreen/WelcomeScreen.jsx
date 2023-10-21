@@ -6,7 +6,7 @@ import ForwardArrow from "../../assets/ForwardArrow";
 import { useNavigation } from "@react-navigation/native";
 
 const WelcomeScreen = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -31,13 +31,13 @@ const WelcomeScreen = () => {
         </Text>
 
         <MPSButton
-            buttonType={"primary"}
-            icon={<ForwardArrow />}
-            buttonTitle={"Get Started"}
-            buttonStyle={{
-                marginTop: 22,
-            }}
-            onPress={() => navigation.navigate("SigninPage")}
+          buttonType={"primary"}
+          icon={<ForwardArrow />}
+          buttonTitle={"Get Started"}
+          buttonStyle={{
+            marginTop: 22,
+          }}
+          onPress={() => navigation.navigate("SigninPage")}
         />
       </View>
     </View>

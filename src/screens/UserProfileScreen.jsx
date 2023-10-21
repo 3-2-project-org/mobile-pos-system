@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  TextInput,
   Touchable,
   TouchableOpacity,
   ScrollView,
@@ -15,48 +16,8 @@ import { Pressable } from "react-native";
 import MPSInputField from "../components/atoms/MPSInputField/MPSInputField";
 import MPSDoubleButton from "../components/atoms/Button/DoubleButton";
 import { AntDesign } from "@expo/vector-icons";
-
-const dataList = [
-  {
-    code: "IT0001",
-    itemName: "Ceylon Tea",
-    unitPrice: "Rs 500.00",
-    status: "inStock",
-  },
-  {
-    code: "IT0002",
-    itemName: "Maggee seasoning cube",
-    unitPrice: "Rs 500.00",
-    status: "refillState",
-  },
-  {
-    code: "IT0003",
-    itemName: "Maliban Chocalate Biscuit",
-    unitPrice: "Rs 500.00",
-    status: "outOfStock",
-  },
-  {
-    code: "IT0004",
-    itemName: "Manchee Chocalate Biscuit",
-    unitPrice: "Rs 500.00",
-    status: "inStock",
-  },
-];
-
-const barData = [
-  { value: 250, label: "Jan" },
-  { value: 500, label: "Feb" },
-  { value: 745, label: "Mar" },
-  { value: 320, label: "Apr" },
-  { value: 600, label: "May" },
-  { value: 256, label: "Jun" },
-  { value: 300, label: "Jul" },
-  { value: 500, label: "Aug" },
-  { value: 745, label: "Sep" },
-  { value: 320, label: "Oct" },
-  { value: 600, label: "Nov" },
-  { value: 256, label: "Dec" },
-];
+import CustomCard from "../components/CustomCard/CustomCard";
+import UsersCustomCard from "../components/CustomCard/UsersCustomCard";
 
 const UserProfileScreen = () => {
   const [selectedItem, setSelectedItem] = useState("");
@@ -75,18 +36,18 @@ const UserProfileScreen = () => {
         marginTop: 27,
       }}
     >
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "700",
-        }}
-      >
-        Inventory Overview
-      </Text>
+
+<UsersCustomCard
+        Name="Tuan Fazid Samoon"
+        Email="tuan.fazid@gmail.com"
+        Phone="077-5061961"
+      />
+     
 
       <MPSButton
         buttonTitle={"Edit Information"}
         buttonType={"primary"}
+        buttonStyle={{marginTop:20}}
         onPress={() => setShowModal(true)}
       />
 

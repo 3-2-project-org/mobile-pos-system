@@ -57,7 +57,6 @@ const MPSInputField = ({
           editable={editable}
           value={value}
           secureTextEntry={secureTextEntry}
-          
         />
 
         {icon && icon}

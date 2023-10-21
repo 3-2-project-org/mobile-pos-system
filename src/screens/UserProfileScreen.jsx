@@ -4,7 +4,7 @@ import {
   Touchable,
   TouchableOpacity,
   ScrollView,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import { BASIC_COLORS } from "../utils/constants/styles";
@@ -180,12 +180,9 @@ const UserProfileScreen = () => {
             }
           />
 
-
-
-<View
+          <View
             style={{
               marginTop: 35,
-            
             }}
           >
             <MPSDoubleButton
@@ -199,7 +196,7 @@ const UserProfileScreen = () => {
                 backgroundColor: "white",
                 borderRadius: 10,
                 height: 46,
-                paddingHorizontal:"17%",
+                paddingHorizontal: "17%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
                 flex: 1,
@@ -208,25 +205,16 @@ const UserProfileScreen = () => {
                 backgroundColor: BASIC_COLORS.PRIMARY,
                 borderRadius: 10,
                 height: 46,
-                paddingHorizontal:"18%",
+                paddingHorizontal: "18%",
                 borderColor: BASIC_COLORS.PRIMARY,
                 borderWidth: 3,
                 flex: 1,
               }}
-           
               onPress1={() => console.log("cancel Button pressed")}
               onPress2={() => console.log(" save Button pressed")}
               loading={false}
             />
           </View>
-
-
-
-
-
-
-
-        
         </ScrollView>
       </BottomSheet>
     </View>

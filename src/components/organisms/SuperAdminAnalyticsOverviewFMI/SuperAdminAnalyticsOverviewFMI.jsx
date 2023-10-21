@@ -37,19 +37,19 @@ const SuperAdminAnalyticsOverviewFMI = () => {
 
   const moveChart = (dir) => {
     dir === "left" ? setIndex(0) : setIndex(6);
-  }
+  };
   const chartData = () => {
     return {
-        labels: index === 0 ? data.labels.slice(0, 6) : data.labels.slice(6, 12),
-        datasets: data.datasets.map((set) => {
-            return {
-                data: index === 0 ? set.data.slice(0, 6) : set.data.slice(6, 12),
-                color: set.color,
-                strokeWidth: set.strokeWidth
-            }
-        })     
-    }
-  }
+      labels: index === 0 ? data.labels.slice(0, 6) : data.labels.slice(6, 12),
+      datasets: data.datasets.map((set) => {
+        return {
+          data: index === 0 ? set.data.slice(0, 6) : set.data.slice(6, 12),
+          color: set.color,
+          strokeWidth: set.strokeWidth,
+        };
+      }),
+    };
+  };
   return (
     <View
       style={{

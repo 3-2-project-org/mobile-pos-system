@@ -53,7 +53,6 @@ const InventoryScreen = () => {
 
         <Search
           placeholder={"Item code"}
-          //  onChangeText={(text) => console.log(text)}
           onChangeText={onValueChange}
           value={value}
           icon={

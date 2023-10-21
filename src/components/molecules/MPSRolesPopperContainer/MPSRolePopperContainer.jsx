@@ -7,9 +7,8 @@ const MPSRolePopperContainer = ({
   onPressRoles,
   selectedOption,
   switchUserRole,
-  userRole
+  userRole,
 }) => {
-  console.log("Ssss ", userRole);
   const checkSelectedOption = (role) => {
     if ("Super admin view" === role) {
       return true;
@@ -18,7 +17,7 @@ const MPSRolePopperContainer = ({
     } else if ("Stock manager view" === role) {
       return true;
     }
-  }
+  };
   return (
     <View
       style={{
@@ -33,17 +32,23 @@ const MPSRolePopperContainer = ({
       }}
     >
       {userRole.map((role, index) => {
-        console.log(role, selectedOption);
         return (
           <Pressable
             key={index}
-            onPress={() => onPressRoles(role === "admin"? "Super admin view" : role === "sales manager" ? "Sales person view" : "Stock manager view")}
+            onPress={() =>
+              onPressRoles(
+                role === "admin"
+                  ? "Super admin view"
+                  : role === "sales manager"
+                  ? "Sales person view"
+                  : "Stock manager view"
+              )
+            }
             style={{
               paddingHorizontal: 31,
-              backgroundColor:
-              checkSelectedOption(role, selectedOption)
-                  ? BASIC_COLORS.PRIMARY
-                  : BASIC_COLORS.WHITE,
+              backgroundColor: checkSelectedOption(role, selectedOption)
+                ? BASIC_COLORS.PRIMARY
+                : BASIC_COLORS.WHITE,
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
@@ -66,7 +71,11 @@ const MPSRolePopperContainer = ({
                 fontWeight: "700",
               }}
             >
-              {role === "admin"? "Super admin view" : role === "sales manager" ? "Sales person view" : "Stock manager view"}
+              {role === "admin"
+                ? "Super admin view"
+                : role === "sales manager"
+                ? "Sales person view"
+                : "Stock manager view"}
             </Text>
           </Pressable>
         );

@@ -60,7 +60,8 @@ const SuperAdminInventoryOverview = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [products, setProducts] = useState([]);
-  const [chartData, setChartData] = useState([]); // [{value: 250, label: "Jan"}, {value: 500, label: "Feb"}
+  const [chartData, setChartData] = useState([]);
+  const [loading , setLoading] = useState(false)
   const [individualProduct, setIndividualProduct] = useState({
     _id: "",
     name: "",
@@ -100,11 +101,20 @@ const SuperAdminInventoryOverview = () => {
         setIndividualProduct(res.data.data);
       });
 
-      axiosInstance.get(`product/individual-month-analysis/${selectedItem}`).then((res) => {
-        setChartData(res.data.data);
-      });
+      axiosInstance
+        .get(`product/individual-month-analysis/${selectedItem}`)
+        .then((res) => {
+          setChartData(res.data.data);
+        });
     }
   }, [selectedItem]);
+
+  const renderChartData = (chartData) => {
+    const month = new Date().getMonth();
+
+    if (month > 6) return chartData.slice(5,11)
+    else return chartData.slice(0,5)
+  }
 
   return (
     <View
@@ -371,7 +381,8 @@ const SuperAdminInventoryOverview = () => {
                     backgroundColor:
                       getItemStatus(individualProduct.inStock) === "outOfStock"
                         ? BASIC_COLORS.ERROR
-                        : getItemStatus(individualProduct.inStock) === "refillState"
+                        : getItemStatus(individualProduct.inStock) ===
+                          "refillState"
                         ? "#FFB800"
                         : "#27DD23",
                     height: 10,
@@ -413,7 +424,7 @@ const SuperAdminInventoryOverview = () => {
                   fontSize: 12,
                 }}
               >
-                {individualProduct.supplier ?? 'Not Given'}
+                {individualProduct.supplier ?? "Not Given"}
               </Text>
             </View>
 
@@ -439,7 +450,7 @@ const SuperAdminInventoryOverview = () => {
                   fontSize: 12,
                 }}
               >
-                Rs {individualProduct.price ?? 'Not Given'}
+                Rs {individualProduct.price ?? "Not Given"}
               </Text>
             </View>
           </View>
@@ -491,7 +502,10 @@ const SuperAdminInventoryOverview = () => {
               <AnimatedCircularProgress
                 size={60}
                 width={5}
-                fill={(individualProduct.inStock / individualProduct.totalStock) * 100}
+                fill={
+                  (individualProduct.inStock / individualProduct.totalStock) *
+                  100
+                }
                 tintColor="red"
                 backgroundColor={BASIC_COLORS.WHITE}
                 rotation={0}
@@ -503,7 +517,9 @@ const SuperAdminInventoryOverview = () => {
                       fontWeight: "700",
                     }}
                   >
-                    {(individualProduct.inStock / individualProduct.totalStock) * 100}
+                    {(individualProduct.inStock /
+                      individualProduct.totalStock) *
+                      100}
                   </Text>
                 )}
               </AnimatedCircularProgress>
@@ -538,10 +554,11 @@ const SuperAdminInventoryOverview = () => {
                 noOfSections={5}
                 barBorderRadius={5}
                 frontColor={BASIC_COLORS.PRIMARY}
-                data={chartData}
+                data={renderChartData(chartData)}
                 yAxisThickness={0}
                 xAxisThickness={0}
                 hideRules
+                
               />
             </View>
           </View>

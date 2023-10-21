@@ -84,8 +84,7 @@ const InventoryQrPrint = () => {
         icon={<Printer />}
         buttonTitle={"Print   "}
         onPress={() => navigation.navigate("InventoryQrPrint")}
-        buttonStyle={{ marginTop: 50, height:67 }}
-          
+        buttonStyle={{ marginTop: 50, height: 67 }}
       />
     </View>
   );

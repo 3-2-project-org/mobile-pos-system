@@ -14,12 +14,10 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     AsyncStorage.getItem("user").then((res) => {
-      console.log(JSON.parse(res).type);
       setRoles([JSON.parse(res).type]);
     });
   }, [1]);
   
-  console.log(roles);
   const dispatch = useDispatch();
   useEffect(() => {
     Animated.timing(fadeAnim, {

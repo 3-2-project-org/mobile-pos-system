@@ -23,10 +23,12 @@ const TouchableCard = ({ cardTitle, cardDescription, onPress, icon }) => {
             elevation: 5,
           }}
         >
-          <View style={{
-            display: "flex",
-            flexDirection: "row",
-          }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <View
               style={{
                 display: "flex",

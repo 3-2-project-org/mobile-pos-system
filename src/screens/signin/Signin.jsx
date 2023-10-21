@@ -26,60 +26,30 @@ const Signin = () => {
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,
-      50,
+      50
     );
   };
 
   const onSubmit = async () => {
-
-    await axiosInstance.post("/auth/login", {
-      email: values.email,
-      password: values.password,
-    }).then(async (res) => {
-      console.log(res.data.data.otherDetails.type);
-      if (!res.data.data.otherDetails.is_loggedIn) {
-        navigation.navigate("FirstTimeSignInPage")
-      }
-      await AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
-      const a = await AsyncStorage.getItem("user")
-      console.log("user", a);
-      // showToastWithGravityAndOffset("Registration successful")
-      // if (res.data.data.otherDetails.type === "admin") {
-      //   navigation.navigate("SuperAdminAnalyticsOverview");
-      // } else if (res.data.data.otherDetails.type === "sales manager") {
-      //   navigation.navigate("InventoryScreen");
-      // } else {
-      //   navigation.navigate("EmployeesHomeScreen");
-      // }
-      // navigation.navigate("SigninPage");
-      navigation.navigate()
-    }).catch((err) => {
-      showToastWithGravityAndOffset("Registration failed")
-    });
-    // await axios.post("http://192.168.8.147:3007/api/v1/auth/login", {
-    //   email: values.email,
-    //   password: values.password,
-    // }).then(async (res) => {
-    //   console.log(res.data.data.otherDetails.type);
-    //   if (!res.data.data.otherDetails.is_loggedIn) {
-    //     navigation.navigate("FirstTimeSignInPage")
-    //   }
-    //   await AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
-    //   const a = await AsyncStorage.getItem("user")
-    //   console.log("user", a);
-    //   // showToastWithGravityAndOffset("Registration successful")
-    //   // if (res.data.data.otherDetails.type === "admin") {
-    //   //   navigation.navigate("SuperAdminAnalyticsOverview");
-    //   // } else if (res.data.data.otherDetails.type === "sales manager") {
-    //   //   navigation.navigate("InventoryScreen");
-    //   // } else {
-    //   //   navigation.navigate("EmployeesHomeScreen");
-    //   // }
-    //   // navigation.navigate("SigninPage");
-    //   navigation.navigate()
-    // }).catch((err) => {
-    //   showToastWithGravityAndOffset("Registration failed")
-    // });
+    await axiosInstance
+      .post("/auth/login", {
+        email: values.email,
+        password: values.password,
+      })
+      .then(async (res) => {
+        if (!res.data.data.otherDetails.is_loggedIn) {
+          navigation.navigate("FirstTimeSignInPage");
+        }
+        await AsyncStorage.setItem(
+          "user",
+          JSON.stringify(res.data.data.otherDetails)
+        );
+        await AsyncStorage.getItem("user");
+        navigation.navigate("HomeScreen");
+      })
+      .catch((err) => {
+        showToastWithGravityAndOffset("Registration failed");
+      });
   };
 
   const formik = useFormik({
@@ -90,6 +60,7 @@ const Signin = () => {
   });
 
   const { values, errors, handleChange, handleSubmit } = formik;
+
   return (
     <View
       style={{
@@ -144,6 +115,7 @@ const Signin = () => {
             errorMessage={errors.password}
             value={values.password}
             onChangeText={handleChange("password")}
+            secureTextEntry={true}
           />
         </View>
 
@@ -164,16 +136,16 @@ const Signin = () => {
           </Text>
         </Pressable>
 
-        <MPSButton 
-            buttonType={"primary"}
-            buttonTitle={"Sign in"}
-            buttonStyle={{
-                marginTop: 64,
-                height: 52,
-            }}
-            buttonState={"submit"}
-            onPress={handleSubmit}
-            disabled={errors.email || errors.password ? true : false}
+        <MPSButton
+          buttonType={"primary"}
+          buttonTitle={"Sign in"}
+          buttonStyle={{
+            marginTop: 64,
+            height: 52,
+          }}
+          buttonState={"submit"}
+          onPress={handleSubmit}
+          disabled={errors.email || errors.password ? true : false}
         />
       </View>
     </View>

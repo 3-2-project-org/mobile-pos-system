@@ -21,7 +21,7 @@ const Signup = () => {
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,
-      50,
+      50
     );
   };
 
@@ -34,48 +34,31 @@ const Signup = () => {
   };
 
   const onSubmit = async () => {
-    await axiosInstance.post("/auth/register", {
-      username: values.storeName,
-      email: values.storeEmail,
-      password: values.password,
-      is_loggedIn: true,
-      type: "admin"
-    }).then((res) => {
-      console.log(res.data.data.otherDetails.type);
-      AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
-      showToastWithGravityAndOffset("Registration successful")
-      if (res.data.data.otherDetails.type === "admin") {
-        navigation.navigate("SuperAdminAnalyticsOverview");
-      } else if (res.data.data.otherDetails.type === "sales manager") {
-        navigation.navigate("InventoryScreen");
-      } else {
-        navigation.navigate("EmployeesHomeScreen");
-      }
-      // navigation.navigate("SigninPage");
-    }).catch((err) => {
-      showToastWithGravityAndOffset("Registration failed")
-    });
-    // axios.post("http://192.168.8.147:3007/api/v1/auth/register", {
-    //   username: values.storeName,
-    //   email: values.storeEmail,
-    //   password: values.password,
-    //   is_loggedIn: true,
-    //   type: "admin"
-    // }).then((res) => {
-    //   console.log(res.data.data.otherDetails.type);
-    //   AsyncStorage.setItem("user", JSON.stringify(res.data.data.otherDetails));
-    //   showToastWithGravityAndOffset("Registration successful")
-    //   if (res.data.data.otherDetails.type === "admin") {
-    //     navigation.navigate("SuperAdminAnalyticsOverview");
-    //   } else if (res.data.data.otherDetails.type === "sales manager") {
-    //     navigation.navigate("InventoryScreen");
-    //   } else {
-    //     navigation.navigate("EmployeesHomeScreen");
-    //   }
-    //   // navigation.navigate("SigninPage");
-    // }).catch((err) => {
-    //   showToastWithGravityAndOffset("Registration failed")
-    // });
+    await axiosInstance
+      .post("/auth/register", {
+        username: values.storeName,
+        email: values.storeEmail,
+        password: values.password,
+        is_loggedIn: true,
+        type: "admin",
+      })
+      .then((res) => {
+        AsyncStorage.setItem(
+          "user",
+          JSON.stringify(res.data.data.otherDetails)
+        );
+        showToastWithGravityAndOffset("Registration successful");
+        if (res.data.data.otherDetails.type === "admin") {
+          navigation.navigate("SuperAdminAnalyticsOverview");
+        } else if (res.data.data.otherDetails.type === "sales manager") {
+          navigation.navigate("InventoryScreen");
+        } else {
+          navigation.navigate("EmployeesHomeScreen");
+        }
+      })
+      .catch((err) => {
+        showToastWithGravityAndOffset("Registration failed");
+      });
   };
 
   const formik = useFormik({
@@ -86,7 +69,7 @@ const Signup = () => {
   });
 
   const { values, errors, handleChange, handleSubmit } = formik;
-  
+
   return (
     <View
       style={{
@@ -194,9 +177,17 @@ const Signup = () => {
               flexDirection: "row",
             }}
           >
-            <CheckBox value={values.termsAndConditions} color={BASIC_COLORS.PRIMARY} onChange={handleChange("termsAndConditions")} onValueChange={(e) => {
-              formik.setFieldValue("termsAndConditions", !values.termsAndConditions);
-            }}/>
+            <CheckBox
+              value={values.termsAndConditions}
+              color={BASIC_COLORS.PRIMARY}
+              onChange={handleChange("termsAndConditions")}
+              onValueChange={(e) => {
+                formik.setFieldValue(
+                  "termsAndConditions",
+                  !values.termsAndConditions
+                );
+              }}
+            />
             <Text
               style={{
                 marginStart: 10,
@@ -216,7 +207,15 @@ const Signup = () => {
           }}
           icon={<ForwardArrow />}
           onPress={handleSubmit}
-          disabled={errors.confirmPassword || errors.password || errors.storeEmail || errors.termsAndConditions || errors.storeName ? true : false}
+          disabled={
+            errors.confirmPassword ||
+            errors.password ||
+            errors.storeEmail ||
+            errors.termsAndConditions ||
+            errors.storeName
+              ? true
+              : false
+          }
         />
       </View>
     </View>

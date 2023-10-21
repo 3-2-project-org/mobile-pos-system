@@ -1,5 +1,4 @@
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/themed";
 import HomeScreen from "../screens/HomeScreen";
@@ -28,17 +27,36 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "0FA958",
         tabBarInactiveTintColor: "#0FA958",
         tabBarIcon: ({ focused, color, size }) => {
-          const iconSize = 26; 
+          const iconSize = 26;
           if (route.name === "Customers") {
             if (focused)
-              return <Icon name="home" type="ionicon" color="#0FA958" size={iconSize}/>;
+              return (
+                <Icon
+                  name="home"
+                  type="ionicon"
+                  color="#0FA958"
+                  size={iconSize}
+                />
+              );
             else
               return (
-                <Icon name="home-outline" type="ionicon" color="#0FA958" size={iconSize}/>
+                <Icon
+                  name="home-outline"
+                  type="ionicon"
+                  color="#0FA958"
+                  size={iconSize}
+                />
               );
           } else if (route.name === "Orders") {
             if (focused)
-              return <Icon name="stats-chart" type="ionicon" color="#0FA958" size={iconSize}/>;
+              return (
+                <Icon
+                  name="stats-chart"
+                  type="ionicon"
+                  color="#0FA958"
+                  size={iconSize}
+                />
+              );
             else
               return (
                 <Icon
@@ -50,16 +68,27 @@ const TabNavigator = () => {
               );
           } else if (route.name === "Profile") {
             if (focused)
-              return <Icon name="person" type="ionicon" color="#0FA958" size={iconSize}/>;
+              return (
+                <Icon
+                  name="person"
+                  type="ionicon"
+                  color="#0FA958"
+                  size={iconSize}
+                />
+              );
             else
               return (
-                <Icon name="person-outline" type="ionicon" color="#0FA958" size={iconSize}/>
+                <Icon
+                  name="person-outline"
+                  type="ionicon"
+                  color="#0FA958"
+                  size={iconSize}
+                />
               );
           }
         },
       })}
     >
-    
       <BottomTab.Screen
         name="Customers"
         component={HomeScreen}
@@ -86,4 +115,3 @@ const TabNavigator = () => {
 };
 
 export default TabNavigator;
- 

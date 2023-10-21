@@ -4,7 +4,12 @@ import { BASIC_COLORS } from "../../../utils/constants/styles";
 import Notification from "../../../assets/Notification.svg";
 import AvatarIcon from "../../../assets/AvatarIcon";
 
-const MPSTopAppBar = ({ onPressNotification, onPressAvatar, onPressRoles, userRole }) => {
+const MPSTopAppBar = ({
+  onPressNotification,
+  onPressAvatar,
+  onPressRoles,
+  userRole,
+}) => {
   return (
     <View
       style={{

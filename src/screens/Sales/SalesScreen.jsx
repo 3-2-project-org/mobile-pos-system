@@ -5,8 +5,10 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
+  ActivityIndicator,
+  FlatList,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { Feather } from "@expo/vector-icons";
@@ -17,21 +19,39 @@ import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
 import MPSButton from "../../components/atoms/Button/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { axiosInstance } from "../../utils/common/api";
 const SalesScreen = () => {
-  const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [itemsList, setItemsList] = useState([]);
+  const [totalValue, setTotalValue] = useState(0);
+
   const navigation = useNavigation();
+  const [quantityInput, setQuantityInput] = useState("1");
 
-  const datalist = [
-    { itemName: "Araliya", quantity: 5, unitPrice: 200.0 },
-    { itemName: "Aralidfya", quantity: 6, unitPrice: 20.0 },
-    { itemName: "Aralidfya", quantity: 6, unitPrice: 20.0 },
-    // Add more items as needed
-  ];
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
-  const [itemsList, setItemsList] = useState(datalist);
+  const handleCardPress = (item) => {
+    const quantity = parseInt(quantityInput, 10);
+    if (!isNaN(quantity) && quantity > 0) {
+      setSelectedProduct(item);
+      const newItem = {
+        itemName: item.name,
+        quantity: quantity,
+        unitPrice: item.price,
+      };
+      setItemsList([...itemsList, newItem]);
+    }
+  };
 
-  const calculateTotal = (itemsList) => {
+  // Calculate the total based on itemsList
+  const calculateTotal = () => {
     let total = 0;
     for (const item of itemsList) {
       total += item.quantity * item.unitPrice;
@@ -39,15 +59,84 @@ const SalesScreen = () => {
     return total;
   };
 
-  const onValueChange = (value) => {
-    setValue(value);
+  // Data get from the backend
+  useEffect(() => {
+    axiosInstance
+      .get("/product")
+      .then((response) => {
+        console.log("Data received:", response.data.data.data);
+        setProducts(response.data.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching product details:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Search function
+  const filterProducts = (products, searchQuery) => {
+    return products.filter((product) => {
+      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
+  const filteredProducts = filterProducts(products, searchQuery);
+
+  const renderCard = ({ item }) => (
+    <TouchableOpacity
+      style={styles.touchableCard}
+      onPress={() => handleCardPress(item)}
+    >
+      <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.name}</Text>
+
+      <View style={{ marginTop: 10 }}>
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Unit Price</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>Rs{item.price.toFixed(2)}</Text>
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Description</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>{item.description}</Text>
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Quantity</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            {/* Bind the TextInput value to the quantityInput state variable */}
+            <TextInput
+              style={{
+                backgroundColor: "#D8EFDD",
+                paddingVertical: 2,
+                paddingHorizontal: 9,
+                width: 60,
+                borderRadius: 8,
+                color: BASIC_COLORS.FONT_SECONDARY,
+              }}
+              placeholder="Qty"
+              value={quantityInput}
+              onChangeText={(text) => setQuantityInput(text)} // Update the quantity input value
+            />
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
+  useEffect(() => {
+    setTotalValue(calculateTotal());
+  }, [itemsList]);
 
   return (
     <>
@@ -83,113 +172,91 @@ const SalesScreen = () => {
             Find By Item Code
           </Text>
 
-          <Search
-            placeholder={"Item code"}
-            //  onChangeText={(text) => console.log(text)}
-            onChangeText={onValueChange}
-            value={value}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <Feather
-                  name="search"
-                  size={24}
-                  color="#625D5D"
-                  style={{ marginRight: 10 }}
-                />
-              </Pressable>
-            }
-          />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
 
-          <View style={styles.card}>
-            <View style={styles.row}>
-              <View style={styles.labelColumn}>
-                <Text style={styles.labelText}>Item Name</Text>
-              </View>
-              <View style={styles.valueColumn}>
-                <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>
-              </View>
-            </View>
+              padding: 2,
+              borderColor: "#ccc",
+              borderRadius: 10,
+              backgroundColor: "white",
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          >
+            <TextInput
+              placeholder="Search by name..."
+              value={searchQuery}
+              onChangeText={(text) => setSearchQuery(text)}
+              style={{
+                flex: 1,
+                padding: 5,
+                fontSize: 14,
+                paddingLeft: 11,
 
-            <View style={styles.row}>
-              <View style={styles.labelColumn}>
-                <Text style={styles.labelText}>Unit Price</Text>
-              </View>
-              <View style={styles.valueColumn}>
-                <Text style={styles.valueText}>Rs 200.00 per gram/unit</Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.labelColumn}>
-                <Text style={styles.labelText}>Discount</Text>
-              </View>
-              <View style={styles.valueColumn}>
-                <Text style={styles.valueText}>N/A</Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.labelColumn}>
-                <Text style={styles.labelText}>Quantity</Text>
-              </View>
-              <View style={styles.valueColumn}>
-                <TextInput
-                  style={{
-                    backgroundColor: "#D8EFDD",
-                    paddingVertical: 2,
-                    paddingHorizontal: 9,
-                    width: 60,
-                    borderRadius: 8,
-                    color: BASIC_COLORS.FONT_SECONDARY,
-                  }}
-                  placeholder="Qty"
-                />
-              </View>
-            </View>
+                color: BASIC_COLORS.FONT_SECONDARY,
+              }}
+            />
           </View>
 
-          {/* Second Table - Items Added */}
-          <View style={styles.card}>
-            <Text style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}>
-              Items Added
-            </Text>
-            <View style={styles.row}>
-              <View style={styles.column}>
-                <Text style={styles.labelText}>Item Name</Text>
-              </View>
-              <View style={styles.column}>
-                <Text style={styles.labelText}>Quantity</Text>
-              </View>
-              <View style={styles.column}>
-                <Text style={styles.labelText}>Unit Price</Text>
-              </View>
-            </View>
-            {itemsList.map((item, index) => (
-              <View style={styles.row} key={index}>
+          <FlatList
+            data={filteredProducts}
+            renderItem={renderCard}
+            keyExtractor={(item) => item._id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginTop: 10, width: "100%" }}
+          />
+
+          {selectedProduct && (
+            <View style={styles.card}>
+              <Text
+                style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}
+              >
+                Items Added
+              </Text>
+              <View style={styles.row}>
                 <View style={styles.column}>
-                  <Text style={styles.valueText}>{item.itemName}</Text>
+                  <Text style={styles.labelText}>Item Name</Text>
                 </View>
                 <View style={styles.column}>
-                  <Text style={styles.valueText}>{item.quantity}</Text>
+                  <Text style={styles.labelText}>Quantity</Text>
+                </View>
+                <View style={styles.column}>
+                  <Text style={styles.labelText}>Unit Price</Text>
+                </View>
+              </View>
+              {itemsList.map((item, index) => (
+                <View style={styles.row} key={index}>
+                  <View style={styles.column}>
+                    <Text style={styles.valueText}>{selectedProduct.name}</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.valueText}>{item.quantity}</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.valueText}>
+                      Rs {selectedProduct.price.toFixed(2)}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+              <View style={styles.row}>
+                <View style={styles.column}>
+                  <Text style={styles.labelText}>Total</Text>
                 </View>
                 <View style={styles.column}>
                   <Text style={styles.valueText}>
-                    Rs {item.unitPrice.toFixed(2)}
+                    Rs. {calculateTotal(itemsList).toFixed(2)}
                   </Text>
                 </View>
               </View>
-            ))}
-            <View style={styles.row}>
-              <View style={styles.column}>
-                <Text style={styles.labelText}>Total</Text>
-              </View>
-              <View style={styles.column}>
-                <Text style={styles.valueText}>
-                  Rs. {calculateTotal(itemsList).toFixed(2)}
-                </Text>
-              </View>
             </View>
-          </View>
+          )}
+
+          {/* Second Table - Items Added */}
 
           <View
             style={{
@@ -235,6 +302,8 @@ const SalesScreen = () => {
             />
           </View>
         </View>
+
+        <View style={styles.container}></View>
       </ScrollView>
     </>
   );
@@ -282,5 +351,22 @@ const styles = StyleSheet.create({
   valueText: {
     color: BASIC_COLORS.FONT_SECONDARY,
     textAlign: "left",
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  touchableCard: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 8,
+    margin: 5,
+    width: 300,
+  },
+  selectedProductContainer: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 8,
+    marginTop: 10,
   },
 });

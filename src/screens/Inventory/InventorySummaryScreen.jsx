@@ -1,66 +1,52 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { BASIC_COLORS } from "../../utils/constants/styles";
-import MPSButton from "../../components/atoms/Button/Button";
+import React, { useState, useEffect } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import { axiosInstance } from "../../utils/common/api";
 
 const InventorySummaryScreen = () => {
-  const [value, setValue] = useState("");
-  const onValueChange = (value) => {
-    setValue(value);
-  };
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/product")
+      .then((response) => {
+        console.log("Data received:", response.data.data.data);
+        setProducts(response.data.data.data);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching product details:", error);
+        setLoading(false);
+      });
   }, []);
+
   return (
-    <>
-      <View style={styles.container}>
-        <Text
-          style={{
-            marginTop: 32,
-            alignContent: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          Inventory Overview
-        </Text>
-
-        <Text
-          style={{
-            marginTop: 32,
-            alignContent: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            color: BASIC_COLORS.FONT_PRIMARY,
-          }}
-        >
-          add tables here!
-        </Text>
-
-        <MPSButton
-          buttonType={"primary"}
-          onPress={() => navigation.navigate("SalesHomeScreen")}
-          buttonTitle={"Ok"}
-          buttonStyle={{ marginTop: 450 }}
-        />
-      </View>
-    </>
+    <View style={{ flex: 1, padding: 16 }}>
+      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 16 }}>
+        Inventory Summary
+      </Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <View>
+          {products &&
+            products.length > 0 &&
+            products.map((item) => (
+              <View key={item._id} style={{ marginBottom: 16 }}>
+                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                  {item.name}
+                </Text>
+                <Text>{item.description}</Text>
+                <Text>Price: ${item.price}</Text>
+                <Text>Total Stock: {item.totalStock}</Text>
+                <Text>In Stock: {item.inStock}</Text>
+              </View>
+            ))}
+        </View>
+      )}
+    </View>
   );
 };
 
 export default InventorySummaryScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    paddingHorizontal: 31,
-    // flex: 1,
-    // backgroundColor: "#fff",
-    // justifyContent: "center",
-  },
-});

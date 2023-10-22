@@ -4,55 +4,32 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LineChart } from "react-native-chart-kit";
 import TouchableCard from "../components/atoms/Card/Card";
 import CardIcon from "../assets/material-symbols_inventory.svg";
 import { BASIC_COLORS } from "../utils/constants/styles";
+import { axiosInstance } from "../utils/common/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SalesHomeScreen = () => {
+  const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);
-  const data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43, 50, 20, 45, 28, 80, 99],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-        strokeWidth: 2,
-      },
-      {
-        data: [88, 99, 43, 50, 20, 45, 28, 80, 99, 43, 50, 20],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-        strokeWidth: 2,
-      },
-    ],
-  };
+  const [lineChartData, setLineChartData] = React.useState();
 
-  const moveChart = (dir) => {
-    dir === "left" ? setIndex(0) : setIndex(6);
-  };
   const chartData = () => {
     return {
-      labels: index === 0 ? data.labels.slice(0, 6) : data.labels.slice(6, 12),
-      datasets: data.datasets.map((set) => {
+      labels: lineChartData?.labels[0],
+      datasets: lineChartData?.datasets?.map((set) => {
         return {
-          data: index === 0 ? set.data.slice(0, 6) : set.data.slice(6, 12),
-          color: set.color,
-          strokeWidth: set.strokeWidth,
+          data:
+            index === 0
+              ? set?.data[0]?.slice(0, 6)
+              : set?.data[0]?.slice(6, 12),
+          color: set?.color,
+          strokeWidth: set?.strokeWidth,
         };
       }),
     };
@@ -62,6 +39,25 @@ const SalesHomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.getItem("user").then((res) => {
+      axiosInstance
+        .get("/order/seller-orders/" + JSON.parse(res)._id)
+        .then((res) => {
+          setLineChartData({
+            labels: [res?.data?.data[0].label],
+            datasets: [
+              {
+                data: [res?.data?.data[0].data],
+                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+                strokeWidth: 2,
+              },
+            ],
+          });
+        });
     });
   }, []);
   return (
@@ -133,36 +129,46 @@ const SalesHomeScreen = () => {
               paddingVertical: 20,
               marginTop: 20,
               elevation: 2,
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <LineChart
-              data={chartData()}
-              width={290}
-              height={220}
-              yAxisInterval={1}
-              verticalLabelRotation={30}
-              chartConfig={{
-                backgroundColor: "#fff",
-                backgroundGradientFrom: "#fff",
-                backgroundGradientTo: "#fff",
-                decimalPlaces: 0,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `#000`,
-                style: {
+            {lineChartData ? (
+              <LineChart
+                data={chartData()}
+                width={windowWidth - 60}
+                height={350}
+                yAxisInterval={1}
+                verticalLabelRotation={30}
+                chartConfig={{
+                  backgroundColor: "#fff",
+                  backgroundGradientFrom: "#fff",
+                  backgroundGradientTo: "#fff",
+                  horizontalLabelRotation: 30,
+
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `#000`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "1",
+                    stroke: "#ffa726",
+                  },
+                }}
+                style={{
+                  marginVertical: 8,
                   borderRadius: 16,
-                },
-                propsForDots: {
-                  r: "4",
-                  strokeWidth: "1",
-                  stroke: "#ffa726",
-                },
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-              }}
-            />
+                  height: 350,
+                }}
+              />
+            ) : (
+              <Text>No Items To Display</Text>
+            )}
           </View>
         </View>
       </ScrollView>

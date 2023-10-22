@@ -2,12 +2,7 @@ import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 
-const UsersCustomCard = ({
-  Name,
-  Email,
-  Phone,
- 
-}) => {
+const UsersCustomCard = ({ Name, Email, Phone }) => {
   return (
     <View style={styles.card}>
       <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 20 }}>

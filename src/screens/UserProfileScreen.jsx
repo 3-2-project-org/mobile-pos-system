@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  ToastAndroid,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { BASIC_COLORS } from "../utils/constants/styles";
 import MPSButton from "../components/atoms/Button/Button";
 import { BottomSheet } from "@rneui/base";
@@ -18,17 +19,90 @@ import MPSDoubleButton from "../components/atoms/Button/DoubleButton";
 import { AntDesign } from "@expo/vector-icons";
 import CustomCard from "../components/CustomCard/CustomCard";
 import UsersCustomCard from "../components/CustomCard/UsersCustomCard";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFormik } from "formik";
+import { editUserInfoValidation } from "../utils/common/validations";
+import { axiosInstance } from "../utils/common/api";
+import Toast from "react-native-toast-message";
 
 const UserProfileScreen = () => {
-  const [selectedItem, setSelectedItem] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const props = {
-    activeStrokeWidth: 15,
-    inActiveStrokeWidth: 15,
-    inActiveStrokeOpacity: 0.2,
-    height: 10,
-    width: 10,
+  const showToastWithGravityAndOffset = (message) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
   };
+
+  const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    username: "",
+    phone: "",
+    _id: "",
+  });
+
+  const initialValues = {
+    username: userDetails.username,
+    email: userDetails.email,
+    phone: userDetails.phone,
+  };
+
+  const onsubmit = async () => {
+    console.log("hello");
+    await axiosInstance
+      .patch("/auth/update-user/" + userDetails._id, values)
+      .then((res) => {
+        console.log(res.data.data.otherDetails);
+        AsyncStorage.setItem(
+          "user",
+          JSON.stringify(res.data.data.otherDetails)
+        );
+
+        setUserDetails(res.data.data.otherDetails);
+        setShowModal(false);
+        showToastWithGravityAndOffset("User information updated");
+      })
+      .catch((err) => {
+        console.log(err);
+        showToastWithGravityAndOffset("User information update failed");
+      });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: onsubmit,
+    validateOnChange: true,
+    validationSchema: editUserInfoValidation,
+  });
+
+  const { values, errors, handleChange, handleSubmit } = formik;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
+  const handleLogout = () => {
+    AsyncStorage.removeItem("user");
+    navigation.navigate("SigninPage");
+  };
+
+  useEffect(() => {
+    AsyncStorage.getItem("user").then((res) => {
+      setUserDetails(JSON.parse(res));
+      formik.setValues({
+        username: JSON.parse(res).username,
+        email: JSON.parse(res).email,
+        phone: JSON.parse(res).phone,
+      });
+    });
+  }, []);
   return (
     <View
       style={{
@@ -36,18 +110,42 @@ const UserProfileScreen = () => {
         marginTop: 27,
       }}
     >
-
-<UsersCustomCard
-        Name="Tuan Fazid Samoon"
-        Email="tuan.fazid@gmail.com"
-        Phone="077-5061961"
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          marginBottom: 10,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            gap: 10,
+          }}
+          onPress={() => handleLogout()}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bold",
+              color: BASIC_COLORS.ERROR,
+            }}
+          >
+            Signout
+          </Text>
+          <AntDesign name="logout" size={24} color={BASIC_COLORS.ERROR} />
+        </TouchableOpacity>
+      </View>
+      <UsersCustomCard
+        Name={userDetails.username}
+        Email={userDetails.email}
+        Phone={userDetails.phone}
       />
-     
 
       <MPSButton
         buttonTitle={"Edit Information"}
         buttonType={"primary"}
-        buttonStyle={{marginTop:20}}
+        buttonStyle={{ marginTop: 20 }}
         onPress={() => setShowModal(true)}
       />
 
@@ -57,11 +155,12 @@ const UserProfileScreen = () => {
           maxHeight: "75%",
           position: "absolute",
           bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.5)",
         }}
         containerStyle={{
           backgroundColor: BASIC_COLORS.WHITE,
-          maxHeight: "90%",
-          minHeight: "90%",
+          maxHeight: "80%",
+          minHeight: "80%",
           position: "absolute",
           width: "100%",
           justifyContent: "flex-end",
@@ -102,79 +201,96 @@ const UserProfileScreen = () => {
           >
             Edit Information
           </Text>
-          <MPSInputField
-            inputLabel={"Username"}
-            inputPlaceholder={"Username"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Email"}
-            inputPlaceholder={"email"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Phone number"}
-            inputPlaceholder={"phone"}
-            error={false}
-          />
-          <MPSInputField
-            inputLabel={"Password"}
-            inputPlaceholder={"evFTbyVVCd"}
-            error={false}
-            secureTextEntry={true}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <AntDesign name="eyeo" size={21} color="black" />
-              </Pressable>
-            }
-          />
+          <View
+            style={{
+              marginTop: 12,
+            }}
+          >
+            <MPSInputField
+              inputLabel={"Username"}
+              inputPlaceholder={"Username"}
+              value={values.username}
+              error={errors.username ? true : false}
+              errorMessage={errors.username}
+              onChangeText={handleChange("username")}
+            />
+          </View>
 
-          <MPSInputField
-            inputLabel={"Confirm Password"}
-            inputPlaceholder={"evFTbyVVCd"}
-            error={false}
-            secureTextEntry={true}
-            icon={
-              <Pressable onPress={() => alert("Search icon pressed")}>
-                <AntDesign name="eyeo" size={21} color="#625D5D" />
-              </Pressable>
-            }
-          />
+          <View
+            style={{
+              marginTop: 12,
+            }}
+          >
+            <MPSInputField
+              inputLabel={"Email"}
+              inputPlaceholder={"email"}
+              value={values.email}
+              error={errors.email ? true : false}
+              errorMessage={errors.email}
+              onChangeText={handleChange("email")}
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 12,
+            }}
+          >
+            <MPSInputField
+              inputLabel={"Phone number"}
+              inputPlaceholder={"phone"}
+              value={values.phone}
+              error={errors.phone ? true : false}
+              errorMessage={errors.phone}
+              onChangeText={handleChange("phone")}
+            />
+          </View>
 
           <View
             style={{
               marginTop: 35,
+              flexDirection: "row",
+              gap: 10,
             }}
           >
-            <MPSDoubleButton
-              buttonType={"primary"}
-              style={styles.button}
-              button1Title="Cancel"
-              button2Title="Save"
-              button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
-              button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-              button1Style={{
-                backgroundColor: "white",
-                borderRadius: 10,
-                height: 46,
-                paddingHorizontal: "17%",
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
+            <View
+              style={{
                 flex: 1,
               }}
-              button2Style={{
-                backgroundColor: BASIC_COLORS.PRIMARY,
-                borderRadius: 10,
-                height: 46,
-                paddingHorizontal: "18%",
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
+            >
+              <MPSButton
+                buttonType={"secondary"}
+                buttonStyle={{
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  height: 46,
+                  paddingHorizontal: "17%",
+                  borderColor: BASIC_COLORS.PRIMARY,
+                  borderWidth: 3,
+                  flex: 1,
+                }}
+                onPress={() => setShowModal(false)}
+                buttonTitle={"Cancel"}
+              />
+            </View>
+            <View
+              style={{
                 flex: 1,
               }}
-              onPress1={() => console.log("cancel Button pressed")}
-              onPress2={() => console.log(" save Button pressed")}
-              loading={false}
-            />
+            >
+              <MPSButton
+                onPress={handleSubmit}
+                buttonType={"primary"}
+                buttonTitle="Save"
+                disabled={
+                  values.username !== userDetails.username ||
+                  values.email !== userDetails.email ||
+                  values.phone !== userDetails.phone
+                    ? false
+                    : true
+                }
+              />
+            </View>
           </View>
         </ScrollView>
       </BottomSheet>

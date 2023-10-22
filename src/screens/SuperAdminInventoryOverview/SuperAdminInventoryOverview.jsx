@@ -450,7 +450,7 @@ const SuperAdminInventoryOverview = () => {
               }}
             >
               <AnimatedCircularProgress
-                size={60}
+                size={70}
                 width={5}
                 fill={
                   (individualProduct.inStock / individualProduct.totalStock) *
@@ -467,9 +467,9 @@ const SuperAdminInventoryOverview = () => {
                       fontWeight: "700",
                     }}
                   >
-                    {(individualProduct.inStock /
+                    {Math.round((individualProduct.inStock /
                       individualProduct.totalStock) *
-                      100}
+                      100).toFixed(1) + "%"}
                   </Text>
                 )}
               </AnimatedCircularProgress>

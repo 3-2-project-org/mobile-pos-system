@@ -6,11 +6,42 @@ import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
+import { axiosInstance } from "../../../utils/common/api";
 
 const SuperAdminAnalyticsOverviewFMI = () => {
   const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);
   const [hideDataIndex, setHideDataIndex] = React.useState([]);
+  const [lineChartDataToShow, setLineChartDataToShow] = React.useState({
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43, 50, 20, 45, 28, 80, 99],
+        color: (opacity = 1) => `rgba(111, 2, 18, ${opacity})`,
+        strokeWidth: 2,
+        itemName: "Item 1",
+      },
+      {
+        data: [88, 99, 43, 50, 20, 45, 28, 80, 99, 43, 50, 20],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        strokeWidth: 2,
+        itemName: "Item 2",
+      },
+    ],
+  });
   const data = {
     labels: [
       "Jan",
@@ -46,6 +77,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
     dir === "left" ? setIndex(0) : setIndex(6);
   };
   const chartData = (chatData) => {
+    console.log("chatData", chatData);
     const chartDataToShow = chatData?.datasets?.filter(
       (set, i) => !hideDataIndex.includes(i)
     );
@@ -77,6 +109,35 @@ const SuperAdminAnalyticsOverviewFMI = () => {
       setIndex(6);
     }
   }, []);
+
+  useEffect(() => {
+    axiosInstance.get("/product/top-sellings").then((res) => {
+      setLineChartDataToShow({
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        datasets: res?.data?.data?.map((item) => {
+          return {
+            data: item?.data,
+            color: (opacity = 1) => item.color,
+            strokeWidth: 2,
+            itemName: item?.itemName,
+          };
+        }),
+      })
+    })
+  }, [])
   return (
     <ScrollView
       style={{
@@ -122,7 +183,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
             }}
           >
             <LineChart
-              data={chartData(data) || []}
+              data={chartData(lineChartDataToShow) || []}
               width={windowWidth - 60}
               height={220}
               yAxisInterval={1}
@@ -227,7 +288,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
           flexWrap: "wrap",
         }}
       >
-        {data?.datasets?.map((set, i) => {
+        {lineChartDataToShow?.datasets?.map((set, i) => {
           return (
             <TouchableOpacity
               style={{
@@ -275,9 +336,11 @@ const SuperAdminAnalyticsOverviewFMI = () => {
         })}
       </View>
 
-      <View style={{
-        marginTop: 22
-      }}>
+      <View
+        style={{
+          marginTop: 22,
+        }}
+      >
         <Text
           style={{
             fontSize: 20,

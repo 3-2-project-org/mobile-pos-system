@@ -7459,6 +7459,11 @@ react-native-svg@*, react-native-svg@^13.9.0, "react-native-svg@> 6.4.1", react-
     css-select "^5.1.0"
     css-tree "^1.1.3"
 
+react-native-toast-message@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.1.7.tgz"
+  integrity sha512-5zX3T5buVpg4bn9KZYVZ2VUQiLQZ1FHSM2AFQHVpgeKMYb+Gq+jt7wjhfPqhuMkJElQr7XNrnRw/rBCdD+7Q9w==
+
 react-native-vector-icons@^10.0.0, react-native-vector-icons@>7.0.0:
   version "10.0.0"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.0.tgz"

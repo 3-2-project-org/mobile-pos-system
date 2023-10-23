@@ -1,25 +1,27 @@
+import React, { useLayoutEffect, useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { BASIC_COLORS } from "../../utils/constants/styles";
 import {
+  ScrollView,
   View,
   Text,
   TextInput,
   StyleSheet,
-  Pressable,
   TouchableOpacity,
-  ActivityIndicator,
   FlatList,
+  Button,
+  ActivityIndicator,
+  ToastAndroid,
 } from "react-native";
-import React, { useLayoutEffect, useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { BASIC_COLORS } from "../../utils/constants/styles";
-import { Feather } from "@expo/vector-icons";
-import Search from "../../components/atoms/Search/Search";
-import ForwardArrow from "../../assets/ForwardArrow";
+import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
 import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
-import MPSButton from "../../components/atoms/Button/Button";
+import ForwardArrow from "../../assets/ForwardArrow";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
+
 import { axiosInstance } from "../../utils/common/api";
+import axios from "axios";
+
 const SalesScreen = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -47,6 +49,7 @@ const SalesScreen = () => {
         unitPrice: item.price,
       };
       setItemsList([...itemsList, newItem]);
+      ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT);
     }
   };
 
@@ -64,13 +67,14 @@ const SalesScreen = () => {
     axiosInstance
       .get("/product")
       .then((response) => {
-        console.log("Data received:", response.data.data.data);
+        console.log("Data received:");
         setProducts(response.data.data.data);
-        setLoading(false);
+        setLoading(false); // Data has been loaded, set loading to false
+        ToastAndroid.show("Data loaded successfully!", ToastAndroid.SHORT);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
-        setLoading(false);
+        setLoading(false); // Set loading to false in case of an error
       });
   }, []);
 
@@ -139,173 +143,159 @@ const SalesScreen = () => {
   }, [itemsList]);
 
   return (
-    <>
-      <ScrollView>
-        <View style={styles.container}>
-          <MPSButton
-            icon={<QrIcon />}
-            buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesQrScanScreen")}
-            buttonTitle={"Scan QR Code"}
-            buttonStyle={{ height: 67 }}
-          />
-
-          <Text
-            style={{
-              marginTop: 32,
-              textAlign: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            OR
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-              color: BASIC_COLORS.FONT_PRIMARY,
-              marginBottom: 13,
-            }}
-          >
-            Find By Item Code
-          </Text>
-
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-
-              padding: 2,
-              borderColor: "#ccc",
-              borderRadius: 10,
-              backgroundColor: "white",
-              shadowOpacity: 0.2,
-              shadowRadius: 4,
-              elevation: 5,
-            }}
-          >
-            <TextInput
-              placeholder="Search by name..."
-              value={searchQuery}
-              onChangeText={(text) => setSearchQuery(text)}
-              style={{
-                flex: 1,
-                padding: 5,
-                fontSize: 14,
-                paddingLeft: 11,
-
-                color: BASIC_COLORS.FONT_SECONDARY,
-              }}
+    <ScrollView>
+      <View style={styles.container}>
+        {loading ? ( // Show a loader if 'loading' is true
+          <ActivityIndicator size="verylarge" color={BASIC_COLORS.PRIMARY} />
+        ) : (
+          // Render your content when the data has been loaded
+          <>
+            <MPSButton
+              icon={<QrIcon />}
+              buttonType={"primary"}
+              onPress={() => navigation.navigate("SalesQrScanScreen")}
+              buttonTitle={"Scan QR Code"}
+              buttonStyle={{ height: 67 }}
             />
-          </View>
 
-          <FlatList
-            data={filteredProducts}
-            renderItem={renderCard}
-            keyExtractor={(item) => item._id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginTop: 10, width: "100%" }}
-          />
+            <Text
+              style={{
+                marginTop: 16,
+                fontSize: 16,
+                fontWeight: "bold",
+                color: BASIC_COLORS.FONT_PRIMARY,
+                marginBottom: 13,
+              }}
+            >
+              Find Item Code
+            </Text>
 
-          {selectedProduct && (
-            <View style={styles.card}>
-              <Text
-                style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}
-              >
-                Items Added
-              </Text>
-              <View style={styles.row}>
-                <View style={styles.column}>
-                  <Text style={styles.labelText}>Item Name</Text>
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.labelText}>Quantity</Text>
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.labelText}>Unit Price</Text>
-                </View>
-              </View>
-              {itemsList.map((item, index) => (
-                <View style={styles.row} key={index}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 2,
+                borderColor: "#ccc",
+                borderRadius: 10,
+                backgroundColor: "white",
+                shadowOpacity: 0.2,
+                shadowRadius: 4,
+                elevation: 5,
+              }}
+            >
+              <TextInput
+                placeholder="Search by name..."
+                value={searchQuery}
+                onChangeText={(text) => setSearchQuery(text)}
+                style={{
+                  flex: 1,
+                  padding: 5,
+                  fontSize: 14,
+                  paddingLeft: 11,
+                  color: BASIC_COLORS.FONT_SECONDARY,
+                }}
+              />
+            </View>
+
+            <FlatList
+              data={filteredProducts}
+              renderItem={renderCard}
+              keyExtractor={(item) => item._id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginTop: 10, width: "100%" }}
+            />
+
+            {selectedProduct && (
+              <View style={styles.card}>
+                <Text
+                  style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}
+                >
+                  Items Added
+                </Text>
+                <View style={styles.row}>
                   <View style={styles.column}>
-                    <Text style={styles.valueText}>{selectedProduct.name}</Text>
+                    <Text style={styles.labelText}>Item Name</Text>
                   </View>
                   <View style={styles.column}>
-                    <Text style={styles.valueText}>{item.quantity}</Text>
+                    <Text style={styles.labelText}>Quantity</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.labelText}>Unit Price</Text>
+                  </View>
+                </View>
+                {itemsList.map((item, index) => (
+                  <View style={styles.row} key={index}>
+                    <View style={styles.column}>
+                      <Text style={styles.valueText}>{item.itemName}</Text>
+                    </View>
+                    <View style={styles.column}>
+                      <Text style={styles.valueText}>{item.quantity}</Text>
+                    </View>
+                    <View style={styles.column}>
+                      <Text style={styles.valueText}>
+                        Rs {item.unitPrice.toFixed(2)}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.labelText}>Total</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.valueText}></Text>
                   </View>
                   <View style={styles.column}>
                     <Text style={styles.valueText}>
-                      Rs {selectedProduct.price.toFixed(2)}
+                      Rs. {calculateTotal().toFixed(2)}
                     </Text>
                   </View>
                 </View>
-              ))}
-              <View style={styles.row}>
-                <View style={styles.column}>
-                  <Text style={styles.labelText}>Total</Text>
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.valueText}>
-                    Rs. {calculateTotal(itemsList).toFixed(2)}
-                  </Text>
-                </View>
               </View>
-            </View>
-          )}
+            )}
 
-          {/* Second Table - Items Added */}
-
-          <View
-            style={{
-              marginTop: 12,
-            }}
-          >
-            <MPSDoubleButton
-              buttonType={"primary"}
-              style={styles.button}
-              button1Title="Checkout"
-              button2Title="Next Item"
-              button1TitleStyle={{ color: BASIC_COLORS.PRIMARY, fontSize: 15 }}
-              button2TitleStyle={{ color: BASIC_COLORS.WHITE, fontSize: 15 }}
-              button1Style={{
-                backgroundColor: "white",
-                borderRadius: 10,
-                height: 46,
-                paddingHorizontal: "11%",
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
-                flex: 1,
+            <View
+              style={{
+                marginTop: 12,
               }}
-              button2Style={{
-                backgroundColor: BASIC_COLORS.PRIMARY,
-                borderRadius: 10,
-                height: 46,
-                paddingHorizontal: "11%",
-                borderColor: BASIC_COLORS.PRIMARY,
-                borderWidth: 3,
-                flex: 1,
-              }}
-              icon2={<ForwardArrow />}
-              icon1={
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  alignContent: "center",
+                  borderRadius: 10,
+                  marginBottom: 20,
+                  height: 45,
+                  borderWidth: 3,
+                  borderColor: BASIC_COLORS.PRIMARY,
+                  flex: 1,
+                  flexDirection: "row", // Make it a row to align icon and text horizontally
+                }}
+                onPress={() => navigation.navigate("SalesSummaryScreen")}
+              >
                 <MaterialCommunityIcons
                   name="cart-arrow-right"
                   size={24}
                   color="#0FA958"
                 />
-              }
-              onPress2={() => navigation.navigate("SalesSummaryScreen")}
-              onPress1={() => navigation.navigate("SalesSummaryScreen")}
-              loading={false}
-            />
-          </View>
-        </View>
-
-        <View style={styles.container}></View>
-      </ScrollView>
-    </>
+                <Text
+                  style={{
+                    color: BASIC_COLORS.PRIMARY,
+                    fontSize: 15,
+                  }}
+                >
+                  Checkout
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -314,7 +304,7 @@ export default SalesScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    paddingHorizontal: 31,
+    paddingHorizontal: 21,
   },
   card: {
     backgroundColor: "#fff",
@@ -329,12 +319,6 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
-  },
-
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
   },
   labelColumn: {
     flex: 1,
@@ -351,10 +335,6 @@ const styles = StyleSheet.create({
   valueText: {
     color: BASIC_COLORS.FONT_SECONDARY,
     textAlign: "left",
-  },
-  container: {
-    flex: 1,
-    padding: 20,
   },
   touchableCard: {
     backgroundColor: "#fff",

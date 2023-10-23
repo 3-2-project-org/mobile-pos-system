@@ -69,12 +69,12 @@ const SalesScreen = () => {
       .then((response) => {
         console.log("Data received:");
         setProducts(response.data.data.data);
-        setLoading(false); // Data has been loaded, set loading to false
+        setLoading(false);
         ToastAndroid.show("Data loaded successfully!", ToastAndroid.SHORT);
       })
       .catch((error) => {
         console.error("Error fetching product details:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       });
   }, []);
 
@@ -142,13 +142,39 @@ const SalesScreen = () => {
     setTotalValue(calculateTotal());
   }, [itemsList]);
 
+  //create order function
+  const handleCheckout = () => {
+    const orderItems = itemsList.map((item) => ({
+      productID: item.productID,
+      quantity: item.quantity,
+    }));
+
+    const amount = calculateTotal();
+    const order = {
+      products: orderItems,
+      amount: amount,
+      sellerID: "653015bdf8e3d113b78d3be5",
+      creationDate: new Date().toISOString(),
+    };
+
+    axiosInstance
+      .post("/order/", order)
+      .then((response) => {
+        console.log("Order created successfully:", response.data);
+        ToastAndroid.show("Order created successfully!", ToastAndroid.SHORT);
+        navigation.navigate("SalesSummaryScreen");
+      })
+      .catch((error) => {
+        console.error("Error creating order:", error);
+      });
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
-        {loading ? ( // Show a loader if 'loading' is true
+        {loading ? (
           <ActivityIndicator size="verylarge" color={BASIC_COLORS.PRIMARY} />
         ) : (
-          // Render your content when the data has been loaded
           <>
             <MPSButton
               icon={<QrIcon />}
@@ -275,7 +301,8 @@ const SalesScreen = () => {
                   flex: 1,
                   flexDirection: "row", // Make it a row to align icon and text horizontally
                 }}
-                onPress={() => navigation.navigate("SalesSummaryScreen")}
+                // onPress={() => navigation.navigate("SalesSummaryScreen")}
+                onPress={handleCheckout}
               >
                 <MaterialCommunityIcons
                   name="cart-arrow-right"

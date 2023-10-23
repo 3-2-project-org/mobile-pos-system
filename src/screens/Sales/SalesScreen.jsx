@@ -15,12 +15,8 @@ import {
 } from "react-native";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
-import MPSDoubleButton from "../../components/atoms/Button/DoubleButton";
-import ForwardArrow from "../../assets/ForwardArrow";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import { axiosInstance } from "../../utils/common/api";
-import axios from "axios";
 
 const SalesScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -299,9 +295,8 @@ const SalesScreen = () => {
                   borderWidth: 3,
                   borderColor: BASIC_COLORS.PRIMARY,
                   flex: 1,
-                  flexDirection: "row", // Make it a row to align icon and text horizontally
+                  flexDirection: "row",
                 }}
-                // onPress={() => navigation.navigate("SalesSummaryScreen")}
                 onPress={handleCheckout}
               >
                 <MaterialCommunityIcons

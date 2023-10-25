@@ -17,6 +17,8 @@ import InventoryQrPrint from "../screens/Inventory/inventoryQrPrint";
 import InventoryAddNewItem from "../screens/Inventory/InventoryAddNewItem";
 import EmployeesHomeScreen from "../screens/Employees/EmployeesHomeScreen";
 import Layout from "../components/molecules/Layout";
+import SalesFinalSummary from "../screens/Sales/SalesFinalSummary";
+import ScannedDataDisplay from "../screens/Sales/ScannedDataDisplay";
 
 const Stack = createStackNavigator();
 
@@ -109,6 +111,17 @@ const StackNavigator = () => {
           <Stack.Screen
             name="InventoryAddNewItem"
             component={InventoryAddNewItem}
+            options={{ headerShown: false }} // Hide header for SalesScreen screen
+          />
+
+          <Stack.Screen
+            name="SalesFinalSummary"
+            component={SalesFinalSummary}
+            options={{ headerShown: false }} // Hide header for SalesScreen screen
+          />
+          <Stack.Screen
+            name="ScannedDataDisplay"
+            component={ScannedDataDisplay}
             options={{ headerShown: false }} // Hide header for SalesScreen screen
           />
 

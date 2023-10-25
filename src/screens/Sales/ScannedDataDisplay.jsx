@@ -12,13 +12,16 @@ import {
   Button,
   ActivityIndicator,
   ToastAndroid,
-} from "react-native"; 
+} from "react-native";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { axiosInstance } from "../../utils/common/api";
 
-const SalesScreen = () => {
+const ScannedDataDisplay = ({ route }) => {
+  const { scannedData } = route.params;
+  const navigation = useNavigation();
+
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,7 +29,6 @@ const SalesScreen = () => {
   const [itemsList, setItemsList] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
 
-  const navigation = useNavigation();
   const [quantityInput, setQuantityInput] = useState("1");
 
   useLayoutEffect(() => {
@@ -180,6 +182,16 @@ const SalesScreen = () => {
               buttonStyle={{ height: 67 }}
             />
 
+            <FlatList
+              data={scannedData}
+              renderItem={({ item }) => (
+                <View style={styles.popupItem}>
+                  <Text style={styles.popupItemText}>QR code: {item}</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+
             <Text
               style={{
                 marginTop: 16,
@@ -321,8 +333,6 @@ const SalesScreen = () => {
   );
 };
 
-export default SalesScreen;
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
@@ -372,3 +382,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default ScannedDataDisplay;

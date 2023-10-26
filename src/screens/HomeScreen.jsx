@@ -98,11 +98,20 @@ const SalesHomeScreen = () => {
           />
 
           <TouchableCard
-            cardTitle={"inventory"}
+            cardTitle={"Inventory"}
             cardDescription={
               "Record all incoming stocks details in a efficient way here"
             }
             onPress={() => navigation.navigate("InventoryHomeScreen")}
+            icon={<CardIcon />}
+          />
+
+<TouchableCard
+            cardTitle={"Sale Summary"}
+            cardDescription={
+              "All incoming sale summary details in a efficient way here"
+            }
+            onPress={() => navigation.navigate("SalesFinalSummary")}
             icon={<CardIcon />}
           />
 

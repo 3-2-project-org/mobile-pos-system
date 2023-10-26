@@ -13,19 +13,29 @@ import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 import { axiosInstance } from "../../utils/common/api";
 
-const SalesSummaryScreen = () => {
+const SalesSummaryScreen = ({ route }) => {
   const [value, setValue] = useState("");
-  const [lastOrder, setLastOrder] = useState(null); 
+  const [lastOrder, setLastOrder] = useState(null);
   const [discount, setDiscount] = useState(0);
   const [receivedAmount, setReceivedAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
+  const navigateToSalesThankScreen = () => {
+    navigation.navigate("SalesThankScreen", {
+      salesSummary: {
+        itemsList,
+        discount,
+        receivedAmount,
+        balance,
+      },
+    });
+  };
   // Sample data for items
   const datalist = [
-    { itemName: "Araliya", quantity: 5, unitPrice: 200.0 },
-    { itemName: "Cheese", quantity: 6, unitPrice: 20.0 },
-    { itemName: "Toffee", quantity: 6, unitPrice: 20.0 },
+    { itemName: "Munchee Chocolate Cream", quantity: 1, unitPrice: 200.0 },
+    { itemName: "Chocolate Cream caker", quantity: 10, unitPrice: 200.0 },
+    { itemName: "Chocolate Cream", quantity: 1, unitPrice: 200.0 },
   ];
 
   const [itemsList, setItemsList] = useState(datalist);
@@ -57,7 +67,7 @@ const SalesSummaryScreen = () => {
         setOrders(response.data.data);
         setLoading(false);
         ToastAndroid.show("Data loaded successfully!", ToastAndroid.SHORT);
-  
+
         // Get the last order
         if (response.data.data.length > 0) {
           const lastOrder = response.data.data[response.data.data.length - 1];
@@ -69,27 +79,25 @@ const SalesSummaryScreen = () => {
         setLoading(false);
       });
   }, [receivedAmount, discount]);
-  
 
   const renderCard = ({ item }) => {
     console.log("Rendering card for item:", item);
     return (
       <View style={styles.orderCard}>
-        <Text>Order ID: {item._id}</Text>
-        <Text>Total: Rs. {item.total.toFixed(2)}</Text>
+        <Text>Date : {item._id}</Text>
+        <Text>Total : Rs. {item.total.toFixed(2)}</Text>
       </View>
     );
   };
-  
 
   return (
     <ScrollView>
       <View style={styles.container}>
-      <MPSButton
-        buttonTitle={"Display Orders Summary "}
-        buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesFinalSummary")}
-      />
+        <MPSButton
+          buttonTitle={"Display Orders Summary "}
+          buttonType={"primary"}
+          onPress={() => navigation.navigate("SalesFinalSummary")}
+        />
         <View style={styles.card}>
           <Text
             style={{
@@ -193,24 +201,24 @@ const SalesSummaryScreen = () => {
           </View>
         </View>
 
-        <Text style={styles.labelText}>Order Details</Text>
-        {lastOrder && (
-          <FlatList
-            data={[lastOrder]}
-            renderItem={renderCard}
-            keyExtractor={(item) => item._id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginTop: 10, width: "100%" }}
-          />
-        )}
-       
+        <View style={styles.card}>
+          <Text style={styles.labelText}>Today Standing Balance</Text>
+          {lastOrder && (
+            <FlatList
+              data={[lastOrder]}
+              renderItem={renderCard}
+              keyExtractor={(item) => item._id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginTop: 10, width: "100%" }}
+            />
+          )}
+        </View>
 
-        <View style={{ marginTop: 50 }}>
-     
+        <View style={{ marginTop: 30, marginBottom: 30 }}>
           <MPSButton
             buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesThankScreen")}
+            onPress={navigateToSalesThankScreen}
             buttonTitle={"Complete Transaction"}
           />
         </View>

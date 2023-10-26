@@ -12,7 +12,7 @@ import {
   Button,
   ActivityIndicator,
   ToastAndroid,
-} from "react-native"; 
+} from "react-native";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -27,7 +27,7 @@ const SalesScreen = () => {
   const [totalValue, setTotalValue] = useState(0);
 
   const navigation = useNavigation();
-  const [quantityInput, setQuantityInput] = useState("1");
+  const [quantityInput, setQuantityInput] = useState("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,6 +46,7 @@ const SalesScreen = () => {
       };
       setItemsList([...itemsList, newItem]);
       ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT);
+      setQuantityInput("");
     }
   };
 
@@ -81,7 +82,15 @@ const SalesScreen = () => {
     });
   };
 
+  // Search function
+  const filterProducts2 = (products, searchQuery) => {
+    return products.filter((product) => {
+      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  };
+
   const filteredProducts = filterProducts(products, searchQuery);
+  const filteredProducts2 = filterProducts2(products, "cho");
 
   const renderCard = ({ item }) => (
     <TouchableOpacity
@@ -227,6 +236,27 @@ const SalesScreen = () => {
               showsHorizontalScrollIndicator={false}
               style={{ marginTop: 10, width: "100%" }}
             />
+            <Text
+              style={{
+                marginTop: 16,
+                paddingLeft: 20,
+                fontSize: 16,
+                fontWeight: "bold",
+                color: BASIC_COLORS.FONT_PRIMARY,
+                marginBottom: 13,
+              }}
+            >
+              Frequent products
+            </Text>
+
+            <FlatList
+              data={filteredProducts2}
+              renderItem={renderCard}
+              keyExtractor={(item) => item._id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginTop: 10, width: "100%" }}
+            />
 
             {selectedProduct && (
               <View style={styles.card}>
@@ -294,7 +324,8 @@ const SalesScreen = () => {
                   height: 45,
                   borderWidth: 3,
                   borderColor: BASIC_COLORS.PRIMARY,
-                  flex: 1, marginTop:20,
+                  flex: 1,
+                  marginTop: 20,
                   flexDirection: "row",
                 }}
                 onPress={handleCheckout}
@@ -308,7 +339,6 @@ const SalesScreen = () => {
                   style={{
                     color: BASIC_COLORS.PRIMARY,
                     fontSize: 15,
-                   
                   }}
                 >
                   Checkout

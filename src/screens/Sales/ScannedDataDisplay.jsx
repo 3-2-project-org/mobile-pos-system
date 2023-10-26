@@ -20,10 +20,15 @@ import { axiosInstance } from "../../utils/common/api";
 
 const ScannedDataDisplay = ({ route }) => {
   const { scannedData } = route.params;
+
+  const inputValue = scannedData.join("");
+  //scanned data
+
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [itemsList, setItemsList] = useState([]);
@@ -77,9 +82,16 @@ const ScannedDataDisplay = ({ route }) => {
   }, []);
 
   // Search function
+  // Search function
   const filterProducts = (products, searchQuery) => {
     return products.filter((product) => {
-      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      // Check if the product name or scanned data includes the search query
+      return (
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scannedData.some((scannedItem) =>
+          scannedItem.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
     });
   };
 
@@ -173,23 +185,13 @@ const ScannedDataDisplay = ({ route }) => {
         {loading ? (
           <ActivityIndicator size="verylarge" color={BASIC_COLORS.PRIMARY} />
         ) : (
-          <>
+          <View>
             <MPSButton
               icon={<QrIcon />}
               buttonType={"primary"}
               onPress={() => navigation.navigate("SalesQrScanScreen")}
               buttonTitle={"Scan QR Code"}
               buttonStyle={{ height: 67 }}
-            />
-
-            <FlatList
-              data={scannedData}
-              renderItem={({ item }) => (
-                <View style={styles.popupItem}>
-                  <Text style={styles.popupItemText}>QR code: {item}</Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
             />
 
             <Text
@@ -219,7 +221,7 @@ const ScannedDataDisplay = ({ route }) => {
             >
               <TextInput
                 placeholder="Search by name..."
-                value={searchQuery}
+                value={searchQuery || inputValue}
                 onChangeText={(text) => setSearchQuery(text)}
                 style={{
                   flex: 1,
@@ -230,6 +232,13 @@ const ScannedDataDisplay = ({ route }) => {
                 }}
               />
             </View>
+
+            {/* <TextInput
+              style={styles.inputField}
+              placeholder="Enter scanned data"
+              value={inputValue}
+              onChangeText={(text) => setSearchQuery(text)}
+            /> */}
 
             <FlatList
               data={filteredProducts}
@@ -326,7 +335,7 @@ const ScannedDataDisplay = ({ route }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </>
+          </View>
         )}
       </View>
     </ScrollView>

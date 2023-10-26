@@ -294,7 +294,7 @@ const SalesScreen = () => {
                   height: 45,
                   borderWidth: 3,
                   borderColor: BASIC_COLORS.PRIMARY,
-                  flex: 1,
+                  flex: 1, marginTop:20,
                   flexDirection: "row",
                 }}
                 onPress={handleCheckout}
@@ -308,6 +308,7 @@ const SalesScreen = () => {
                   style={{
                     color: BASIC_COLORS.PRIMARY,
                     fontSize: 15,
+                   
                   }}
                 >
                   Checkout

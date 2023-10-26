@@ -28,9 +28,11 @@ const AddProductForm = () => {
       .post("/product/", product)
       .then((response) => {
         console.log("Product added:", response.data);
+        ToastAndroid.show("Product added successfully!", ToastAndroid.SHORT);
       })
       .catch((error) => {
         console.error("Error adding product:", error);
+        ToastAndroid.show("Error adding product!", ToastAndroid.SHORT);
       });
   };
 

@@ -54,7 +54,7 @@ const SalesScreen = () => {
   const calculateTotal = () => {
     let total = 0;
     for (const item of itemsList) {
-      total += item.quantity * item.unitPrice;
+      total += item?.quantity * item?.unitPrice;
     }
     return total;
   };
@@ -105,7 +105,7 @@ const SalesScreen = () => {
             <Text style={styles.labelText}>Unit Price</Text>
           </View>
           <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>Rs{item.price.toFixed(2)}</Text>
+            <Text style={styles.valueText}>Rs{item?.price?.toFixed(2)}</Text>
           </View>
         </View>
 
@@ -286,7 +286,7 @@ const SalesScreen = () => {
                     </View>
                     <View style={styles.column}>
                       <Text style={styles.valueText}>
-                        Rs {item.unitPrice.toFixed(2)}
+                        Rs {item?.unitPrice?.toFixed(2)}
                       </Text>
                     </View>
                   </View>
@@ -300,7 +300,7 @@ const SalesScreen = () => {
                   </View>
                   <View style={styles.column}>
                     <Text style={styles.valueText}>
-                      Rs. {calculateTotal().toFixed(2)}
+                      Rs. {calculateTotal()?.toFixed(2)}
                     </Text>
                   </View>
                 </View>

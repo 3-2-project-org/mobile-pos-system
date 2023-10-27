@@ -43,14 +43,14 @@ const SalesThankScreen = ({ route }) => {
           (item) =>
             `${item.itemName} - Quantity: ${
               item.quantity
-            } - Unit Price: Rs. ${item.unitPrice.toFixed(2)}`
+            } - Unit Price: Rs. ${item?.unitPrice?.toFixed(2)}`
         )
         .join("\n")}
 
      
-      Discount: Rs. ${discount.toFixed(2)}
-      Received Amount: Rs. ${receivedAmount.toFixed(2)}
-      Balance: Rs. ${balance.toFixed(2)}
+      Discount: Rs. ${discount?.toFixed(2)}
+      Received Amount: Rs. ${receivedAmount?.toFixed(2)}
+      Balance: Rs. ${balance?.toFixed(2)}
     `;
 
     return emailContent;

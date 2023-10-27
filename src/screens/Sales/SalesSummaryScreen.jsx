@@ -85,7 +85,7 @@ const SalesSummaryScreen = ({ route }) => {
     return (
       <View style={styles.orderCard}>
         <Text>Date : {item._id}</Text>
-        <Text>Total : Rs. {item.total.toFixed(2)}</Text>
+        <Text>Total : Rs. {item?.total?.toFixed(2)}</Text>
       </View>
     );
   };
@@ -117,7 +117,7 @@ const SalesSummaryScreen = ({ route }) => {
                 </View>
                 <View style={styles.column}>
                   <Text style={styles.valueText}>
-                    Rs {item.unitPrice.toFixed(2)}
+                    Rs {item?.unitPrice?.toFixed(2)}
                   </Text>
                 </View>
               </View>
@@ -133,7 +133,7 @@ const SalesSummaryScreen = ({ route }) => {
               </View>
               <View style={styles.column}>
                 <Text style={styles.valueText}>
-                  Rs. {calculateTotal(itemsList).toFixed(2)}
+                  Rs. {calculateTotal(itemsList)?.toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -189,7 +189,7 @@ const SalesSummaryScreen = ({ route }) => {
                 </View>
                 <View style={styles.column}>
                   <Text style={{ fontWeight: "bold" }}>
-                    Rs {balance.toFixed(2)}
+                    Rs {balance?.toFixed(2)}
                   </Text>
                 </View>
               </View>

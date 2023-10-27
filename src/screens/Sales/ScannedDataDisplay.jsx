@@ -110,7 +110,7 @@ const ScannedDataDisplay = ({ route }) => {
             <Text style={styles.labelText}>Unit Price</Text>
           </View>
           <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>Rs{item.price.toFixed(2)}</Text>
+            <Text style={styles.valueText}>Rs{item?.price?.toFixed(2)}</Text>
           </View>
         </View>
 
@@ -277,7 +277,7 @@ const ScannedDataDisplay = ({ route }) => {
                     </View>
                     <View style={styles.column}>
                       <Text style={styles.valueText}>
-                        Rs {item.unitPrice.toFixed(2)}
+                        Rs {item?.unitPrice?.toFixed(2)}
                       </Text>
                     </View>
                   </View>
@@ -291,7 +291,7 @@ const ScannedDataDisplay = ({ route }) => {
                   </View>
                   <View style={styles.column}>
                     <Text style={styles.valueText}>
-                      Rs. {calculateTotal().toFixed(2)}
+                      Rs. {calculateTotal()?.toFixed(2)}
                     </Text>
                   </View>
                 </View>

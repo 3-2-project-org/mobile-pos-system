@@ -31,6 +31,7 @@ const Signin = () => {
   };
 
   const onSubmit = async () => {
+    console.log("values", values);
     await axiosInstance
       .post("/auth/login", {
         email: values.email,
@@ -48,6 +49,7 @@ const Signin = () => {
         navigation.navigate("HomeScreen");
       })
       .catch((err) => {
+        console.log("err", err);
         showToastWithGravityAndOffset("Registration failed");
       });
   };

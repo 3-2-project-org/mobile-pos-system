@@ -66,11 +66,11 @@ const SalesFinalSummary = () => {
       <View style={styles.orderCard} key={item._id}>
         <Text>
           <Text style={{ fontWeight: "bold" }}> Date : </Text>
-          {item._id}
+          {item?._id}
         </Text>
         <Text>
           <Text style={{ fontWeight: "bold" }}> Day Total : </Text>Rs.
-          {item.total.toFixed(2)}
+          {item?.total?.toFixed(2)}
         </Text>
       </View>
     );
@@ -95,7 +95,7 @@ const SalesFinalSummary = () => {
       <View style={styles.container}>
         <View style={styles.card}>
           <Text style={styles.heading}>Total</Text>
-          <Text style={styles.finalTotal}>Rs. {finalTotal.toFixed(2)}</Text>
+          <Text style={styles.finalTotal}>Rs. {finalTotal?.toFixed(2)}</Text>
         </View>
       </View>
     </ScrollView>

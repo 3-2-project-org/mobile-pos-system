@@ -95,14 +95,16 @@ const EmployeesHomeScreen = () => {
     ],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43, 50, 20, 45, 28, 80, 99],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 4000, 7200, 0, 0],
+        color: (opacity = 1) => `rgba(111, 2, 18, ${opacity})`,
         strokeWidth: 2,
+        itemName: "Fazid",
       },
       {
-        data: [88, 99, 43, 50, 20, 45, 28, 80, 99, 43, 50, 20],
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 4300, 0, 0],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
         strokeWidth: 2,
+        itemName: "Thushan",
       },
     ],
   };

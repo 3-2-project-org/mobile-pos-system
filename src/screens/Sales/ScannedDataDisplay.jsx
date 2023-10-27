@@ -166,6 +166,7 @@ const ScannedDataDisplay = ({ route }) => {
       sellerID: "653015bdf8e3d113b78d3be5",
       creationDate: new Date().toISOString(),
     };
+    console.log("Order:", orderItems);
 
     axiosInstance
       .post("/order/", order)

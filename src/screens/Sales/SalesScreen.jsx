@@ -36,6 +36,7 @@ const SalesScreen = () => {
   }, []);
 
   const handleCardPress = (item) => {
+    console.log(item)
     const quantity = parseInt(quantityInput, 10);
     if (!isNaN(quantity) && quantity > 0) {
       setSelectedProduct(item);
@@ -43,6 +44,7 @@ const SalesScreen = () => {
         itemName: item.name,
         quantity: quantity,
         unitPrice: item.price,
+        productID: item._id,
       };
       setItemsList([...itemsList, newItem]);
       ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT);
@@ -154,6 +156,7 @@ const SalesScreen = () => {
       quantity: item.quantity,
     }));
 
+    console.log(orderItems);
     const amount = calculateTotal();
     const order = {
       products: orderItems,

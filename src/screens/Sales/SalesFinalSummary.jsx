@@ -56,6 +56,9 @@ const SalesFinalSummary = () => {
       });
   }, []);
 
+
+  
+
   const renderCard = (item) => {
     console.log("Rendering card for item:", item);
 
@@ -85,20 +88,14 @@ const SalesFinalSummary = () => {
           ) : (
             orders.map((order) => renderCard(order))
           )}
-       
         </View>
       </View>
       <ToastMessage message={toastMessage} />
 
-     
-          <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.card}>
           <Text style={styles.heading}>Total</Text>
-          <Text style={styles.finalTotal}>
-            Rs. {finalTotal.toFixed(2)}
-          </Text>
-     
-       
+          <Text style={styles.finalTotal}>Rs. {finalTotal.toFixed(2)}</Text>
         </View>
       </View>
     </ScrollView>
@@ -130,8 +127,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: BASIC_COLORS.FONT_PRIMARY,
     marginTop: 10,
-
-  
   },
 });
 

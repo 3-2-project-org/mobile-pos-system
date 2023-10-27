@@ -39,43 +39,7 @@ const InventoryQrPrint = () => {
         </View>
       </View>
 
-      <View style={styles.card}>
-        <View style={styles.row}>
-          <View style={styles.labelColumn}>
-            <Text style={styles.labelText}>Item Name</Text>
-          </View>
-          <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.labelColumn}>
-            <Text style={styles.labelText}>Unit Price</Text>
-          </View>
-          <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>Rs 200.00 per gram/unit</Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.labelColumn}>
-            <Text style={styles.labelText}>Discount</Text>
-          </View>
-          <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>N/A</Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.labelColumn}>
-            <Text style={styles.labelText}>Quantity</Text>
-          </View>
-          <View style={styles.valueColumn}>
-            <Text style={styles.valueText}>N/A</Text>
-          </View>
-        </View>
-      </View>
+    
 
       <View style={{ marginTop: 40 }}>
         <MPSButton
@@ -104,7 +68,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    marginTop: 20,
+    marginTop: 70,
     paddingHorizontal: 31,
   },
   card: {

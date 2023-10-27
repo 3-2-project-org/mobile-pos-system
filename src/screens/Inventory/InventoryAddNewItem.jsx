@@ -5,13 +5,15 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  ScrollView,
+  ScrollView,ToastAndroid
 } from "react-native";
 import { axiosInstance } from "../../utils/common/api";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import Search from "../../components/atoms/Search/Search";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
+import { useNavigation } from "@react-navigation/native";
+import  { useLayoutEffect } from "react";
 
 const AddProductForm = () => {
   const [product, setProduct] = useState({
@@ -22,7 +24,12 @@ const AddProductForm = () => {
     totalStock: 0,
     inStock: 0,
   });
-
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   const handleSubmit = () => {
     axiosInstance
       .post("/product/", product)
@@ -196,33 +203,25 @@ const AddProductForm = () => {
             </View>
           </View>
 
+          <View style={{ marginTop: 40 }}>
           <MPSButton
             icon={<QrIcon />}
-            buttonType={"primary"}
-            onPress={() => navigation.navigate("SalesQrScanScreen")}
-            buttonTitle={"Scan QR Code"}
-            buttonStyle={{ marginTop: 30, height: 67 }}
+            buttonTitle={"Generate QR "}
+            onPress={() => {
+            navigation.navigate("InventoryQrPrint");
+            ToastAndroid.show("Processing your QR", ToastAndroid.SHORT);
+          }}
+            buttonStyle={{ height: 67 }}
           />
+        </View>
 
-          <Text
-            style={{
-              fontSize: 20,
-              marginTop: 30,
-              fontWeight: "bold",
-              textAlign: "center",
-              color: BASIC_COLORS.FONT_PRIMARY,
-            }}
-          >
-            OR
-          </Text>
+    
 
-          <View style={{ marginTop: 30 }}>
-            <Search placeholder={"Item code"} />
-          </View>
+        
 
           <View style={{ marginTop: 50 }}>
             <MPSButton
-              buttonTitle={"Ok"}
+              buttonTitle={"Add item"}
               onPress={handleSubmit}
               buttonStyle={{ height: 67 }}
             />

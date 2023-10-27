@@ -33,14 +33,7 @@ const InventoryHomeScreen = () => {
       >
         Good Morning!
       </Text>
-      <TouchableCard
-        cardTitle={"View Inventory Status"}
-        cardDescription={
-          "View the status of all inventory available"
-        }
-        onPress={() => navigation.navigate("SuperAdminInventoryOverview")}
-        icon={<CardIcon />}
-      />
+      
 
       <TouchableCard
         cardTitle={"Record New Item"}
@@ -56,6 +49,16 @@ const InventoryHomeScreen = () => {
           "Get an detailed idea and manage all the available items in the stocks"
         }
         onPress={() => navigation.navigate("InventorySummaryScreen")}
+        icon={<CardIcon />}
+      />
+
+
+      <TouchableCard
+        cardTitle={"View Inventory Status"}
+        cardDescription={
+          "View the status of all inventory available"
+        }
+        onPress={() => navigation.navigate("SuperAdminInventoryOverview")}
         icon={<CardIcon />}
       />
     </View>

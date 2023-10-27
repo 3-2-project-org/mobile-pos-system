@@ -322,7 +322,7 @@ const EmployeesHomeScreen = () => {
         </View>
         <View style={styles.addButton}>
           <MPSButton
-            buttonTitle="Add New Resource"
+            buttonTitle="Add New Employee"
             onPress={() => setShowModal(true)}
           />
         </View>

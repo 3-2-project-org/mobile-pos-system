@@ -64,7 +64,8 @@ const InventorySummaryScreen = () => {
       .then((response) => {
         console.log("Product stock updated:", response.data);
 
-        // Update the local state with the new stock value
+        // Update the local state with the new stock value.
+
         setProducts((prevProducts) =>
           prevProducts.map((product) =>
             product._id === productIdRef.current
@@ -73,7 +74,7 @@ const InventorySummaryScreen = () => {
           )
         );
 
-        // Close the modal
+        // Close the modal 
         setIsModalVisible(false);
       })
       .catch((error) => {

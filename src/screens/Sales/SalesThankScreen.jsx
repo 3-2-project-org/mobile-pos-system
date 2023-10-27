@@ -1,14 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import email from "react-native-email";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 import MPSInputField from "../../components/atoms/MPSInputField/MPSInputField";
 
-const SalesThankScreen = () => {
+const SalesThankScreen = ({ route }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [emailError, setEmailError] = useState(null);
+  const { salesSummary } = route.params;
 
   const onSendEmail = () => {
     if (!validateEmail(emailAddress)) {
@@ -16,9 +16,10 @@ const SalesThankScreen = () => {
     } else {
       setEmailError(null);
       const to = [emailAddress];
+      const emailBody = generateEmailBody(salesSummary); // Create the email body
       email(to, {
         subject: "Invoice",
-        body: "Here's your invoice:",
+        body: emailBody, // Set the email body
       }).catch(console.error);
     }
   };
@@ -26,6 +27,33 @@ const SalesThankScreen = () => {
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+  };
+
+  // Function to generate the email body
+  const generateEmailBody = (salesSummary) => {
+    const { itemsList, discount, receivedAmount, balance } = salesSummary;
+
+    // Create the email body with sales summary data
+    const emailContent = `
+      Thank you for your order. Here's your invoice:
+
+      Items:
+      ${itemsList
+        .map(
+          (item) =>
+            `${item.itemName} - Quantity: ${
+              item.quantity
+            } - Unit Price: Rs. ${item.unitPrice.toFixed(2)}`
+        )
+        .join("\n")}
+
+     
+      Discount: Rs. ${discount.toFixed(2)}
+      Received Amount: Rs. ${receivedAmount.toFixed(2)}
+      Balance: Rs. ${balance.toFixed(2)}
+    `;
+
+    return emailContent;
   };
 
   return (

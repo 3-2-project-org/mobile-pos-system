@@ -18,16 +18,23 @@ import QrIcon from "../../assets/QrIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { axiosInstance } from "../../utils/common/api";
 
-const SalesScreen = () => {
+const ScannedDataDisplay = ({ route }) => {
+  const { scannedData } = route.params;
+
+  const inputValue = scannedData.join("");
+  //scanned data
+
+  const navigation = useNavigation();
+
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [itemsList, setItemsList] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
 
-  const navigation = useNavigation();
-  const [quantityInput, setQuantityInput] = useState("");
+  const [quantityInput, setQuantityInput] = useState("1");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,7 +53,6 @@ const SalesScreen = () => {
       };
       setItemsList([...itemsList, newItem]);
       ToastAndroid.show("Item added successfully!", ToastAndroid.SHORT);
-      setQuantityInput("");
     }
   };
 
@@ -76,21 +82,20 @@ const SalesScreen = () => {
   }, []);
 
   // Search function
+  // Search function
   const filterProducts = (products, searchQuery) => {
     return products.filter((product) => {
-      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-  };
-
-  // Search function
-  const filterProducts2 = (products, searchQuery) => {
-    return products.filter((product) => {
-      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      // Check if the product name or scanned data includes the search query
+      return (
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scannedData.some((scannedItem) =>
+          scannedItem.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
     });
   };
 
   const filteredProducts = filterProducts(products, searchQuery);
-  const filteredProducts2 = filterProducts2(products, "cho");
 
   const renderCard = ({ item }) => (
     <TouchableOpacity
@@ -180,7 +185,7 @@ const SalesScreen = () => {
         {loading ? (
           <ActivityIndicator size="verylarge" color={BASIC_COLORS.PRIMARY} />
         ) : (
-          <>
+          <View>
             <MPSButton
               icon={<QrIcon />}
               buttonType={"primary"}
@@ -216,7 +221,7 @@ const SalesScreen = () => {
             >
               <TextInput
                 placeholder="Search by name..."
-                value={searchQuery}
+                value={searchQuery || inputValue}
                 onChangeText={(text) => setSearchQuery(text)}
                 style={{
                   flex: 1,
@@ -228,29 +233,15 @@ const SalesScreen = () => {
               />
             </View>
 
-            <FlatList
-              data={filteredProducts}
-              renderItem={renderCard}
-              keyExtractor={(item) => item._id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginTop: 10, width: "100%" }}
-            />
-            <Text
-              style={{
-                marginTop: 16,
-                paddingLeft: 20,
-                fontSize: 16,
-                fontWeight: "bold",
-                color: BASIC_COLORS.FONT_PRIMARY,
-                marginBottom: 13,
-              }}
-            >
-              Frequent products
-            </Text>
+            {/* <TextInput
+              style={styles.inputField}
+              placeholder="Enter scanned data"
+              value={inputValue}
+              onChangeText={(text) => setSearchQuery(text)}
+            /> */}
 
             <FlatList
-              data={filteredProducts2}
+              data={filteredProducts}
               renderItem={renderCard}
               keyExtractor={(item) => item._id}
               horizontal
@@ -325,7 +316,6 @@ const SalesScreen = () => {
                   borderWidth: 3,
                   borderColor: BASIC_COLORS.PRIMARY,
                   flex: 1,
-                  marginTop: 20,
                   flexDirection: "row",
                 }}
                 onPress={handleCheckout}
@@ -345,14 +335,12 @@ const SalesScreen = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </>
+          </View>
         )}
       </View>
     </ScrollView>
   );
 };
-
-export default SalesScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -403,3 +391,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default ScannedDataDisplay;

@@ -12,8 +12,10 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
+import { useNavigation } from "@react-navigation/native";
 
 const SalesQrScanScreen = () => {
+  const navigation = useNavigation();
   const [showPopup, setShowPopup] = useState(false);
   const [selectedData, setSelectedData] = useState("");
 
@@ -26,7 +28,9 @@ const SalesQrScanScreen = () => {
     setSelectedData(data);
     setShowPopup(!showPopup);
   };
-
+  useEffect(() => {
+    setScanned(false);
+  }, [navigation]);
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -39,7 +43,8 @@ const SalesQrScanScreen = () => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setScannedData((prevData) => [...prevData, data]);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+
+    navigation.navigate("ScannedDataDisplay", { scannedData: [data] });
   };
 
   const toggleFlash = () => {

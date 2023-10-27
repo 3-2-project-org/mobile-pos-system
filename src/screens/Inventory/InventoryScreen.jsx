@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
+import { View, Text, StyleSheet, Pressable, TextInput,ToastAndroid } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
@@ -70,7 +70,7 @@ const InventoryScreen = () => {
         <View style={styles.card}>
           <View style={styles.row}>
             <View style={styles.labelColumn}>
-              <Text style={styles.labelText}>Itemdfgdfggdf Name</Text>
+              <Text style={styles.labelText}>Item Name</Text>
             </View>
             <View style={styles.valueColumn}>
               <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>
@@ -119,15 +119,20 @@ const InventoryScreen = () => {
           <MPSButton
             icon={<QrIcon />}
             buttonTitle={"View QR Code"}
-            onPress={() => navigation.navigate("InventoryQrPrint")}
+            onPress={() => {
+            navigation.navigate("InventoryQrPrint");
+            ToastAndroid.show("Processing your QR", ToastAndroid.SHORT);
+          }}
             buttonStyle={{ height: 67 }}
           />
         </View>
 
+
+   
         <View style={{ marginTop: 30 }}>
           <MPSButton
             buttonTitle={"Add Item"}
-            onPress={() => navigation.navigate("SalesHomeScreen")}
+            onPress={() => navigation.navigate("InventoryAddNewItem")}
             buttonStyle={{ height: 67 }}
           />
         </View>

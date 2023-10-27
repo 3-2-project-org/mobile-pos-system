@@ -1,12 +1,25 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  ToastAndroid,
+} from "react-native";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASIC_COLORS } from "../../utils/constants/styles";
+import { Feather } from "@expo/vector-icons";
+import Search from "../../components/atoms/Search/Search";
 import MPSButton from "../../components/atoms/Button/Button";
 import QrIcon from "../../assets/QrIcon";
+import QRCode from "react-native-qrcode-svg"; // Import the QRCode component
 import Printer from "../../assets/Printer";
-import CustomCard from "../../components/CustomCard/CustomCard";
 const InventoryQrPrint = () => {
+  const [value, setValue] = useState("");
+  const onValueChange = (value) => {
+    setValue(value);
+  };
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -16,31 +29,65 @@ const InventoryQrPrint = () => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          marginTop: 32,
-          fontSize: 25,
-          fontWeight: "bold",
-          color: BASIC_COLORS.FONT_PRIMARY,
-        }}
-      >
-        Item QR Code
-      </Text>
-      <QrIcon />
+      <View>
+        {/* Display the QR code */}
+        <View style={styles.qrCodeContainer}>
+          <QRCode
+            value={JSON.stringify(value)} // Pass the serialized item details as the value
+            size={200} // Set the size of the QR code
+          />
+        </View>
+      </View>
 
-      <CustomCard
-        itemName="Maliban Chocalate buiscuit"
-        unitPrice="Rs 200.00 per gram/ unit"
-        discount="N/A"
-        onQuantityChange={(text) => setQuantity(text)}
-      />
+      <View style={styles.card}>
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Item Name</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>Maliban Chocolate Biscuit</Text>
+          </View>
+        </View>
 
-      <MPSButton
-        icon={<Printer />}
-        buttonTitle={"Print   "}
-        onPress={() => navigation.navigate("InventoryQrPrint")}
-        buttonStyle={{ marginTop: 50, height: 67 }}
-      />
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Unit Price</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>Rs 200.00 per gram/unit</Text>
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Discount</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>N/A</Text>
+          </View>
+        </View>
+
+        <View style={styles.row}>
+          <View style={styles.labelColumn}>
+            <Text style={styles.labelText}>Quantity</Text>
+          </View>
+          <View style={styles.valueColumn}>
+            <Text style={styles.valueText}>N/A</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={{ marginTop: 40 }}>
+        <MPSButton
+          icon={<Printer />}
+          buttonTitle={"Print QR   "}
+          onPress={() => {
+            navigation.navigate("InventoryQrPrint");
+            ToastAndroid.show("There are no printers available.", ToastAndroid.SHORT);
+          }}
+          buttonStyle={{ marginTop: 50, height: 67 }}
+        />
+      </View>
     </View>
   );
 };
@@ -73,5 +120,9 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
+  },
+  qrCodeContainer: {
+    alignItems: "center",
+    marginTop: 20,
   },
 });

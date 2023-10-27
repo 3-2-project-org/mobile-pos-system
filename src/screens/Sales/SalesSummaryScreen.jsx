@@ -93,11 +93,7 @@ const SalesSummaryScreen = ({ route }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <MPSButton
-          buttonTitle={"Display Orders Summary "}
-          buttonType={"primary"}
-          onPress={() => navigation.navigate("SalesFinalSummary")}
-        />
+     
         <View style={styles.card}>
           <Text
             style={{

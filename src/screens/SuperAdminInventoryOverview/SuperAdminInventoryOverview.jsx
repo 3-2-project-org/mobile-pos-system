@@ -1,67 +1,18 @@
-import {
-  View,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BASIC_COLORS } from "../../utils/constants/styles";
 import { BottomSheet } from "@rneui/base";
 import CloseIcon from "../../assets/CloseIcon";
-import CircularProgress from "react-native-circular-progress-indicator";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { BarChart } from "react-native-gifted-charts";
 import { axiosInstance } from "../../utils/common/api";
-
-const dataList = [
-  {
-    code: "IT0001",
-    itemName: "Ceylon Tea",
-    unitPrice: "Rs 500.00",
-    status: "inStock",
-  },
-  {
-    code: "IT0002",
-    itemName: "Maggee seasoning cube",
-    unitPrice: "Rs 500.00",
-    status: "refillState",
-  },
-  {
-    code: "IT0003",
-    itemName: "Maliban Chocalate Biscuit",
-    unitPrice: "Rs 500.00",
-    status: "outOfStock",
-  },
-  {
-    code: "IT0004",
-    itemName: "Manchee Chocalate Biscuit",
-    unitPrice: "Rs 500.00",
-    status: "inStock",
-  },
-];
-
-const barData = [
-  { value: 250, label: "Jan" },
-  { value: 500, label: "Feb" },
-  { value: 745, label: "Mar" },
-  { value: 320, label: "Apr" },
-  { value: 600, label: "May" },
-  { value: 256, label: "Jun" },
-  { value: 300, label: "Jul" },
-  { value: 500, label: "Aug" },
-  { value: 745, label: "Sep" },
-  { value: 320, label: "Oct" },
-  { value: 600, label: "Nov" },
-  { value: 256, label: "Dec" },
-];
 
 const SuperAdminInventoryOverview = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [products, setProducts] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [individualProduct, setIndividualProduct] = useState({
     _id: "",
     name: "",
@@ -71,13 +22,6 @@ const SuperAdminInventoryOverview = () => {
     description: "",
     supplier: "",
   });
-  const props = {
-    activeStrokeWidth: 15,
-    inActiveStrokeWidth: 15,
-    inActiveStrokeOpacity: 0.2,
-    height: 10,
-    width: 10,
-  };
 
   useEffect(() => {
     axiosInstance.get("/product?is_active=true").then((res) => {
@@ -112,9 +56,9 @@ const SuperAdminInventoryOverview = () => {
   const renderChartData = (chartData) => {
     const month = new Date().getMonth();
 
-    if (month > 6) return chartData.slice(5,11)
-    else return chartData.slice(0,5)
-  }
+    if (month > 6) return chartData.slice(5, 11);
+    else return chartData.slice(0, 5);
+  };
 
   return (
     <View
@@ -197,95 +141,101 @@ const SuperAdminInventoryOverview = () => {
             paddingHorizontal: 10,
           }}
         >
-          {products.map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => {
-                  setSelectedItem(item._id);
-                  setShowModal(true);
-                }}
-                style={{
-                  backgroundColor: BASIC_COLORS.WHITE,
-                  marginVertical: 3,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: "400",
-                      color: BASIC_COLORS.FONT_SECONDARY,
-                      flex: 1,
+          {products.length > 0 ? (
+            <>
+              {products.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setSelectedItem(item._id);
+                      setShowModal(true);
                     }}
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
-                  >
-                    {item._id}
-                  </Text>
-                  <Text
                     style={{
-                      fontSize: 12,
-                      fontWeight: "400",
-                      color: BASIC_COLORS.FONT_SECONDARY,
-                      flex: 2,
-                    }}
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: "400",
-                      color: BASIC_COLORS.FONT_SECONDARY,
-                      flex: 1.5,
-                    }}
-                  >
-                    {item.price}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1.5,
-                      alignItems: "center",
+                      backgroundColor: BASIC_COLORS.WHITE,
+                      marginVertical: 3,
                     }}
                   >
                     <View
                       style={{
-                        fontSize: 12,
-                        fontWeight: "400",
-                        backgroundColor:
-                          getItemStatus(item.inStock) === "outOfStock"
-                            ? BASIC_COLORS.ERROR
-                            : item.status === "refillState"
-                            ? "#FFB800"
-                            : "#27DD23",
-                        height: 10,
-                        width: 10,
-                        borderRadius: 5,
-                      }}
-                    ></View>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontWeight: "400",
-                        color: BASIC_COLORS.FONT_SECONDARY,
-                        marginLeft: 5,
+                        flexDirection: "row",
                       }}
                     >
-                      {getItemStatus(item.inStock)}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "400",
+                          color: BASIC_COLORS.FONT_SECONDARY,
+                          flex: 1,
+                        }}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}
+                      >
+                        {item._id}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "400",
+                          color: BASIC_COLORS.FONT_SECONDARY,
+                          flex: 2,
+                        }}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}
+                      >
+                        {item.name}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "400",
+                          color: BASIC_COLORS.FONT_SECONDARY,
+                          flex: 1.5,
+                        }}
+                      >
+                        {item.price}
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          flex: 1.5,
+                          alignItems: "center",
+                        }}
+                      >
+                        <View
+                          style={{
+                            fontSize: 12,
+                            fontWeight: "400",
+                            backgroundColor:
+                              getItemStatus(item.inStock) === "outOfStock"
+                                ? BASIC_COLORS.ERROR
+                                : item.status === "refillState"
+                                ? "#FFB800"
+                                : "#27DD23",
+                            height: 10,
+                            width: 10,
+                            borderRadius: 5,
+                          }}
+                        ></View>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontWeight: "400",
+                            color: BASIC_COLORS.FONT_SECONDARY,
+                            marginLeft: 5,
+                          }}
+                        >
+                          {getItemStatus(item.inStock)}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </>
+          ) : (
+            <Text>Loading</Text>
+          )}
         </View>
       </View>
 
@@ -500,7 +450,7 @@ const SuperAdminInventoryOverview = () => {
               }}
             >
               <AnimatedCircularProgress
-                size={60}
+                size={70}
                 width={5}
                 fill={
                   (individualProduct.inStock / individualProduct.totalStock) *
@@ -517,9 +467,9 @@ const SuperAdminInventoryOverview = () => {
                       fontWeight: "700",
                     }}
                   >
-                    {(individualProduct.inStock /
+                    {Math.round((individualProduct.inStock /
                       individualProduct.totalStock) *
-                      100}
+                      100).toFixed(1) + "%"}
                   </Text>
                 )}
               </AnimatedCircularProgress>
@@ -558,7 +508,6 @@ const SuperAdminInventoryOverview = () => {
                 yAxisThickness={0}
                 xAxisThickness={0}
                 hideRules
-                
               />
             </View>
           </View>

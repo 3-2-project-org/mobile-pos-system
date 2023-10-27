@@ -28,3 +28,9 @@ export const registerValidation = Yup.object().shape({
     "Accept Terms & Conditions is required"
   ),
 });
+
+export const editUserInfoValidation = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().required("Email is required"),
+  phone: Yup.string().required("Phone number is required"),
+});

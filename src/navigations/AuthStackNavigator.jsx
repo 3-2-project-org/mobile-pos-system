@@ -9,7 +9,6 @@ import StackNavigator from "./StackNavigator";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 const Stack = createStackNavigator();
 
 const AuthStackNavigator = () => {

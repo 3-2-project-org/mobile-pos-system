@@ -3,6 +3,8 @@ import React from "react";
 import { BASIC_COLORS } from "../../../utils/constants/styles";
 import Notification from "../../../assets/Notification.svg";
 import AvatarIcon from "../../../assets/AvatarIcon";
+import BackIcon from "../../../assets/BackIcon";
+import { useNavigation } from "@react-navigation/native";
 
 const MPSTopAppBar = ({
   onPressNotification,
@@ -10,6 +12,7 @@ const MPSTopAppBar = ({
   onPressRoles,
   userRole,
 }) => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -32,15 +35,34 @@ const MPSTopAppBar = ({
         elevation: 5,
       }}
     >
-      <Pressable onPress={onPressNotification}>
-        <Notification />
+      <Pressable
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 5,
+        }}
+      >
+        <BackIcon />
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: "700",
+            color: BASIC_COLORS.PRIMARY,
+          }}
+        >
+          Back
+        </Text>
       </Pressable>
 
       <Pressable
         onPress={onPressRoles}
         style={{
           paddingHorizontal: 31,
-          backgroundColor: BASIC_COLORS.PRIMARY,
+          // backgroundColor: BASIC_COLORS.PRIMARY,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -50,15 +72,17 @@ const MPSTopAppBar = ({
       >
         <Text
           style={{
-            color: BASIC_COLORS.WHITE,
-            fontSize: 12,
+            color: BASIC_COLORS.PRIMARY,
+            fontSize: 16,
             fontWeight: "700",
           }}
         >
-          {userRole}
+          INFOWAVE
         </Text>
       </Pressable>
-      <Pressable onPress={onPressAvatar}>
+      <Pressable onPress={() => {
+        navigation.navigate("Profile")
+      }}>
         <AvatarIcon />
       </Pressable>
     </View>

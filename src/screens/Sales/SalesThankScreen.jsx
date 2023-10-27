@@ -63,8 +63,14 @@ const SalesThankScreen = ({ route }) => {
       <Text style={styles.invoiceText}>Send invoice</Text>
 
       <View style={styles.inputContainer}>
-        <View>
+        <View style={{ flex: 3 }}>
           <MPSInputField
+          // inputStyle={{
+          //   width: 290,
+          // }}
+          // inputContainerStyle={{
+          //   flex: 3
+          // }}
             inputLabel={""}
             errorMessage={false}
             inputPlaceholder={"Email"}
@@ -76,11 +82,11 @@ const SalesThankScreen = ({ route }) => {
           />
         </View>
 
-        <View style={{ marginLeft: 7 }}>
+        <View style={{ marginLeft: 7, flex: 1 }}>
           <MPSButton
             buttonType={"primary"}
             onPress={onSendEmail}
-            buttonStyle={{ width: 93 }}
+            // buttonStyle={{ width: 93 }}
             buttonTitle={"Send"}
           />
         </View>
@@ -127,10 +133,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
     marginTop: 20,
-    width: 210,
+    width: "100%",
   },
 });
 

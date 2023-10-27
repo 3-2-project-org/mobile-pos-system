@@ -77,7 +77,6 @@ const SuperAdminAnalyticsOverviewFMI = () => {
     dir === "left" ? setIndex(0) : setIndex(6);
   };
   const chartData = (chatData) => {
-    console.log("chatData", chatData);
     const chartDataToShow = chatData?.datasets?.filter(
       (set, i) => !hideDataIndex.includes(i)
     );
@@ -176,7 +175,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
           elevation: 2,
         }}
       >
-        {hideDataIndex.length < data.datasets.length ? (
+        {hideDataIndex.length < lineChartDataToShow.datasets.length ? (
           <View
             style={{
               flexDirection: "column",
@@ -336,7 +335,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
         })}
       </View>
 
-      <View
+      {/* <View
         style={{
           marginTop: 22,
         }}
@@ -360,7 +359,7 @@ const SuperAdminAnalyticsOverviewFMI = () => {
         >
           Brief overview of your sales made today.
         </Text>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

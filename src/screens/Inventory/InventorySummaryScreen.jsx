@@ -15,7 +15,7 @@ const InventorySummaryScreen = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("/product")
+    .get("/product?limit=100")
       .then((response) => {
         console.log("Data received:", response.data.data.data);
         setProducts(response.data.data.data);

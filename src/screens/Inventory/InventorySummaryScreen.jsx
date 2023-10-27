@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
+  TouchableOpacity,
   Text,
   ActivityIndicator,
   ScrollView,
@@ -26,6 +27,25 @@ const InventorySummaryScreen = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleDeleteProduct = (productId) => {
+    // Make a DELETE request to your API to delete the product
+    axiosInstance
+      .delete(`/product/${productId}`)
+      .then((response) => {
+        // Assuming your API returns a success message upon deletion
+        console.log("Product deleted:", response.data);
+  
+        // Remove the deleted product from the local state
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product._id !== productId)
+        );
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
+      });
+  };
+  
 
   return (
     <ScrollView>
@@ -69,6 +89,15 @@ const InventorySummaryScreen = () => {
                       <Text style={styles.valueText}>{item.inStock}</Text>
                     </View>
                   </View>
+
+                  <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => handleDeleteProduct(item._id)}
+      >
+        <Text style={styles.deleteButtonText}>Delete</Text>
+      </TouchableOpacity>
+
+
                 </View>
               ))}
           </View>
@@ -107,5 +136,17 @@ const styles = StyleSheet.create({
   valueText: {
     color: BASIC_COLORS.FONT_SECONDARY, // You need to define BASIC_COLORS.
     textAlign: "left",
+  },
+
+  deleteButton: {
+    backgroundColor: "#ff0000", // Red color for the delete button
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  deleteButtonText: {
+    color: "#ffffff", // White text color for the button
+    fontWeight: "bold",
   },
 });

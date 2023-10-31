@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('../your-express-app'); // Import your Express app here
-const axiosInstance = require('../../utils/common/api'); // Import your axios instance
+const app = require('../your-express-app'); 
+const axiosInstance = require('../../utils/common/api');
 
 describe('Inventory Summary Screen API Tests', () => {
   it('should get product details', async () => {
@@ -12,11 +12,11 @@ describe('Inventory Summary Screen API Tests', () => {
   });
 
   it('should update product stock', async () => {
-    // Assuming you have a product ID, and you want to update the stock
+    
     const productId = 'your-product-id';
-    const newStockValue = 100; // Replace with the desired new stock value
+    const newStockValue = 100; 
 
-    // Make the PATCH request to update the product stock
+   
     const response = await request(app)
       .patch(`/product/${productId}`)
       .send({ totalStock: newStockValue });
@@ -24,7 +24,7 @@ describe('Inventory Summary Screen API Tests', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('data');
 
-    // After updating the product stock, you can also fetch the product details and check if the stock is updated.
+   
     const getProductResponse = await axiosInstance.get(`/product/${productId}`);
 
     expect(getProductResponse.status).toBe(200);

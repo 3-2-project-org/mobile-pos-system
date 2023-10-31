@@ -18,3 +18,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {},
 });
+
+//this is a comment
